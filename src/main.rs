@@ -1,21 +1,23 @@
+pub use self::job_slicer::Job;
 mod job_slicer;
 
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, patch};
-use serde::{Deserialize, Serialize};
+
+
 
 #[get("/")]
 async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
 }
-/*
+
 #[post("/tree")]
 async fn build_slice(jobs: web::Json<serde_json::Value>) -> impl Responder {
     // Deserialize the JSON data into a vector of Job objects
     let job_vec: Vec<Job> = serde_json::from_value(jobs.into_inner()).unwrap();
 
-    // Do something with the parsed Job vector
+    // Do something with job_vec vector
+    println(job_vec);
     // job_slicer.initialize(job_vec);
-
     HttpResponse::Ok().body("message: Slice was reset and overwritten successfully.")
 }
 /*
@@ -26,7 +28,7 @@ async fn update_slice{}
 #[get("/feed")]
 async fn generate_feed{}
 */
-*/
+
 #[post("/echo")]
 async fn echo(req_body: String) -> impl Responder {
     HttpResponse::Ok().body(req_body)

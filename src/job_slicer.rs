@@ -1,8 +1,9 @@
 use std::fmt::{Debug, Formatter};
 use rstar::{Point, RTree};
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone)]
-struct Job {
+#[derive( Deserialize, Serialize,Clone)]
+pub struct Job {
     id: u32,
     x: f32,
     y: f32,
