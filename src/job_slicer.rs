@@ -1,11 +1,13 @@
 use std::fmt::{Debug, Formatter};
 use rstar::{Point, RTree};
+use serde::{Serialize, Deserialize};
 
 #[derive(Clone)]
-struct Job {
-    id: u32,
-    x: f32,
-    y: f32,
+#[derive(Serialize, Deserialize)]
+pub struct Job {
+    pub id: u32,
+    pub x: f32,
+    pub y: f32,
 }
 
 impl Copy for Job {}
@@ -124,6 +126,9 @@ impl JobSlicer {
 }
 
 pub fn main() {
+    println!("NAME IS = {}", "test");
+
+
     let mut job_slicer = JobSlicer {
         rtree: RTree::new(),
         next_job_id: 1,
@@ -133,5 +138,6 @@ pub fn main() {
         Job { id: 1, x: 0.0, y: 0.0 },
         Job { id: 2, x: 1.0, y: 0.0 },
         Job { id: 3, x: 5.0, y: 2.0 }], 0);
-    job_slicer.print_nodes();
+    // job_slicer.print_nodes();
+    return;
 }
