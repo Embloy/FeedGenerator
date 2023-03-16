@@ -111,6 +111,16 @@ impl JobSlicer {
             println!("{:?}", node);
         }
     }
+
+    fn get_points(&self) -> Vec<Job> {
+        self.rtree.iter().cloned().collect()
+    }
+
+    fn print_jobs(job_slicer: &JobSlicer) {
+        for job in job_slicer.get_points() {
+            println!("Job {}: ({}, {})", job.id, job.x, job.y);
+        }
+    }
 }
 
 pub fn main() {
