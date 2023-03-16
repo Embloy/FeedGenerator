@@ -131,6 +131,7 @@ pub fn main() {
     };
     job_slicer.initialize(vec![
         Job { id: 1, x: 0.0, y: 0.0 },
-        Job { id: 2, x: 1.0, y: 0.0 }], 0);
+        Job { id: 2, x: 1.0, y: 0.0 },
+        Job { id: 3, x: 5.0, y: 2.0 }], 0);
     job_slicer.print_nodes();
 }

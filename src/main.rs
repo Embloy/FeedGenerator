@@ -1,12 +1,26 @@
 mod job_slicer;
 
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, patch};
 
 #[get("/")]
 async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
 }
+/*
+#[post("/tree")]
+async fn build_slice(jobs: web::Json<Vec<Job>>) -> impl Responder{
+    job_slicer.initialize(jobs);
+    HttpResponse::Ok().body("message: Slice was reset and overwritten successfully.")
+}
+/*
+#[patch("/tree")]
+async fn update_slice{}
 
+
+#[get("/feed")]
+async fn generate_feed{}
+*/
+*/
 #[post("/echo")]
 async fn echo(req_body: String) -> impl Responder {
     HttpResponse::Ok().body(req_body)
