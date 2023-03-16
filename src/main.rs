@@ -1,3 +1,5 @@
+mod job_slicer;
+
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 
 #[get("/")]
@@ -13,8 +15,11 @@ async fn echo(req_body: String) -> impl Responder {
 async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Hey there!")
 }
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    job_slicer::initialize();
+
     HttpServer::new(|| {
         App::new()
             .service(hello)
@@ -25,3 +30,4 @@ async fn main() -> std::io::Result<()> {
         .run()
         .await
 }
+
