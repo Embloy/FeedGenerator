@@ -2,7 +2,7 @@ use std::fmt::{Debug, Formatter};
 use rstar::{Point, RTree};
 use serde::{Deserialize, Serialize};
 
-#[derive( Deserialize, Serialize,Clone)]
+#[derive( Deserialize, Serialize, Clone)]
 pub struct Job {
     id: u32,
     x: f32,
