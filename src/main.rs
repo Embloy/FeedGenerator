@@ -1,7 +1,21 @@
 pub use self::job_slicer::Job;
 mod job_slicer;
+// mod job_slicer;
+mod connector;
+use mongodb::{Client, options::ClientOptions, Collection, bson};
 
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, patch};
+// use crate::job_slicer::Job;
+use serde::{Serialize, Deserialize};
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Job {
+    id: i32,
+    title: String,
+    company: String,
+    salary: u32
+}
+
 
 
 
@@ -40,8 +54,31 @@ async fn manual_hello() -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    job_slicer::main();
+    println!("STARTED MAIN");
 
+    // Create a MongoDB client instance
+    let client = Client::with_uri_str("mongodb+srv://cb:sXURVyMz01m1isjU@efg0.rfbpwns.mongodb.net/test?retryWrites=true&w=majority").await;;
+
+    // Access the database and collection
+    let db = client.expect("REASON").database("embloy_feedgenerator");
+    let collection: Collection<Job> = db.collection("db0");
+
+    // Do whatever you need to do with the database and collection
+    // List the collections in the database
+    match db.list_collection_names(None).await {
+        Ok(collection_names) => {
+            // Print the collection names
+            for name in collection_names {
+                println!("{}", name);
+            }
+        }
+        Err(e) => {
+            // Print the error message
+            eprintln!("Error listing collections: {}", e);
+        }
+    }
+
+    // Start the HTTP server
     HttpServer::new(|| {
         App::new()
             .service(hello)
@@ -52,4 +89,3 @@ async fn main() -> std::io::Result<()> {
         .run()
         .await
 }
-
