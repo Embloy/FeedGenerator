@@ -18,7 +18,7 @@ async fn manual_hello() -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    job_slicer::initialize();
+    job_slicer::main();
 
     HttpServer::new(|| {
         App::new()
