@@ -1,8 +1,19 @@
-mod job_slicer;
+// mod job_slicer;
+mod connector;
+use mongodb::{Client, options::ClientOptions, Collection, bson};
 
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, patch};
-use crate::job_slicer::Job;
-use mongodb::{bson::doc, options::ClientOptions, Client, Collection};
+// use crate::job_slicer::Job;
+use serde::{Serialize, Deserialize};
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Job {
+    id: i32,
+    title: String,
+    company: String,
+    salary: u32
+}
+
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -14,14 +25,12 @@ async fn build_slice(jobs: web::Json<Vec<Job>>) -> impl Responder{
     job_slicer.initialize(jobs);
     HttpResponse::Ok().body("message: Slice was reset and overwritten successfully.")
 }
-/*
 #[patch("/tree")]
 async fn update_slice{}
 
 
 #[get("/feed")]
 async fn generate_feed{}
-*/
 */
 #[post("/echo")]
 async fn echo(req_body: String) -> impl Responder {
@@ -32,20 +41,18 @@ async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Hey there!")
 }
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Set up the client options, including the connection string mongodb+srv://<username>:<password>@<cluster-address>/test?retryWrites=true&w=majority
-    let client_options = ClientOptions::parse("mongodb+srv://cb:sXURVyMz01m1isjU@efg0.rfbpwns.mongodb.net/test?retryWrites=true&w=majority").await?;
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    println!("STARTED MAIN");
 
-    // Create the client with the specified options
-    let client = Client::with_options(client_options)?;
+    // Create a MongoDB client instance
+    let client = Client::with_uri_str("mongodb+srv://cb:sXURVyMz01m1isjU@efg0.rfbpwns.mongodb.net/test?retryWrites=true&w=majority").await;
 
-    // Access a database
-    let db = client.database("embloy_feedgenerator");
+    // Access the database and collection
+    let db = client.expect("REASON").database("embloy_feedgenerator");
+    let collection: Collection<Job> = db.collection("db0");
 
-    // Access a collection within the database
-    // let collection: Collection<Job> = db.collection("db0");
-
+    // Do whatever you need to do with the database and collection
     // List the collections in the database
     match db.list_collection_names(None).await {
         Ok(collection_names) => {
@@ -60,26 +67,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    Ok(())
-
-    // Perform operations on the collection
-    // let job = Job { id: 1, x: 0.0, y: 0.0 };
-    // collection.insert_one(job, None);
+    // Start the HTTP server
+    HttpServer::new(|| {
+        App::new()
+            .service(hello)
+            .service(echo)
+            .route("/hey", web::get().to(manual_hello))
+    })
+        .bind(("127.0.0.1", 8080))?
+        .run()
+        .await
 }
-
-// TODO:
-// #[actix_web::main]
-// async fn main() -> std::io::Result<()> {
-//     job_slicer::main();
-//
-//     HttpServer::new(|| {
-//         App::new()
-//             .service(hello)
-//             .service(echo)
-//             .route("/hey", web::get().to(manual_hello))
-//     })
-//         .bind(("127.0.0.1", 8080))?
-//         .run()
-//         .await
-// }
-
