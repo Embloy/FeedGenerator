@@ -1,6 +1,6 @@
 mod job_slicer;
 
-use mongodb::{Client, options::ClientOptions, Collection, bson};
+use mongodb::{Client, options::ClientOptions, Collection, bson, options::InsertOneOptions};
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, patch};
 use crate::job_slicer::{Job, JobSlicer};
 use serde::{Serialize, Deserialize};
@@ -49,6 +49,12 @@ async fn main() -> std::io::Result<()> {
     let db = client.expect("REASON").database("embloy_feedgenerator");
     let _collection: Collection<Job> = db.collection("db0");
 
+    // ==== TEST ==== //
+    // let job = Job { id: 1, x: 0.0, y: 0.0 };
+    // let options = InsertOneOptions::default();
+    // _collection.insert_one(job, options);
+    // ==== TEST ==== //
+
     // Do whatever you need to do with the database and collection
     // List the collections in the database
     match db.list_collection_names(None).await {
@@ -63,6 +69,7 @@ async fn main() -> std::io::Result<()> {
             eprintln!("Error listing collections: {}", e);
         }
     }
+
 
 
     println!("STARTED SERVER");
