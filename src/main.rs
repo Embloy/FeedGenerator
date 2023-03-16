@@ -16,7 +16,7 @@ async fn build_slice(jobs: web::Json<serde_json::Value>) -> impl Responder {
     let job_vec: Vec<Job> = serde_json::from_value(jobs.into_inner()).unwrap();
 
     // Do something with job_vec vector
-    println!(job_vec);
+    // println!("{}", job_vec);
     // job_slicer.initialize(job_vec);
     HttpResponse::Ok().body("message: Slice was reset and overwritten successfully.")
 }
