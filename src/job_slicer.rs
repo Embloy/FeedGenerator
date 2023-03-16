@@ -18,7 +18,11 @@ impl PartialEq for Job {
 
 impl Debug for Job {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        todo!()
+        f.debug_struct("Job")
+            .field("id", &self.id)
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .finish()
     }
 }
 
@@ -102,6 +106,11 @@ impl JobSlicer {
         }
         slices
     }
+    fn print_nodes(&self) {
+        for node in self.rtree.iter() {
+            println!("{:?}", node);
+        }
+    }
 }
 
 pub fn main() {
@@ -113,4 +122,5 @@ pub fn main() {
     job_slicer.initialize(vec![
         Job { id: 1, x: 0.0, y: 0.0 },
         Job { id: 2, x: 1.0, y: 0.0 }], 0);
+    job_slicer.print_nodes();
 }
