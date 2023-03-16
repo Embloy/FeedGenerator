@@ -1,23 +1,9 @@
-pub use self::job_slicer::Job;
 mod job_slicer;
-// mod job_slicer;
-mod connector;
+
 use mongodb::{Client, options::ClientOptions, Collection, bson};
-
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, patch};
-// use crate::job_slicer::Job;
+use crate::job_slicer::{Job, JobSlicer};
 use serde::{Serialize, Deserialize};
-
-#[derive(Debug, Serialize, Deserialize)]
-struct Job {
-    id: i32,
-    title: String,
-    company: String,
-    salary: u32
-}
-
-
-
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -30,19 +16,17 @@ async fn build_slice(jobs: web::Json<serde_json::Value>) -> impl Responder {
     let job_vec: Vec<Job> = serde_json::from_value(jobs.into_inner()).unwrap();
 
     // Do something with job_vec vector
-    println(job_vec);
+    // println!("{}", job_vec);
     // job_slicer.initialize(job_vec);
     HttpResponse::Ok().body("message: Slice was reset and overwritten successfully.")
 }
-/*
-#[patch("/tree")]
+/*#[patch("/tree")]
 async fn update_slice{}
 
 
 #[get("/feed")]
 async fn generate_feed{}
 */
-
 #[post("/echo")]
 async fn echo(req_body: String) -> impl Responder {
     HttpResponse::Ok().body(req_body)
@@ -55,13 +39,15 @@ async fn manual_hello() -> impl Responder {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     println!("STARTED MAIN");
+    job_slicer::main();
 
+    println!("CONNECTING TO DATABASE");
     // Create a MongoDB client instance
-    let client = Client::with_uri_str("mongodb+srv://cb:sXURVyMz01m1isjU@efg0.rfbpwns.mongodb.net/test?retryWrites=true&w=majority").await;;
+    let client = Client::with_uri_str("mongodb+srv://cb:sXURVyMz01m1isjU@efg0.rfbpwns.mongodb.net/test?retryWrites=true&w=majority").await;
 
     // Access the database and collection
     let db = client.expect("REASON").database("embloy_feedgenerator");
-    let collection: Collection<Job> = db.collection("db0");
+    let _collection: Collection<Job> = db.collection("db0");
 
     // Do whatever you need to do with the database and collection
     // List the collections in the database
@@ -69,7 +55,7 @@ async fn main() -> std::io::Result<()> {
         Ok(collection_names) => {
             // Print the collection names
             for name in collection_names {
-                println!("{}", name);
+                println!("CONNECTED TO DATABASE: collection = [{}]", name);
             }
         }
         Err(e) => {
@@ -78,6 +64,8 @@ async fn main() -> std::io::Result<()> {
         }
     }
 
+
+    println!("STARTED SERVER");
     // Start the HTTP server
     HttpServer::new(|| {
         App::new()
