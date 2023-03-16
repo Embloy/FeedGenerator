@@ -47,11 +47,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // let collection: Collection<Job> = db.collection("db0");
 
     // List the collections in the database
-    let collection_names = db.list_collection_names(None).await?;
-
-    // Print the collection names
-    for name in collection_names {
-        println!("{}", name);
+    match db.list_collection_names(None).await {
+        Ok(collection_names) => {
+            // Print the collection names
+            for name in collection_names {
+                println!("{}", name);
+            }
+        }
+        Err(e) => {
+            // Print the error message
+            eprintln!("Error listing collections: {}", e);
+        }
     }
 
     Ok(())
