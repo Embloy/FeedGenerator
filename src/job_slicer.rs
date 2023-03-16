@@ -102,6 +102,16 @@ impl JobSlicer {
         }
         slices
     }
+
+    fn get_points(&self) -> Vec<Job> {
+        self.rtree.iter().cloned().collect()
+    }
+
+    fn print_jobs(job_slicer: &JobSlicer) {
+        for job in job_slicer.get_points() {
+            println!("Job {}: ({}, {})", job.id, job.x, job.y);
+        }
+    }
 }
 
 pub fn main() {
@@ -113,4 +123,12 @@ pub fn main() {
     job_slicer.initialize(vec![
         Job { id: 1, x: 0.0, y: 0.0 },
         Job { id: 2, x: 1.0, y: 0.0 }], 0);
+
+    for job in job_slicer.get_points() {
+        println!("Job {}: ({}, {})", job.id, job.x, job.y);
+    }
+
+    // for point in job_slicer.get_points() {
+    //     println!("Tree contains a point {:?}", point);
+    //}
 }
