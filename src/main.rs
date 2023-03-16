@@ -1,6 +1,7 @@
 mod job_slicer;
 
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, patch};
+use serde::{Deserialize, Serialize};
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -8,8 +9,13 @@ async fn hello() -> impl Responder {
 }
 /*
 #[post("/tree")]
-async fn build_slice(jobs: web::Json<Vec<Job>>) -> impl Responder{
-    job_slicer.initialize(jobs);
+async fn build_slice(jobs: web::Json<serde_json::Value>) -> impl Responder {
+    // Deserialize the JSON data into a vector of Job objects
+    let job_vec: Vec<Job> = serde_json::from_value(jobs.into_inner()).unwrap();
+
+    // Do something with the parsed Job vector
+    // job_slicer.initialize(job_vec);
+
     HttpResponse::Ok().body("message: Slice was reset and overwritten successfully.")
 }
 /*
