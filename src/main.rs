@@ -9,13 +9,18 @@ use serde::{Serialize, Deserialize};
 async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
 }
-/*
+
 #[post("/tree")]
-async fn build_slice(jobs: web::Json<Vec<Job>>) -> impl Responder{
-    job_slicer.initialize(jobs);
+async fn build_slice(jobs: web::Json<serde_json::Value>) -> impl Responder {
+    // Deserialize the JSON data into a vector of Job objects
+    let job_vec: Vec<Job> = serde_json::from_value(jobs.into_inner()).unwrap();
+
+    // Do something with job_vec vector
+    println(job_vec);
+    // job_slicer.initialize(job_vec);
     HttpResponse::Ok().body("message: Slice was reset and overwritten successfully.")
 }
-#[patch("/tree")]
+/*#[patch("/tree")]
 async fn update_slice{}
 
 
