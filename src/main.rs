@@ -15,10 +15,26 @@ async fn hello() -> impl Responder {
 async fn build_slice(jobs: web::Json<serde_json::Value>) -> impl Responder {
     // Deserialize the JSON data into a vector of Job objects
     let job_vec: Vec<Job> = serde_json::from_value(jobs.into_inner()).unwrap();
-
     // Do something with job_vec vector
     // println!("{}", job_vec);
     // job_slicer.initialize(job_vec);
+
+
+
+    // The code below was just a test that worked!
+    // Todo: remove code and make slicing do intelligent pushing of jobs into the db (e.g. include functionalities planned)
+
+    // ==== TEST ==== //
+    // let client = Client::with_uri_str("mongodb+srv://cb:sXURVyMz01m1isjU@efg0.rfbpwns.mongodb.net/test?retryWrites=true&w=majority").await;
+    // let db = client.expect("REASON").database("embloy_feedgenerator");
+    // let _collection: Collection<Job> = db.collection("db0");
+    // let options = InsertOneOptions::default();
+    // for job in &job_vec{
+    //     _collection.insert_one(job, options).await.expect("Failed to insert document");;
+    // }
+    // ==== TEST ==== //
+
+
     HttpResponse::Ok().body("message: Slice was reset and overwritten successfully.")
 }
 /*#[patch("/tree")]
