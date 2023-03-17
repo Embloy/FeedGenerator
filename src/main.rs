@@ -4,6 +4,7 @@ use mongodb::{Client, options::ClientOptions, Collection, bson, options::InsertO
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, patch};
 use crate::job_slicer::{Job, JobSlicer};
 use serde::{Serialize, Deserialize};
+use serde_json::json;
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -49,10 +50,14 @@ async fn main() -> std::io::Result<()> {
     let db = client.expect("REASON").database("embloy_feedgenerator");
     let _collection: Collection<Job> = db.collection("db0");
 
+    // The code below successfully makes a db entry!
+
     // ==== TEST ==== //
-    // let job = Job { id: 1, x: 0.0, y: 0.0 };
+    // let job = Job { id: 7, x: 0.0, y: 0.0 };
+    // let mut job_vector: Vec<Job> = Vec::new();
+    // job_vector.push(job);
     // let options = InsertOneOptions::default();
-    // _collection.insert_one(job, options);
+    // _collection.insert_one(job, options).await.expect("Failed to insert document");;
     // ==== TEST ==== //
 
     // Do whatever you need to do with the database and collection
