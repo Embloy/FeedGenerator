@@ -1,46 +1,34 @@
-use std::env;
-use std::vec::Vec;
+use actix_web::{get, web, HttpRequest, HttpResponse, Responder};
+use base64::decode;
 
-use actix_web::{App, Error, get, HttpResponse, HttpServer, patch, post, Responder, web};
-use futures::TryFutureExt;
-use r2d2::Pool;
-use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct InputUser {
-    pub first_name: String,
-    pub last_name: String,
-    pub email: String,
-}
+const USERNAME: &str = "user";
+const PASSWORD: &str = "password";
 
-// Handler for POST /feed
-#[post("/feed")]
-pub(crate) async fn feed() -> impl Responder {
-    HttpResponse::Ok().body("LOADING FEED!")
-}
-
-// Handler for GET /
 #[get("/")]
-pub async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello, world!")
+pub async fn hello() -> HttpResponse {
+    HttpResponse::Ok().body("Hello World")
 }
 
-// Handler for the authentication endpoint
-#[get("/auth")]
-pub async fn auth() -> impl Responder {
-    // Extract the expected username and password from the environment variables
-    let expected_username = env::var("API_USER").unwrap_or_else(|_| "API_USER".into());
-    let expected_password = env::var("API_PASSWORD").unwrap_or_else(|_| "API_PASSWORD".into());
+pub async fn basic_auth_handler(req: HttpRequest) -> impl Responder {
+    let headers = req.headers();
 
-    <HttpResponse as Into<T>>::into(HttpResponse::Unauthorized()
-        .header("WWW-Authenticate", r#"Basic realm="Restricted""#)
-        .body("Authentication required"))
-        .into()
-        .with_secure(|guard| guard.basic_auth(|user, password| {
-            if user == expected_username && password == Some(expected_password.as_str()) {
-                Ok(())
+    if let Some(auth_header) = headers.get("Authorization") {
+        let auth_header_str = auth_header.to_str().unwrap_or_default();
+        if auth_header_str.starts_with("Basic ") {
+            let encoded_credentials = auth_header_str.replace("Basic ", "");
+            let decoded_credentials = decode(&encoded_credentials).unwrap_or_default();
+            let credentials = String::from_utf8(decoded_credentials).unwrap_or_default();
+
+            if credentials == format!("{}:{}", USERNAME, PASSWORD) {
+                HttpResponse::Ok().body("Authenticated")
             } else {
-                Err(())
+                HttpResponse::Unauthorized().body("Unauthorized")
             }
-        }))
+        } else {
+            HttpResponse::Unauthorized().body("Unauthorized")
+        }
+    } else {
+        HttpResponse::Unauthorized().body("Unauthorized")
+    }
 }
