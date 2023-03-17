@@ -1,105 +1,61 @@
-mod job_slicer;
+use std::error::Error;
+use std::f32::consts::E;
+use std::pin::Pin;
 
-use mongodb::{Client, options::ClientOptions, Collection, bson, options::InsertOneOptions};
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, patch};
-use crate::job_slicer::{Job, JobSlicer};
-use serde::{Serialize, Deserialize};
+use actix_web::{App, get, HttpResponse, HttpServer, patch, post, Responder, web};
+use actix_web::cookie::time::format_description::well_known::iso8601::Config;
+use actix_web::dev::ServiceRequest;
+use actix_web_httpauth::extractors::AuthenticationError;
+use actix_web_httpauth::headers::authorization::Basic;
+use actix_web_httpauth::middleware::HttpAuthentication;
+use dotenv::dotenv;
+use serde::{Deserialize, Serialize};
 use serde_json::json;
+use crate::handlers::auth;
 
-#[get("/")]
-async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
-}
+use crate::models::Job;
 
-#[post("/tree")]
-async fn build_slice(jobs: web::Json<serde_json::Value>) -> impl Responder {
-    // Deserialize the JSON data into a vector of Job objects
-    let job_vec: Vec<Job> = serde_json::from_value(jobs.into_inner()).unwrap();
-    // Do something with job_vec vector
-    // println!("{}", job_vec);
-    // job_slicer.initialize(job_vec);
-
-
-
-    // The code below was just a test that worked!
-    // Todo: remove code and make slicing do intelligent pushing of jobs into the db (e.g. include functionalities planned)
-
-    // ==== TEST ==== //
-    // let client = Client::with_uri_str("mongodb+srv://cb:sXURVyMz01m1isjU@efg0.rfbpwns.mongodb.net/test?retryWrites=true&w=majority").await;
-    // let db = client.expect("REASON").database("embloy_feedgenerator");
-    // let _collection: Collection<Job> = db.collection("db0");
-    // let options = InsertOneOptions::default();
-    // for job in &job_vec{
-    //     _collection.insert_one(job, options).await.expect("Failed to insert document");;
-    // }
-    // ==== TEST ==== //
-
-
-    HttpResponse::Ok().body("message: Slice was reset and overwritten successfully.")
-}
-/*#[patch("/tree")]
-async fn update_slice{}
-
-
-#[get("/feed")]
-async fn generate_feed{}
-*/
-#[post("/echo")]
-async fn echo(req_body: String) -> impl Responder {
-    HttpResponse::Ok().body(req_body)
-}
-
-async fn manual_hello() -> impl Responder {
-    HttpResponse::Ok().body("Hey there!")
-}
+mod job_slicer;
+mod models;
+mod handlers;
+mod errors;
+use crate::handlers::auth as other_auth;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    println!("STARTED MAIN");
-    job_slicer::main();
+    // Load the environment variables from the .env file
+    dotenv().ok();
 
-    println!("CONNECTING TO DATABASE");
-    // Create a MongoDB client instance
-    let client = Client::with_uri_str("mongodb+srv://cb:sXURVyMz01m1isjU@efg0.rfbpwns.mongodb.net/test?retryWrites=true&w=majority").await;
+    // Get the address to bind the server to
+    let addr = "127.0.0.1:8080";
 
-    // Access the database and collection
-    let db = client.expect("REASON").database("embloy_feedgenerator");
-    let _collection: Collection<Job> = db.collection("db0");
-
-    // The code below successfully makes a db entry!
-
-    // ==== TEST ==== //
-    // let job = Job { id: 7, x: 0.0, y: 0.0 };
-    // let options = InsertOneOptions::default();
-    // _collection.insert_one(job, options).await.expect("Failed to insert document");;
-    // ==== TEST ==== //
-
-    // Do whatever you need to do with the database and collection
-    // List the collections in the database
-    match db.list_collection_names(None).await {
-        Ok(collection_names) => {
-            // Print the collection names
-            for name in collection_names {
-                println!("CONNECTED TO DATABASE: collection = [{}]", name);
-            }
-        }
-        Err(e) => {
-            // Print the error message
-            eprintln!("Error listing collections: {}", e);
-        }
-    }
-
-
-
-    println!("STARTED SERVER");
-    // Start the HTTP server
+    // Create the HttpServer and bind it to the address
     HttpServer::new(|| {
         App::new()
-            .service(hello)
-            .service(echo)
-            .route("/hey", web::get().to(manual_hello))
+            // Use the Auth middleware to protect the hello endpoint
+            .service(Auth::new().basic(auth))
+            .service(handlers::hello)
+            .service(handlers::feed)
     })
-        .bind(("127.0.0.1", 8080))?
+        .bind(addr)?
         .run()
         .await
 }
+// async fn validator(req: ServiceRequest, credentials: Basic) -> Result<ServiceRequest, dyn Error> {
+//     let config = req
+//         .app_data::<Config>()
+//         .map(|data| Pin::new(data).get_ref().clone())
+//         .unwrap();
+//     // match auth::validate_user(credentials.user_id(), credentials.password()) {
+//         // Ok(res) => {
+//         //     if res == true {
+//         //         Err(AuthenticationError::from(config).into())
+//         //     } else {
+//         //         Err(AuthenticationError::from(config).into())
+//         //     }
+//         // }
+//         // Err(_) => Err(AuthenticationError::from(config).into()),
+//     // }
+//     Ok(req)
+// }
+
