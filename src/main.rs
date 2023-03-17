@@ -5,6 +5,7 @@ use dotenv::dotenv;
 mod handlers;
 mod auth;
 mod job_slicer;
+mod models;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -12,6 +13,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .service(handlers::hello)
+            .service(handlers::load_feed)
             // .route("/", web::get().to(hello_world))
             .route("/basic-auth", web::get().to(handlers::basic_auth_handler))
     })

@@ -1,10 +1,33 @@
 use std::env;
-use actix_web::{get, web, HttpRequest, HttpResponse, Responder};
+use actix_web::{get, post, web, HttpRequest, HttpResponse, Responder};
 use base64::decode;
+use crate::models::{Job, parse_jobs_from_json};
 
 #[get("/")]
 pub async fn hello() -> HttpResponse {
     HttpResponse::Ok().body("Hello World")
+}
+
+// TODO: update: request body list of jobs and not single job
+#[post("/feed")]
+pub async fn load_feed(slice: web::Json<Job>) -> impl Responder {
+    println!("STARTED FEED");
+    let json_str = serde_json::to_string(&slice).unwrap();
+    println!("slice = {}", json_str);
+
+    let _jobs = match parse_jobs_from_json(&json_str) {
+        Ok(jobs) => jobs,
+        Err(e) => {
+            eprintln!("Error parsing jobs from feed JSON: {}", e);
+            return HttpResponse::BadRequest().finish();
+        }
+    };
+
+    // TODO: call Ranker
+    // TODO: call Logger
+    // TODO: respond with result
+
+    HttpResponse::Created().finish()
 }
 
 pub async fn basic_auth_handler(req: HttpRequest) -> impl Responder {
