@@ -54,8 +54,6 @@ async fn main() -> std::io::Result<()> {
 
     // ==== TEST ==== //
     // let job = Job { id: 7, x: 0.0, y: 0.0 };
-    // let mut job_vector: Vec<Job> = Vec::new();
-    // job_vector.push(job);
     // let options = InsertOneOptions::default();
     // _collection.insert_one(job, options).await.expect("Failed to insert document");;
     // ==== TEST ==== //
