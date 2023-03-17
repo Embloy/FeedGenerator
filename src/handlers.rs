@@ -1,9 +1,6 @@
+use std::env;
 use actix_web::{get, web, HttpRequest, HttpResponse, Responder};
 use base64::decode;
-
-
-const USERNAME: &str = "user";
-const PASSWORD: &str = "password";
 
 #[get("/")]
 pub async fn hello() -> HttpResponse {
@@ -20,7 +17,7 @@ pub async fn basic_auth_handler(req: HttpRequest) -> impl Responder {
             let decoded_credentials = decode(&encoded_credentials).unwrap_or_default();
             let credentials = String::from_utf8(decoded_credentials).unwrap_or_default();
 
-            if credentials == format!("{}:{}", USERNAME, PASSWORD) {
+            if credentials == format!("{}:{}", env::var("API_USER").unwrap_or_default(), env::var("API_PASSWORD").unwrap_or_default()) {
                 HttpResponse::Ok().body("Authenticated")
             } else {
                 HttpResponse::Unauthorized().body("Unauthorized")
