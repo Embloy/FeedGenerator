@@ -1,10 +1,10 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{Result, Value};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Job {
     job_id: i32,
-    job_type: String,
+    pub(crate) job_type: String,
     job_status: i32,
     status: String,
     user_id: i32,
@@ -13,8 +13,8 @@ pub struct Job {
     title: String,
     position: String,
     description: String,
-    key_skills: String,
-    salary: i32,
+    pub(crate) key_skills: String,
+    pub(crate) salary: f64,
     currency: String,
     image_url: String,
     start_slot: String,
@@ -29,4 +29,11 @@ pub struct Job {
     updated_at: String,
     applications_count: i32,
     job_notifications: String,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct UserPreferences {
+    pub(crate) job_type: String,
+    pub(crate) key_skills: String,
+    pub(crate) salary_range: (f64, f64),
 }
