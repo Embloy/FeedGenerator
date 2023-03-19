@@ -17,3 +17,6 @@ RUN chmod +x /Embloy_feed_generator/target/release/Embloy_feed_generator
 EXPOSE 8080
 
 CMD ["/Embloy_feed_generator/target/release/Embloy_feed_generator"]
+
+# CREATE IMAGE:
+# docker build -t embloy_feed_generator .

@@ -1,13 +1,14 @@
-#### <div style="text-align:right">P-XJH-0006 </div>
+#### <div style="text-align:right">E-FG-0001 </div>
 
-# FG-API
+# [FG-API](https://embloy-fg-api.onrender.com)
 
 > __NOTE__: _If you are looking for concrete HTTPs-Request examples instead, go to_
 ___[.http](requests/feed.http)___
 
 ## FUNCTIONALITY
 
-This repository contains the code for the FeedGenerator-API that is used by [embloy.com](embloy.com) to generate a feed
+This repository contains the code for the [FeedGenerator-API](https://embloy-fg-api.onrender.com) that is used
+by [embloy.com](embloy.com) to generate a feed
 from a set of
 jobs that matches with the user's preferences.
 
@@ -247,5 +248,4 @@ NOT IMPLEMENTED YET
 > contact via [@hummeloffice@embloy.com](hummeloffice@embloy.com)
 
 
-docker build -t embloy_feed_generator .
 
