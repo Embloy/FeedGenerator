@@ -1,0 +1,34 @@
+### Send POST request with json body to load feed
+POST https://localhost:8080/feed/cb/123
+Content-Type: application/json
+
+[
+  {
+    "job_id": 6588,
+    "job_type": "Farming",
+    "job_status": 0,
+    "status": "public",
+    "user_id": 367,
+    "duration": 1958,
+    "code_lang": "KG",
+    "title": "Mining Planner",
+    "position": "Assistant",
+    "description": "Rhetoric is the art of ruling the minds of men.",
+    "key_skills": "Teamwork",
+    "salary": 77851,
+    "currency": "Iranian Rial",
+    "image_url": "https://picsum.photos/200/300?random=6588",
+    "start_slot": "1975-07-21T13:36:42.000Z",
+    "longitude": 34425.61,
+    "latitude": 91551.04,
+    "country_code": "RE",
+    "postal_code": "63478-4176",
+    "city": "Lake Tatyana",
+    "address": "312 Agustin Plain",
+    "view_count": 677,
+    "created_at": "2023-02-28T02:06:57.681Z",
+    "updated_at": "2023-02-28T02:06:57.681Z",
+    "applications_count": 0,
+    "job_notifications": "true"
+  }
+]
