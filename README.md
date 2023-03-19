@@ -1,7 +1,5 @@
 #### <div style="text-align:right">P-XJH-0006 </div>
 
-####
-
 # FG-API
 
 > __NOTE__: _If you are looking for concrete HTTPs-Request examples instead, go to_
@@ -28,6 +26,7 @@ This API supports [TLS (Transport Layer Security) Encryption](https://actix.rs/d
 > work properly, and should be kept secure as they grant access to sensitive information.
 
 For testing purposes load TLS keys to create a self-signed temporary cert:
+
 ```
 $ openssl req -x509 -newkey rsa:4096 -nodes -keyout key.pem -out cert.pem -days 365 -subj '/CN=localhost'
 ```
@@ -36,7 +35,7 @@ $ openssl req -x509 -newkey rsa:4096 -nodes -keyout key.pem -out cert.pem -days 
 
 ## ENDPOINTS
 
-### 0. Root
+### 1. Root
 
 Test if your connection is active.
 
@@ -44,7 +43,7 @@ Test if your connection is active.
 
 ---
 
-### 1. Auth
+### 2. Auth
 
 Authenticate with Basic Authentication to check if your credentials are valid.
 
@@ -71,8 +70,6 @@ Authenticate with Basic Authentication to check if your credentials are valid.
 }
 ```
 
-####
-
 **401: Unauthorized**
 
 ```
@@ -85,13 +82,21 @@ Authenticate with Basic Authentication to check if your credentials are valid.
 
 ---
 
-### 2. Feed
+### 3. Feed
 
 Request to load a feed from a "slice" to match the user's preferences.
 
 > <span style="color:lawngreen"> POST </span> /feed
 
-####
+
+<details>
+  <summary>Data parameters</summary>
+
+1. **username** _<span style="color:crimson">REQUIRED </span>_
+2. **password** _<span style="color:crimson">REQUIRED </span>_
+
+</details>
+
 
 <details>
   <summary>Request body</summary>
