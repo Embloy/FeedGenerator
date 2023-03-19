@@ -4,10 +4,12 @@
 
 use std::any::Any;
 use std::env;
-use actix_web::{get, post, web, HttpRequest, HttpResponse, Responder};
+
+use actix_web::{get, HttpRequest, HttpResponse, post, Responder, web};
 use base64::decode;
 use serde::Serialize;
-use crate::models::{Job};
+
+use crate::models::Job;
 
 // Test connection
 #[get("/")]
@@ -56,7 +58,7 @@ pub async fn load_feed(slice: web::Json<Vec<Job>>, req: HttpRequest) -> impl Res
     // Parse request body and rank jobs
     let result = process_feed_request(slice.into_inner());
 
-    // TODO: respond with result as response body
+    // Respond with result as response body
     match result {
         Ok(result) => HttpResponse::Ok().json(result),
         Err(e) => {
@@ -76,7 +78,7 @@ fn process_feed_request(slice: Vec<Job>) -> Result<(Vec<Job>), Box<dyn std::erro
 
     // TODO: call Ranker
     // TODO: call Logger
-    // TODO: respond with result
+
     Ok(slice)
 }
 
