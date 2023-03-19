@@ -6,10 +6,12 @@ use std::any::Any;
 use std::env;
 
 use actix_web::{get, HttpRequest, HttpResponse, post, Responder, web};
+use actix_web::http::header::Preference;
 use base64::decode;
 use serde::Serialize;
 
-use crate::models::Job;
+use crate::models::{Job, UserPreferences};
+use crate::ranker::generate_job_feed;
 
 // Test connection
 #[get("/")]
@@ -49,14 +51,14 @@ pub async fn basic_auth(req: HttpRequest) -> impl Responder {
 }
 
 #[post("/feed")]
-pub async fn load_feed(slice: web::Json<Vec<Job>>, req: HttpRequest) -> impl Responder {
+pub async fn load_feed(pref: web::Json<UserPreferences>, slice: web::Json<Vec<Job>>, req: HttpRequest) -> impl Responder {
     // Check if user is authorized
     if !is_authorized(&req) {
         return HttpResponse::Unauthorized().finish();
     }
 
     // Parse request body and rank jobs
-    let result = process_feed_request(slice.into_inner());
+    let result = process_feed_request(slice.into_inner(), pref.into_inner());
 
     // Respond with result as response body
     match result {
@@ -73,13 +75,14 @@ pub async fn load_feed(slice: web::Json<Vec<Job>>, req: HttpRequest) -> impl Res
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Parse request body and rank jobs
-fn process_feed_request(slice: Vec<Job>) -> Result<(Vec<Job>), Box<dyn std::error::Error>> {
+fn process_feed_request(slice: Vec<Job>, pref: UserPreferences) -> Result<(Vec<Job>), Box<dyn std::error::Error>> {
     println!("SLICE = {:?}", slice);
 
     // TODO: call Ranker
+    let res: Vec<Job> = generate_job_feed(slice, pref);
     // TODO: call Logger
 
-    Ok(slice)
+    Ok(res)
 }
 
 // Check if user is authenticated and authorized to access FG-API

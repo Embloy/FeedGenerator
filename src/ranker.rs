@@ -2,29 +2,25 @@
 /////////////////////////////////////////////RANK JOBS//////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// TODO: rank jobs
-use std::sync::mpsc::{channel, Sender, Receiver};
-use std::thread;
 use crate::models::{Job, UserPreferences};
 
-fn filter_jobs_by_preferences(jobs: &Vec<Job>, preferences: &UserPreferences, sender: Sender<Job>) {
-    for job in jobs.iter() {
-        if job.job_type == preferences.job_type &&
-            job.key_skills.contains(&preferences.key_skills) &&
-            job.salary >= preferences.salary_range.0  &&
-            job.salary <= preferences.salary_range.1
-        {
-            sender.send(job.clone()).unwrap();
-        }
-    }
-}
+// TODO: rank jobs
+// fn filter_jobs_by_preferences(jobs: &Vec<Job>, preferences: &UserPreferences) -> Vec<Job> {
+//     jobs.iter().filter(|job| {
+//         job.job_type == preferences.job_type &&
+//             job.key_skills.contains(&preferences.key_skills) &&
+//             job.salary >= preferences.salary_range.0 &&
+//             job.salary <= preferences.salary_range.1
+//     }).cloned().collect()
+// }
 
-fn sort_jobs_by_relevance(jobs: &mut Vec<Job>, preferences: &UserPreferences) {
+fn sort_jobs_by_relevance(jobs: &mut Vec<Job>, preferences: &UserPreferences) -> Vec<Job> {
     jobs.sort_by(|a, b| {
         let a_score = job_relevance_score(a, preferences);
         let b_score = job_relevance_score(b, preferences);
         b_score.partial_cmp(&a_score).unwrap()
     });
+    jobs.clone()
 }
 
 fn job_relevance_score(job: &Job, preferences: &UserPreferences) -> f64 {
@@ -34,32 +30,12 @@ fn job_relevance_score(job: &Job, preferences: &UserPreferences) -> f64 {
     job_type_score + key_skills_score + salary_score
 }
 
-fn generate_job_feed(jobs: Vec<Job>, preferences: UserPreferences) -> Vec<Job> {
-    let (sender, receiver): (Sender<Job>, Receiver<Job>) = channel();
+// pub fn generate_job_feed(jobs: Vec<Job>, preferences: UserPreferences) -> Vec<Job> {
+//     let mut filtered_jobs = filter_jobs_by_preferences(&jobs, &preferences);
+//     sort_jobs_by_relevance(&mut filtered_jobs, &preferences);
+//     filtered_jobs
+// }
 
-    let mut job_threads = Vec::new();
-    for chunk in jobs.chunks(jobs.len() / num_cpus::get()) {
-        let preferences_clone = preferences.clone();
-        let sender_clone = sender.clone();
-
-        let thread = thread::spawn(move || {
-            filter_jobs_by_preferences(&chunk.to_vec(), &preferences_clone, sender_clone);
-        });
-
-        job_threads.push(thread);
-    }
-
-    drop(sender);
-
-    let mut filtered_jobs = Vec::new();
-    for job in receiver.iter() {
-        filtered_jobs.push(job);
-    }
-
-    for thread in job_threads {
-        thread.join().unwrap();
-    }
-
-    sort_jobs_by_relevance(&mut filtered_jobs, &preferences);
-    filtered_jobs
+pub fn generate_job_feed(jobs: Vec<Job>, preferences: UserPreferences) -> Vec<Job> {
+    sort_jobs_by_relevance(&mut jobs.clone(), &preferences)
 }
