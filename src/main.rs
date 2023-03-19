@@ -33,7 +33,7 @@ async fn main() -> std::io::Result<()> {
     })
         // Bind the server to a socket using OpenSSL as the TLS implementation.
         //.bind_openssl(env::var("ADDRESS").unwrap_or_else(|_| "127.0.0.1:8080".to_string()), builder)?
-        .bind(env::var("ADDRESS").unwrap_or_else(|_| "0.0.0.0:8081".to_string()))?
+        .bind(env::var("ADDRESS").unwrap_or_else(|_| "0.0.0.0:8080".to_string()))?
         .run()
         .await
 }

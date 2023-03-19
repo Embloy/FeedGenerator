@@ -14,6 +14,6 @@ COPY ./src ./src
 RUN cargo build --release
 RUN chmod +x /Embloy_feed_generator/target/release/Embloy_feed_generator
 
-EXPOSE 8081
+EXPOSE 8080
 
 CMD ["/Embloy_feed_generator/target/release/Embloy_feed_generator"]
