@@ -1,11 +1,3 @@
-databases:
-  - name: jobdata
-    databaseName: jobdata
-    user: render_user
-    ipAllowList: [ ]
-    plan: free
-
-
 services:
   - type: web
     name: rust
