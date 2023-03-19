@@ -3,26 +3,34 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 use std::env;
+
 use actix_web::{App, HttpRequest, HttpResponse, HttpServer, Responder, web};
 use dotenv::dotenv;
+use openssl::ssl::{Ssl, SslAcceptor, SslFiletype, SslMethod};
 
 mod handlers;
 mod auth;
 mod models;
 mod ranker;
 mod logger;
+mod test_auth;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok(); // Load the .env file
+
+    let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+    builder.set_private_key_file("key.pem", SslFiletype::PEM).unwrap();
+    builder.set_certificate_chain_file("cert.pem").unwrap();
+
     HttpServer::new(|| {
-        App::new()
+        App::new() // Define routes
             .service(handlers::hello)
             .service(handlers::load_feed)
             .service(handlers::basic_auth)
-        // .route("/auth", web::get().to(handlers::basic_auth))
     })
-        .bind(env::var("ADDRESS").unwrap_or_else(|_| "127.0.0.1:8080".to_string()))?
+        .bind_openssl(env::var("ADDRESS").unwrap_or_else(|_| "127.0.0.1:8080".to_string()), builder)?
+        // Bind the server to a socket using OpenSSL as the TLS implementation.
         .run()
         .await
 }

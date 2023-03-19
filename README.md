@@ -2,12 +2,39 @@
 
 ####
 
-# FG-API documentation
+# FG-API
 
 > __NOTE__: _If you are looking for concrete HTTPs-Request examples instead, go to_
 ___[.http](requests/feed.http)___
 
+## FUNCTIONALITY
+
+This repository contains the code for the FeedGenerator-API that is used by [embloy.com](embloy.com) to generate a feed
+from a set of
+jobs that matches with the user's preferences.
+
+This API supports [TLS (Transport Layer Security) Encryption](https://actix.rs/docs/server#tls--https):
+> The ***cert.pem*** file contains the TLS certificate that is
+> issued to your domain by a Certificate Authority (CA).
+> This certificate is used to authenticate
+> your server to clients, proving that the server is indeed the server that the client is trying to
+> communicate with.
+> The certificate contains information such as the domain name it's issued for,
+> the issuer's information, and the public key.
+
+> The ***key.pem*** file contains the private key that
+> corresponds to the public key in the ***cert.pem*** file. This key is used to encrypt the data that is
+> being sent between the client and the server. Both files are required for TLS encryption to
+> work properly, and should be kept secure as they grant access to sensitive information.
+
+For testing purposes load TLS keys to create a self-signed temporary cert:
+```
+$ openssl req -x509 -newkey rsa:4096 -nodes -keyout key.pem -out cert.pem -days 365 -subj '/CN=localhost'
+```
+
 ---
+
+## ENDPOINTS
 
 ### 0. Root
 
