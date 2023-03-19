@@ -1,0 +1,19 @@
+databases:
+  - name: jobdata
+    databaseName: jobdata
+    user: render_user
+    ipAllowList: [ ]
+    plan: free
+
+
+services:
+  - type: web
+    name: rust
+    env: rust
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "cargo run"
+  - type: redis
+    name: redis
+    ipAllowList: [ ]
+    plan: free
+    maxmemoryPolicy: noevicion
