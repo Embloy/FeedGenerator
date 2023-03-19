@@ -20,9 +20,9 @@ async fn main() -> std::io::Result<()> {
             .service(handlers::hello)
             .service(handlers::load_feed)
             .service(handlers::basic_auth)
-            // .route("/auth", web::get().to(handlers::basic_auth))
+        // .route("/auth", web::get().to(handlers::basic_auth))
     })
-    .bind(env::var("ADDRESS").unwrap_or_else(|_| "127.0.0.1:8080".to_string()))?
-    .run()
-    .await
+        .bind(env::var("ADDRESS").unwrap_or_else(|_| "127.0.0.1:8080".to_string()))?
+        .run()
+        .await
 }
