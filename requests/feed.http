@@ -2,33 +2,71 @@
 POST https://localhost:8080/feed/cb/123
 Content-Type: application/json
 
-[
-  {
-    "job_id": 6588,
-    "job_type": "Farming",
-    "job_status": 0,
-    "status": "public",
-    "user_id": 367,
-    "duration": 1958,
-    "code_lang": "KG",
-    "title": "Mining Planner",
-    "position": "Assistant",
-    "description": "Rhetoric is the art of ruling the minds of men.",
-    "key_skills": "Teamwork",
-    "salary": 77851,
-    "currency": "Iranian Rial",
-    "image_url": "https://picsum.photos/200/300?random=6588",
-    "start_slot": "1975-07-21T13:36:42.000Z",
-    "longitude": 34425.61,
-    "latitude": 91551.04,
-    "country_code": "RE",
-    "postal_code": "63478-4176",
-    "city": "Lake Tatyana",
-    "address": "312 Agustin Plain",
-    "view_count": 677,
-    "created_at": "2023-02-28T02:06:57.681Z",
-    "updated_at": "2023-02-28T02:06:57.681Z",
-    "applications_count": 0,
-    "job_notifications": "true"
-  }
-]
+{
+  "pref": {
+    "job_type": "Software Engineer",
+    "key_skills": "Java, Python, AWS",
+    "salary_range": [
+      80000.0,
+      120000.0
+    ]
+  },
+  "slice": [
+    {
+      "job_id": 1,
+      "job_type": "Data Scientist",
+      "job_status": 1,
+      "status": "open",
+      "user_id": 1,
+      "duration": 6,
+      "code_lang": "Python",
+      "title": "Data Scientist",
+      "position": "Junior",
+      "description": "We're looking for a junior data scientist to help us analyze our data and build predictive models.",
+      "key_skills": "Python, statistics, machine learning",
+      "salary": 60000.0,
+      "currency": "USD",
+      "image_url": "https://example.com/image.jpg",
+      "start_slot": "2023-04-01T00:00:00Z",
+      "longitude": -122.4194,
+      "latitude": 37.7749,
+      "country_code": "US",
+      "postal_code": "94103",
+      "city": "San Francisco",
+      "address": "123 Main St",
+      "view_count": 50,
+      "created_at": "2023-03-17T12:00:00Z",
+      "updated_at": "2023-03-17T12:00:00Z",
+      "applications_count": 5,
+      "job_notifications": "email"
+    },
+    {
+      "job_id": 6588,
+      "job_type": "Farming",
+      "job_status": 0,
+      "status": "public",
+      "user_id": 367,
+      "duration": 1958,
+      "code_lang": "KG",
+      "title": "Mining Planner",
+      "position": "Assistant",
+      "description": "Rhetoric is the art of ruling the minds of men.",
+      "key_skills": "Teamwork",
+      "salary": 77851,
+      "currency": "Iranian Rial",
+      "image_url": "https://picsum.photos/200/300?random=6588",
+      "start_slot": "1975-07-21T13:36:42.000Z",
+      "longitude": 34425.61,
+      "latitude": 91551.04,
+      "country_code": "RE",
+      "postal_code": "63478-4176",
+      "city": "Lake Tatyana",
+      "address": "312 Agustin Plain",
+      "view_count": 677,
+      "created_at": "2023-02-28T02:06:57.681Z",
+      "updated_at": "2023-02-28T02:06:57.681Z",
+      "applications_count": 0,
+      "job_notifications": "true"
+    }
+  ]
+}

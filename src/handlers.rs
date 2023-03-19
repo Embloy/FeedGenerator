@@ -10,7 +10,7 @@ use actix_web::http::header::Preference;
 use base64::decode;
 use serde::Serialize;
 
-use crate::models::{Job, UserPreferences};
+use crate::models::{FeedRequest, Job, UserPreferences};
 use crate::ranker::generate_job_feed;
 
 // Test connection
@@ -22,27 +22,25 @@ pub async fn hello() -> HttpResponse {
 // Find out if you're authenticated and authorized to access FG-API
 #[get("/auth")]
 pub async fn basic_auth(req: HttpRequest) -> impl Responder {
+    // Extract the authorization header value and check if it exists
     let auth_header = match req.headers().get("Authorization") {
-        Some(header) => header,
+        Some(header) => header.to_str().unwrap_or_default(),
         None => return HttpResponse::Unauthorized().body("Unauthorized")
     };
 
-    let auth_header_str = match auth_header.to_str() {
-        Ok(auth_str) => auth_str,
-        Err(_) => return HttpResponse::Unauthorized().body("Unauthorized")
-    };
-
-    let encoded_credentials = auth_header_str.replace("Basic ", "");
-    let decoded_credentials = match decode(&encoded_credentials) {
+    // Decode the base64-encoded credentials
+    let decoded_credentials = match base64::decode(auth_header.replace("Basic ", "")) {
         Ok(credentials) => credentials,
         Err(_) => return HttpResponse::Unauthorized().body("Unauthorized")
     };
 
+    // Convert the decoded credentials to a UTF-8 string
     let credentials = match String::from_utf8(decoded_credentials) {
         Ok(credentials) => credentials,
         Err(_) => return HttpResponse::Unauthorized().body("Unauthorized")
     };
 
+    // Check if the credentials match the expected API user and password
     if credentials == format!("{}:{}", env::var("API_USER").unwrap_or_default(), env::var("API_PASSWORD").unwrap_or_default()) {
         HttpResponse::Ok().body("Authenticated")
     } else {
@@ -51,14 +49,17 @@ pub async fn basic_auth(req: HttpRequest) -> impl Responder {
 }
 
 #[post("/feed")]
-pub async fn load_feed(pref: web::Json<UserPreferences>, slice: web::Json<Vec<Job>>, req: HttpRequest) -> impl Responder {
+pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
+    println!("pref = {:?}", feed_request);
+    let FeedRequest { slice, pref } = feed_request.into_inner();
+
     // Check if user is authorized
     if !is_authorized(&req) {
         return HttpResponse::Unauthorized().finish();
     }
 
     // Parse request body and rank jobs
-    let result = process_feed_request(slice.into_inner(), pref.into_inner());
+    let result = process_feed_request(slice, pref);
 
     // Respond with result as response body
     match result {
@@ -80,6 +81,7 @@ fn process_feed_request(slice: Vec<Job>, pref: UserPreferences) -> Result<(Vec<J
 
     // TODO: call Ranker
     let res: Vec<Job> = generate_job_feed(slice, pref);
+
     // TODO: call Logger
 
     Ok(res)

@@ -37,3 +37,9 @@ pub struct UserPreferences {
     pub(crate) key_skills: String,
     pub(crate) salary_range: (f64, f64),
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct FeedRequest {
+    pub pref: UserPreferences,
+    pub slice: Vec<Job>,
+}
