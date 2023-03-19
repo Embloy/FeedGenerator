@@ -7,7 +7,7 @@ use std::env;
 use actix_web::{get, post, web, HttpRequest, HttpResponse, Responder};
 use base64::decode;
 use serde::Serialize;
-use crate::models::{Job, parse_jobs_from_json};
+use crate::models::{Job};
 
 // Test connection
 #[get("/")]
@@ -46,9 +46,8 @@ pub async fn basic_auth(req: HttpRequest) -> impl Responder {
     }
 }
 
-// TODO: update: request body list of jobs and not single job
 #[post("/feed")]
-pub async fn load_feed(slice: web::Json<Job>, req: HttpRequest) -> impl Responder {
+pub async fn load_feed(slice: web::Json<Vec<Job>>, req: HttpRequest) -> impl Responder {
     // Check if user is authorized
     if !is_authorized(&req) {
         return HttpResponse::Unauthorized().finish();
@@ -57,9 +56,9 @@ pub async fn load_feed(slice: web::Json<Job>, req: HttpRequest) -> impl Responde
     // Parse request body and rank jobs
     let result = process_feed_request(slice.into_inner());
 
-    // TODO: respond with result
+    // TODO: respond with result as response body
     match result {
-        Ok(_) => HttpResponse::Created().finish(),
+        Ok(result) => HttpResponse::Ok().json(result),
         Err(e) => {
             eprintln!("Error processing feed request: {}", e);
             HttpResponse::InternalServerError().finish()
@@ -72,24 +71,13 @@ pub async fn load_feed(slice: web::Json<Job>, req: HttpRequest) -> impl Responde
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Parse request body and rank jobs
-fn process_feed_request(slice: Job) -> Result<(), String> {
-    println!("STARTED FEED");
-
-    // Convert request body to string
-    let json_str = serde_json::to_string(&slice).map_err(|e| e.to_string())?;
-    println!("PARSED JSON = {}", json_str);
-
-    // Parse string to job
-    let jobs = match parse_jobs_from_json(&json_str) {
-        Ok(jobs) => jobs,
-        Err(e) => return Err(format!("Error parsing jobs from feed JSON: {}", e)),
-    };
-    println!("PARSED SLICE = {:?}", jobs);
+fn process_feed_request(slice: Vec<Job>) -> Result<(Vec<Job>), Box<dyn std::error::Error>> {
+    println!("SLICE = {:?}", slice);
 
     // TODO: call Ranker
     // TODO: call Logger
     // TODO: respond with result
-    Ok(())
+    Ok(slice)
 }
 
 // Check if user is authenticated and authorized to access FG-API
