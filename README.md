@@ -245,3 +245,7 @@ NOT IMPLEMENTED YET
 > Jan Hummel &nbsp;&middot;&nbsp;
 > GitHub [@github4touchdouble](https://github.com/github4touchdouble) &nbsp;&middot;&nbsp;
 > contact via [@hummeloffice@embloy.com](hummeloffice@embloy.com)
+
+
+docker build -t embloy_feed_generator .
+

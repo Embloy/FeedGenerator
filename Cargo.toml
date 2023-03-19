@@ -7,8 +7,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-actix-web = { version = "4", features = ["openssl"] }
-openssl = { version = "0.10" }
+# actix-web = { version = "4", features = ["openssl"] }
+actix-web = { version = "4" }
+# openssl = { version = "0.10" }
 actix-rt = "2.8.0"
 base64 = "0.21.0"
 dotenv = "0.15.0"
@@ -16,3 +17,7 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0.73"
 serde_derive = "1.0.130"
 num_cpus = "1.14.0"
+
+[[bin]]
+name = "Embloy_feed_generator"
+path = "src/main.rs"
