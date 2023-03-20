@@ -76,12 +76,10 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
 
 // Parse request body and rank jobs
 fn process_feed_request(slice: Vec<Job>, pref: UserPreferences) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
-    println!("SLICE = {:?}", slice);
-
     // TODO: Ranking ...
     let res: Vec<Job> = generate_job_feed(slice, pref);
 
-    // TODO: Shadowing ...
+    // TODO: Logging ...
     Ok(res)
 }
 
