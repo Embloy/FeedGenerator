@@ -24,6 +24,10 @@ fn sort_jobs_by_relevance(jobs: &mut Vec<Job>, preferences: &UserPreferences) ->
 }
 
 fn job_relevance_score(job: &Job, preferences: &UserPreferences) -> f64 {
+
+   Meta.calc_score(job, preferences) * 0.5 + T_Score.calc_score(job, preferences) * 0.5;
+
+
     let job_type_score = if job.job_type == preferences.job_type { 1.0 } else { 0.0 };
     let key_skills_score = if job.key_skills.contains(&preferences.key_skills) { 1.0 } else { 0.0 };
     let salary_score = (job.salary - preferences.salary_range.0) / (preferences.salary_range.1 - preferences.salary_range.0);
