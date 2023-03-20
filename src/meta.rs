@@ -29,9 +29,21 @@ pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
     return res;
 }
 
-fn employer_rating(job: &Job) -> f64 {
-    job.employer_rating as f64
+pub fn calc_score_no_pref(job: &Job) -> f64 {
+    println!("\nStarted meta::calc_score no pref for {:?}", job);
+
+    println!("Employer rating = {:?}", employer_rating(job));
+    println!("Trend factor = {:?}", trend_factor(job));
+
+    let res: f64 = employer_rating(job) * ER_WF + trend_factor(job) * TF_WF;
+
+    println!("\tMETA-SCORE = {:?}", res);
+
+    return res;
 }
+
+
+fn employer_rating(job: &Job) -> f64 { job.employer_rating as f64 }
 
 fn trend_factor(job: &Job) -> f64 {
     if job.applications_count > 0 && job.view_count > 0 {

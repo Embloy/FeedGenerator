@@ -37,7 +37,7 @@ pub struct Job {
     pub(crate) employer_rating: i32,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct UserPreferences {
     pub(crate) job_type: Option<HashMap<i32, i32>>,
     pub(crate) key_skills: Option<String>,
@@ -48,6 +48,6 @@ pub struct UserPreferences {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FeedRequest {
-    pub pref: UserPreferences,
+    pub pref: Option<UserPreferences>,
     pub slice: Vec<Job>,
 }
