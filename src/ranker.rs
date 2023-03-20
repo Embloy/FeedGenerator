@@ -23,5 +23,5 @@ fn job_relevance_score(job: &Job, preferences: &UserPreferences) -> f64 {
 
 pub fn generate_job_feed(jobs: Vec<Job>, preferences: UserPreferences) -> Vec<Job> {
     sort_jobs_by_relevance(&mut jobs.clone(), &preferences)
-    // TODO: Logging ...
+    // TODO: Shadowing ...
 }

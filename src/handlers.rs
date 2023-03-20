@@ -79,11 +79,10 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
 fn process_feed_request(slice: Vec<Job>, pref: UserPreferences) -> Result<(Vec<Job>), Box<dyn std::error::Error>> {
     println!("SLICE = {:?}", slice);
 
-    // TODO: call Ranker
+    // TODO: Ranking ...
     let res: Vec<Job> = generate_job_feed(slice, pref);
 
-    // TODO: call Logger
-
+    // TODO: Shadowing ...
     Ok(res)
 }
 
