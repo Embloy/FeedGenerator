@@ -4,7 +4,7 @@
 
 use std::env;
 
-use actix_web::{App, HttpRequest, HttpResponse, HttpServer, Responder, web};
+use actix_web::{App, HttpServer};
 use dotenv::dotenv;
 
 // use openssl::ssl::{Ssl, SslAcceptor, SslFiletype, SslMethod};

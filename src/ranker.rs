@@ -2,8 +2,6 @@
 /////////////////////////////////////////////RANK JOBS//////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-use std::collections::HashMap;
-
 use crate::{meta, t_score};
 use crate::models::{Job, UserPreferences};
 
@@ -18,7 +16,7 @@ fn sort_jobs_by_relevance(jobs: &mut Vec<Job>, preferences: &UserPreferences) ->
 
 fn job_relevance_score(job: &Job, preferences: &UserPreferences) -> f64 {
     let x = 0.5;
-    meta::calc_score(job, preferences) * x + t_score::calc_score(job, preferences) * (1 - x)
+    meta::calc_score(job, preferences) * x + t_score::calc_score(job, preferences) * (1.0 - x)
 }
 
 pub fn generate_job_feed(jobs: Vec<Job>, preferences: UserPreferences) -> Vec<Job> {

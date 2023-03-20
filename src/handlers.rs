@@ -2,13 +2,10 @@
 ////////////////////////////////////////////API-ENDPOINTS///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-use std::any::Any;
 use std::env;
 
 use actix_web::{get, HttpRequest, HttpResponse, post, Responder, web};
-use actix_web::http::header::Preference;
 use base64::decode;
-use serde::Serialize;
 
 use crate::models::{FeedRequest, Job, UserPreferences};
 use crate::ranker::generate_job_feed;
@@ -76,7 +73,7 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Parse request body and rank jobs
-fn process_feed_request(slice: Vec<Job>, pref: UserPreferences) -> Result<(Vec<Job>), Box<dyn std::error::Error>> {
+fn process_feed_request(slice: Vec<Job>, pref: UserPreferences) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
     println!("SLICE = {:?}", slice);
 
     // TODO: Ranking ...
