@@ -4,6 +4,8 @@
 
 // TODO: @cb
 
+use serde::de::Unexpected::Option;
+
 use crate::models::{Job, UserPreferences};
 
 const ER_WF: f64 = 0.5;
@@ -12,7 +14,19 @@ const SR_WF: f64 = 0.2;
 const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
-    employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
+    println!("\nStarted meta::calc_score for {:?}", job);
+
+
+    println!("Employer rating = {:?}", employer_rating(job));
+    println!("Trend factor = {:?}", trend_factor(job));
+    println!("Salary range = {:?}", salary_range(job, pref));
+    println!("Spontaneity = {:?}", spontaneity(job, pref));
+
+    let res: f64 = employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF;
+
+    println!("\tMETA-SCORE = {:?}", res);
+
+    return res;
 }
 
 fn employer_rating(job: &Job) -> f64 {
@@ -26,8 +40,12 @@ fn trend_factor(job: &Job) -> f64 {
 }
 
 fn salary_range(job: &Job, pref: &UserPreferences) -> f64 {
-    if job.salary > 0.0 && pref.salary_range.0 > 0.0 && pref.salary_range.1 > 0.0 && pref.salary_range.1 > pref.salary_range.0 {
-        (job.salary - pref.salary_range.0) / (pref.salary_range.1 - pref.salary_range.0)
+    let min: f64 = pref.salary_range.unwrap_or_default().0;
+    let max: f64 = pref.salary_range.unwrap_or_default().1;
+    let salary: f64 = job.salary.unwrap_or_default();
+
+    if salary > 0.0 && min >= 0.0 && max > min {
+        (salary - min) / (max - min)
     } else { 0.0 }
 }
 
