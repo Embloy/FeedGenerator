@@ -1,0 +1,33 @@
+use std::collections::HashMap;
+
+pub const JOB_TYPES: HashMap<&str, i32> = HashMap::from([
+("Retail", 1),
+("Food", 2),
+("Hospitality", 3),
+("Tourism", 4),
+("Events", 5),
+("Entertainment", 6),
+("Cleaning", 7),
+("Landscaping", 8),
+("Personal_Care", 9),
+("Childcare", 10),
+("Delivery", 11),
+("Logistics", 12),
+("Transportation", 13),
+("Staffing", 14),
+("Warehousing", 15),
+("Manufacturing", 16),
+("Customer_Service", 17),
+("Call_Centers", 18),
+("Healthcare", 19),
+("Freelance", 20),
+("Construction", 21),
+("Real_Estate", 22),
+("Fitness", 23),
+("Security", 24),
+("Marketing", 25),
+("Sales", 26),
+("Administration", 27),
+("IT", 28),
+("Education", 29)
+]);
