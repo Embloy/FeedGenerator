@@ -14,6 +14,8 @@ mod auth;
 mod models;
 mod ranker;
 mod logger;
+mod meta;
+mod t_score;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
