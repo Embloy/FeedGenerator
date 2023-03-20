@@ -47,8 +47,10 @@ pub async fn basic_auth(req: HttpRequest) -> impl Responder {
 
 #[post("/feed")]
 pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
-    println!("pref = {:?}", feed_request);
-    let FeedRequest { slice, pref } = feed_request.into_inner();
+    println!("req = {:?}", feed_request);
+    let FeedRequest { pref, slice } = feed_request.into_inner();
+    println!("pref = {:?}", pref);
+    println!("slice = {:?}", slice);
 
     // Check if user is authorized
     if !is_authorized(&req) {

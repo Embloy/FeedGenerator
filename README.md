@@ -108,10 +108,13 @@ Request to load a feed from a "slice" to match the user's preferences.
 {
   "pref": {
     "job_type": "Software Engineer",
-    "key_skills": "Java, Python, AWS",
     "salary_range": [
       80000.0,
       120000.0
+    ],
+    "spontaneity": [
+      "2023-03-17T12:00:00Z",
+      "2023-03-17T12:00:00Z"
     ]
   },
   "slice": [
@@ -141,7 +144,8 @@ Request to load a feed from a "slice" to match the user's preferences.
       "created_at": "2023-03-17T12:00:00Z",
       "updated_at": "2023-03-17T12:00:00Z",
       "applications_count": 5,
-      "job_notifications": "email"
+      "job_notifications": "email",
+      "employer_rating": 2
     },
     {
       "job_id": 6588,
@@ -169,7 +173,8 @@ Request to load a feed from a "slice" to match the user's preferences.
       "created_at": "2023-02-28T02:06:57.681Z",
       "updated_at": "2023-02-28T02:06:57.681Z",
       "applications_count": 0,
-      "job_notifications": "true"
+      "job_notifications": "true",
+      "employer_rating": 5
     }
   ]
 }

@@ -21,7 +21,7 @@ fn employer_rating(job: &Job) -> f64 {
 
 fn trend_factor(job: &Job) -> f64 {
     if job.applications_count > 0 && job.view_count > 0 {
-        (job.applications_count / job.view_count) as f64
+        (job.applications_count * 10 / job.view_count) as f64
     } else { 0.0 }
 }
 
