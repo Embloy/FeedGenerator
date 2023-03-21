@@ -10,7 +10,7 @@ use serde_json::{Result, Value};
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Job {
     job_id: i32,
-    pub(crate) job_type: String,
+    pub(crate) job_type: i32,
     job_status: i32,
     status: String,
     user_id: i32,
@@ -40,11 +40,11 @@ pub struct Job {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct UserPreferences {
-    pub(crate) job_type: Option<HashMap<i32, i32>>,
+    pub(crate) job_type: HashMap<i32, f64>,
     pub(crate) key_skills: Option<String>,
     pub(crate) salary_range: Option<(f64, f64)>,
     pub(crate) spontaneity: Option<(String, String)>,
-    pub(crate) num_jobs_done: i32
+    pub(crate) num_jobs_done: i32,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
