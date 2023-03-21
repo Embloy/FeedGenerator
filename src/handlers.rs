@@ -2,13 +2,10 @@
 ////////////////////////////////////////////API-ENDPOINTS///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-use std::any::Any;
 use std::env;
 
 use actix_web::{get, HttpRequest, HttpResponse, post, Responder, web};
-use actix_web::http::header::Preference;
 use base64::decode;
-use serde::Serialize;
 
 use crate::models::{FeedRequest, Job, UserPreferences};
 use crate::ranker::generate_job_feed;
@@ -50,8 +47,10 @@ pub async fn basic_auth(req: HttpRequest) -> impl Responder {
 
 #[post("/feed")]
 pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
-    println!("pref = {:?}", feed_request);
-    let FeedRequest { slice, pref } = feed_request.into_inner();
+    println!("req = {:?}", feed_request);
+    let FeedRequest { pref, slice } = feed_request.into_inner();
+    println!("pref = {:?}", pref);
+    println!("slice = {:?}", slice);
 
     // Check if user is authorized
     if !is_authorized(&req) {
@@ -76,14 +75,11 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Parse request body and rank jobs
-fn process_feed_request(slice: Vec<Job>, pref: UserPreferences) -> Result<(Vec<Job>), Box<dyn std::error::Error>> {
-    println!("SLICE = {:?}", slice);
-
-    // TODO: call Ranker
+fn process_feed_request(slice: Vec<Job>, pref: UserPreferences) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
+    // TODO: Ranking ...
     let res: Vec<Job> = generate_job_feed(slice, pref);
 
-    // TODO: call Logger
-
+    // TODO: Logging ...
     Ok(res)
 }
 

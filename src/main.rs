@@ -4,7 +4,7 @@
 
 use std::env;
 
-use actix_web::{App, HttpRequest, HttpResponse, HttpServer, Responder, web};
+use actix_web::{App, HttpServer};
 use dotenv::dotenv;
 
 // use openssl::ssl::{Ssl, SslAcceptor, SslFiletype, SslMethod};
@@ -14,6 +14,8 @@ mod auth;
 mod models;
 mod ranker;
 mod logger;
+mod meta;
+mod t_score;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

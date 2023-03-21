@@ -2,18 +2,8 @@
 /////////////////////////////////////////////RANK JOBS//////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+use crate::{meta, t_score};
 use crate::models::{Job, UserPreferences};
-use std::collections::HashMap;
-
-// TODO: rank jobs
-// fn filter_jobs_by_preferences(jobs: &Vec<Job>, preferences: &UserPreferences) -> Vec<Job> {
-//     jobs.iter().filter(|job| {
-//         job.job_type == preferences.job_type &&
-//             job.key_skills.contains(&preferences.key_skills) &&
-//             job.salary >= preferences.salary_range.0 &&
-//             job.salary <= preferences.salary_range.1
-//     }).cloned().collect()
-// }
 
 fn sort_jobs_by_relevance(jobs: &mut Vec<Job>, preferences: &UserPreferences) -> Vec<Job> {
     jobs.sort_by(|a, b| {
@@ -26,19 +16,10 @@ fn sort_jobs_by_relevance(jobs: &mut Vec<Job>, preferences: &UserPreferences) ->
 
 fn job_relevance_score(job: &Job, preferences: &UserPreferences) -> f64 {
     let x = 0.5;
-    //let relevance_score = Meta.calc_score() * x + T_Score.calc_score() * (1-x);
-    let job_type_score = if job.job_type == preferences.job_type { 1.0 } else { 0.0 };
-    let key_skills_score = if job.key_skills.contains(&preferences.key_skills) { 1.0 } else { 0.0 };
-    let salary_score = (job.salary - preferences.salary_range.0) / (preferences.salary_range.1 - preferences.salary_range.0);
-    job_type_score + key_skills_score + salary_score
+    meta::calc_score(job, preferences) * x + t_score::calc_score(job, preferences) * (1.0 - x)
 }
-
-// pub fn generate_job_feed(jobs: Vec<Job>, preferences: UserPreferences) -> Vec<Job> {
-//     let mut filtered_jobs = filter_jobs_by_preferences(&jobs, &preferences);
-//     sort_jobs_by_relevance(&mut filtered_jobs, &preferences);
-//     filtered_jobs
-// }
 
 pub fn generate_job_feed(jobs: Vec<Job>, preferences: UserPreferences) -> Vec<Job> {
     sort_jobs_by_relevance(&mut jobs.clone(), &preferences)
+    // TODO: Shadowing ...
 }
