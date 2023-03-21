@@ -48,8 +48,6 @@ pub async fn basic_auth(req: HttpRequest) -> impl Responder {
 #[post("/feed")]
 pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
     println!("req = {:?}", feed_request);
-
-    // Parse request body
     let FeedRequest { pref, slice } = feed_request.into_inner();
     println!("pref = {:?}", pref);
     println!("slice = {:?}", slice);
@@ -59,7 +57,7 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
         return HttpResponse::Unauthorized().finish();
     }
 
-    // Rank jobs
+    // Parse request body and rank jobs
     let result = process_feed_request(slice, pref);
 
     // Respond with result as response body
@@ -76,9 +74,11 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
 ///////////////////////////////////////////HELPER METHODS///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Rank jobs and log results
+// Parse request body and rank jobs
 fn process_feed_request(slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
+    // TODO: Ranking ...
     let res: Vec<Job> = generate_job_feed(slice, pref);
+
     // TODO: Logging ...
     Ok(res)
 }
