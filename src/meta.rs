@@ -41,7 +41,7 @@ pub fn calc_score_no_pref(job: &Job) -> f64 {
 }
 
 
-fn employer_rating(job: &Job) -> f64 { job.employer_rating as f64 / 5.0 }
+fn employer_rating(job: &Job) -> f64 { job.employer_rating.unwrap_or_default() as f64 / 5.0 }
 
 fn trend_factor(job: &Job) -> f64 {
     if job.applications_count > 0 && job.view_count > 0 {

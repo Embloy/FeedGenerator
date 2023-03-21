@@ -34,7 +34,7 @@ pub struct Job {
     updated_at: String,
     pub(crate) applications_count: i32,
     job_notifications: Option<String>,
-    pub(crate) employer_rating: i32,
+    pub(crate) employer_rating: Option<i32>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
