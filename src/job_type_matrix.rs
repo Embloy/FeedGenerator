@@ -1,31 +1,21 @@
-use std::error::Error;
-use std::fs::File;
-use std::io::prelude::*;
-use csv::ReaderBuilder;
+use std::{error::Error, io, process};
+use csv::StringRecord;
 
-fn read_csv() -> Result<(), Box<dyn Error>> {
-    // Open the CSV file and create a CSV reader
-    /*
-    let mut file = File::open("../lib/matrix.csv")?;
-    let mut contents = String::new();
-    file.read_to_string(&mut contents)?;
-    let mut csv_reader = ReaderBuilder::new().has_headers(false).from_reader(contents.as_bytes());
-
-    // Parse the CSV file into a vector of vectors
-    let mut matrix = Vec::new();
-    for result in csv_reader.records() {
-        let row = result?;
-        let row_vec: Vec<i32> = row.iter().map(|s| s.parse().unwrap()).collect();
-        matrix.push(row_vec);
+// Main program entry point function
+pub(crate)fn build_matrix() -> Result<(), Box<dyn Error>> {
+    // Reader from path of test csv file
+    let reader = csv::Reader::from_path("./lib/matrix.csv");
+    let mut matrix: Vec<Vec<i32>> = Vec::new();
+    // Iterate through each record (line) in the CSV
+    for record in reader?.records() {
+        // Check that the string record actually exists
+        let string_record = record?;
+        // Convert the StringRecord to a Vec<i32>
+        let int_values: Vec<i32> = string_record
+            .iter()
+            .map(|s| s.parse::<i32>().unwrap_or(0))
+            .collect();
+        matrix.push(int_values);
     }
-
-    // Print the matrix
-    for row in matrix.iter() {
-        for &elem in row.iter() {
-            print!("{:4} ", elem);
-        }
-        println!();
-    }
-*/
     Ok(())
 }

@@ -19,6 +19,11 @@ serde_derive = "1.0.130"
 num_cpus = "1.14.0"
 chrono = "0.4.24"
 csv = "1.2"
+ndarray = "0.15.6"
+ndarray-csv = "0.5.1"
+#ndarray = { version = "0.15.0", features = ["blas"] }
+#blas-src = { version = "0.8", features = ["openblas"] }
+#openblas-src = { version = "0.10", features = ["cblas", "system"] }
 
 [[bin]]
 name = "Embloy_feed_generator"
