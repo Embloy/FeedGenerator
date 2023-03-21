@@ -16,6 +16,7 @@ mod ranker;
 mod logger;
 mod meta;
 mod t_score;
+mod job_type_matrix;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
