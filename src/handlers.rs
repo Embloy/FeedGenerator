@@ -16,35 +16,6 @@ pub async fn hello() -> HttpResponse {
     HttpResponse::Ok().body("Hello World")
 }
 
-// Find out if you're authenticated and authorized to access FG-API
-#[get("/auth")]
-pub async fn basic_auth(req: HttpRequest) -> impl Responder {
-    // Extract the authorization header value and check if it exists
-    let auth_header = match req.headers().get("Authorization") {
-        Some(header) => header.to_str().unwrap_or_default(),
-        None => return HttpResponse::Unauthorized().body("Unauthorized")
-    };
-
-    // Decode the base64-encoded credentials
-    let decoded_credentials = match base64::decode(auth_header.replace("Basic ", "")) {
-        Ok(credentials) => credentials,
-        Err(_) => return HttpResponse::Unauthorized().body("Unauthorized")
-    };
-
-    // Convert the decoded credentials to a UTF-8 string
-    let credentials = match String::from_utf8(decoded_credentials) {
-        Ok(credentials) => credentials,
-        Err(_) => return HttpResponse::Unauthorized().body("Unauthorized")
-    };
-
-    // Check if the credentials match the expected API user and password
-    if credentials == format!("{}:{}", env::var("API_USER").unwrap_or_default(), env::var("API_PASSWORD").unwrap_or_default()) {
-        HttpResponse::Ok().body("Authenticated")
-    } else {
-        HttpResponse::Unauthorized().body("Unauthorized")
-    }
-}
-
 #[post("/feed")]
 pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
     println!("req = {:?}", feed_request);

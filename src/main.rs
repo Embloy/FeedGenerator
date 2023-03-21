@@ -32,7 +32,6 @@ async fn main() -> std::io::Result<()> {
         App::new() // Define routes
             .service(handlers::hello)
             .service(handlers::load_feed)
-            .service(handlers::basic_auth)
     })
         // Bind the server to a socket using OpenSSL as the TLS implementation.
         //.bind_openssl(env::var("ADDRESS").unwrap_or_else(|_| "127.0.0.1:8080".to_string()), builder)?
