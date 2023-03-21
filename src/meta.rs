@@ -2,9 +2,14 @@
 /////////////////////////////////////////////META-SCORE/////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// TODO: @cb
+// ER: [0,1] * 0.5
+// TF: [0,10] * 0.2
+// SR: [-2,2] * 0.2
+// SP: [0,1] * 0.1
+// => MIN META-SCORE = -0.4
+// => MAX META-SCORE = 3
 
-use serde::de::Unexpected::Option;
+use chrono::{DateTime, Utc};
 
 use crate::models::{Job, UserPreferences};
 
@@ -14,24 +19,29 @@ const SR_WF: f64 = 0.2;
 const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
+    // IGNORE PRINTLN
     println!("\nStarted meta::calc_score for {:?}", job);
-
-
     println!("Employer rating = {:?}", employer_rating(job));
     println!("Trend factor = {:?}", trend_factor(job));
     println!("Salary range = {:?}", salary_range(job, pref));
     println!("Spontaneity = {:?}", spontaneity(job, pref));
+    println!("\tMETA-SCORE = {:?}", employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF);
 
-    let res: f64 = employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF;
-
-    println!("\tMETA-SCORE = {:?}", res);
-
-    return res;
+    employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
 }
 
-fn employer_rating(job: &Job) -> f64 {
-    job.employer_rating as f64
+pub fn calc_score_no_pref(job: &Job) -> f64 {
+    // IGNORE PRINTLN
+    println!("\nStarted meta::calc_score no pref for {:?}", job);
+    println!("Employer rating = {:?}", employer_rating(job));
+    println!("Trend factor = {:?}", trend_factor(job));
+    println!("\tMETA-SCORE = {:?}", employer_rating(job) * ER_WF + trend_factor(job) * TF_WF);
+
+    employer_rating(job) * ER_WF + trend_factor(job) * TF_WF
 }
+
+
+fn employer_rating(job: &Job) -> f64 { job.employer_rating.unwrap_or_default() as f64 / 5.0 }
 
 fn trend_factor(job: &Job) -> f64 {
     if job.applications_count > 0 && job.view_count > 0 {
@@ -43,13 +53,26 @@ fn salary_range(job: &Job, pref: &UserPreferences) -> f64 {
     let min: f64 = pref.salary_range.unwrap_or_default().0;
     let max: f64 = pref.salary_range.unwrap_or_default().1;
     let salary: f64 = job.salary.unwrap_or_default();
-
+    // Return salary-boost and set lower and upper bounds to +2.0/-2.0
     if salary > 0.0 && min >= 0.0 && max > min {
-        (salary - min) / (max - min)
+        let res: f64 = (salary - min) / (max - min);
+        if res < -2.0 { return -2.0; };
+        if res > 2.0 { return 2.0; };
+        return res;
     } else { 0.0 }
 }
 
 fn spontaneity(job: &Job, pref: &UserPreferences) -> f64 {
-    0.0 * SP_WF
+    // Get spontaneity preference
+    let p: f64 = pref.spontaneity.unwrap_or_default();
+    // Parse start_slot
+    let start_slot = DateTime::<Utc>::from_utc(
+        chrono::DateTime::parse_from_rfc3339(&job.start_slot)
+            .unwrap()
+            .naive_utc(),
+        Utc,
+    );
+    // Return ratio of preference to time-delta
+    p / (start_slot.signed_duration_since(Utc::now()).num_days() as f64)
 }
 

@@ -5,7 +5,6 @@
 use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
-use serde_json::{Result, Value};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Job {
@@ -35,20 +34,20 @@ pub struct Job {
     updated_at: String,
     pub(crate) applications_count: i32,
     job_notifications: Option<String>,
-    pub(crate) employer_rating: i32,
+    pub(crate) employer_rating: Option<i32>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct UserPreferences {
     pub(crate) job_type: HashMap<i32, f64>,
     pub(crate) key_skills: Option<String>,
     pub(crate) salary_range: Option<(f64, f64)>,
-    pub(crate) spontaneity: Option<(String, String)>,
-    pub(crate) num_jobs_done: i32,
+    pub(crate) spontaneity: Option<f64>,
+    pub(crate) num_jobs_done: i32
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FeedRequest {
-    pub pref: UserPreferences,
+    pub pref: Option<UserPreferences>,
     pub slice: Vec<Job>,
 }

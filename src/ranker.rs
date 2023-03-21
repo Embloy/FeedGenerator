@@ -5,8 +5,7 @@
 use crate::{meta, t_score};
 use crate::models::{Job, UserPreferences};
 
-fn sort_jobs_by_relevance(jobs: &mut Vec<Job>, preferences: &mut UserPreferences) -> Vec<Job> {
-    t_score::calc_x_ranking(preferences); // sets UserPreferences.X_ranking to the highest ranked X_Values for the user
+fn sort_jobs_by_relevance(jobs: &mut Vec<Job>, preferences: &UserPreferences) -> Vec<Job> {
     jobs.sort_by(|a, b| {
         let a_score = job_relevance_score(a, preferences);
         let b_score = job_relevance_score(b, preferences);
@@ -17,11 +16,10 @@ fn sort_jobs_by_relevance(jobs: &mut Vec<Job>, preferences: &mut UserPreferences
 
 fn job_relevance_score(job: &Job, preferences: &UserPreferences) -> f64 {
     let x = 0.5;
-    //meta::calc_score(job, preferences) * x + t_score::calc_score(job, preferences) * (1.0 - x)
-    meta::calc_score(job, preferences) * x + 0.0 * (1.0 - x)
+    meta::calc_score(job, preferences) * x + t_score::calc_score(job, preferences) * (1.0 - x)
 }
 
-pub fn generate_job_feed(jobs: Vec<Job>, mut preferences: UserPreferences) -> Vec<Job> {
-    sort_jobs_by_relevance(&mut jobs.clone(), &mut preferences)
+pub fn generate_job_feed(jobs: Vec<Job>, preferences: UserPreferences) -> Vec<Job> {
+    sort_jobs_by_relevance(&mut jobs.clone(), &preferences)
     // TODO: Shadowing ...
 }
