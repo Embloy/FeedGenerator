@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Job {
     job_id: i32,
-    pub(crate) job_type: String,
+    pub(crate) job_type: Option<String>,
     job_status: i32,
     status: String,
     user_id: i32,
