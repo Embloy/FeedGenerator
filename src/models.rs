@@ -44,7 +44,7 @@ pub struct UserPreferences {
     pub(crate) key_skills: Option<String>,
     pub(crate) salary_range: Option<(f64, f64)>,
     pub(crate) spontaneity: Option<f64>,
-    pub(crate) num_jobs_done: i32
+    pub(crate) num_jobs_done: Option<i32>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
