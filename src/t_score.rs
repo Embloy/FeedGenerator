@@ -6,7 +6,7 @@ const NUM_JOB_TYPES: i32 = 29; // todo: replace with dynamical value based on ma
 
 pub(crate) fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
     //let x_value_rank = pref.job_type.keys().position(|k| k == &job.job_type).unwrap() + 1;
-    let x_value = pref.job_type.get(&job.job_type).unwrap();
+    let x_value = pref.job_type.get(&job.job_type_value).unwrap();
     let m_score = calc_m_score(job, pref, 3);
     let t_score = m_score * x_value;
     t_score
