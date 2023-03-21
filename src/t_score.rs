@@ -1,12 +1,14 @@
 use std::collections::HashMap;
+
 use num_cpus::get;
+
 use crate::models::{Job, UserPreferences};
 
 const NUM_JOB_TYPES: i32 = 27; // todo: replace with dynamical value based on matrix
 
 pub(crate) fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
     //let x_value_rank = pref.job_type.keys().position(|k| k == &job.job_type).unwrap() + 1;
-    let x_value = pref.job_type.get(&job.job_type_value).unwrap();
+    let x_value = pref.job_type.get(&job.job_type_value).unwrap_or(&0.0);
     let m_score = calc_m_score(job, pref, 3);
     let t_score = m_score * x_value;
     t_score
@@ -30,7 +32,7 @@ fn calc_m_score(job: &Job, pref: &UserPreferences, considered_ranks: i32) -> f64
 pub(crate) fn calc_x_ranking(pref: &mut UserPreferences) {
     let job_types = &mut pref.job_type;
     for (key, value) in job_types.iter_mut() {
-        let x_value = calc_x_value(*value, pref.num_jobs_done);
+        let x_value = calc_x_value(*value, pref.num_jobs_done.unwrap_or_default());
         *value = x_value;
     }
     let mut job_type_vec: Vec<(i32, f64)> = pref.job_type.iter().map(|(k, v)| (*k, *v)).collect();
