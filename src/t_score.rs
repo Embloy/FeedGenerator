@@ -15,12 +15,12 @@ pub(crate) fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
     t_score
 }
 
-fn calc_m_score(job: &Job, pref: &UserPreferences, considered_ranks: i32) -> f64 {
+fn calc_m_score(job: &Job, pref: &UserPreferences, considered_rank: i32) -> f64 {
     let mut max_m_score = 0.0;
     let mut counter = 0;
     for job_type in pref.job_type.iter() {
-        if counter < considered_ranks {
-            let m_score = 0.0; // todo: implement matrix
+        if counter < considered_rank {
+            let m_score = query(job.job_type_value - 1, *job_type.0 - 1) as f64;
             if m_score > max_m_score {
                 max_m_score = m_score;
             }
