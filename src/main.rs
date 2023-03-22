@@ -27,7 +27,7 @@ async fn main() -> std::io::Result<()> {
     // let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
     // builder.set_private_key_file("key.pem", SslFiletype::PEM).unwrap();
     // builder.set_certificate_chain_file("cert.pem").unwrap();
-    job_type_matrix::build_matrix().expect("TODO: panic message");
+    job_type_matrix::build().expect("TODO: panic message");
     HttpServer::new(|| {
         App::new() // Define routes
             .service(handlers::hello)
