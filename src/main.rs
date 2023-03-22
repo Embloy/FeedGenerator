@@ -27,7 +27,7 @@ async fn main() -> std::io::Result<()> {
     // let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
     // builder.set_private_key_file("key.pem", SslFiletype::PEM).unwrap();
     // builder.set_certificate_chain_file("cert.pem").unwrap();
-
+    job_type_matrix::build_matrix().expect("TODO: panic message");
     HttpServer::new(|| {
         App::new() // Define routes
             .service(handlers::hello)
@@ -38,4 +38,6 @@ async fn main() -> std::io::Result<()> {
         .bind(env::var("ADDRESS").unwrap_or_else(|_| "0.0.0.0:8080".to_string()))?
         .run()
         .await
+
+
 }

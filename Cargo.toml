@@ -19,6 +19,8 @@ serde_derive = "1.0.130"
 num_cpus = "1.14.0"
 chrono = "0.4.24"
 csv = "1.2"
+ndarray = "0.15.6"
+ndarray-csv = "0.5.1"
 
 [[bin]]
 name = "Embloy_feed_generator"
