@@ -1,6 +1,3 @@
-use std::collections::HashMap;
-
-use num_cpus::get;
 
 use crate::models::{Job, UserPreferences};
 use crate::job_type_matrix::query;

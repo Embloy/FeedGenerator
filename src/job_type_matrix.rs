@@ -1,5 +1,4 @@
-use std::{error::Error, io, process};
-use csv::StringRecord;
+use std::{error::Error};
 
 //MATRIX is defined outside the build function to make it accessible by query
 static mut MATRIX: Option<Vec<Vec<i32>>> = None;
