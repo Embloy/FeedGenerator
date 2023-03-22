@@ -2,9 +2,8 @@
 ///////////////////////////////////////////////MODELS///////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-use std::collections::HashMap;
-
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Job {
@@ -36,6 +35,7 @@ pub struct Job {
     pub(crate) applications_count: i32,
     job_notifications: Option<String>,
     pub(crate) employer_rating: Option<i32>,
+    pub(crate) boost: Option<i32>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
