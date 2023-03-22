@@ -18,10 +18,7 @@ pub async fn hello() -> HttpResponse {
 
 #[post("/feed")]
 pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
-    println!("req = {:?}", feed_request);
     let FeedRequest { pref, slice } = feed_request.into_inner();
-    println!("pref = {:?}", pref);
-    println!("slice = {:?}", slice);
 
     // Check if user is authorized
     if !is_authorized(&req) {
@@ -47,7 +44,7 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
 
 // Parse request body and rank jobs
 fn process_feed_request(slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
-    // TODO: Ranking ...
+    // Ranking ...
     let res: Vec<Job> = generate_job_feed(slice, pref);
 
     // TODO: Logging ...

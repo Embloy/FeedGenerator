@@ -19,24 +19,10 @@ const SR_WF: f64 = 0.2;
 const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
-    // IGNORE PRINTLN
-    println!("\nStarted meta::calc_score for {:?}", job);
-    println!("Employer rating = {:?}", employer_rating(job));
-    println!("Trend factor = {:?}", trend_factor(job));
-    println!("Salary range = {:?}", salary_range(job, pref));
-    println!("Spontaneity = {:?}", spontaneity(job, pref));
-    println!("\tMETA-SCORE = {:?}", employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF);
-
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
 }
 
 pub fn calc_score_no_pref(job: &Job) -> f64 {
-    // IGNORE PRINTLN
-    println!("\nStarted meta::calc_score no pref for {:?}", job);
-    println!("Employer rating = {:?}", employer_rating(job));
-    println!("Trend factor = {:?}", trend_factor(job));
-    println!("\tMETA-SCORE = {:?}", employer_rating(job) * ER_WF + trend_factor(job) * TF_WF);
-
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF
 }
 

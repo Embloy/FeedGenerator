@@ -29,7 +29,6 @@ fn job_relevance_score(job: &Job, preferences: &UserPreferences) -> f64 {
 }
 
 fn job_relevance_score_no_pref(job: &Job) -> f64 {
-    println!("ALERT! [NO PREFERENCES FOUND]");
     meta::calc_score_no_pref(job)
 }
 
