@@ -15,7 +15,7 @@ pub(crate) fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
     t_score
 }
 
-fn calc_m_score(job: &Job, pref: &UserPreferences, considered_rank: i32) -> f64 {
+fn calc_m_score(job: &Job, pref: &UserPreferences, considered_rank: i32) -> f64 { //todo: make more efficient
     let mut max_m_score = 0.0;
     let mut counter = 0;
     for job_type in pref.job_type.iter() {

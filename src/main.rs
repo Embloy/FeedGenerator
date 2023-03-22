@@ -22,7 +22,7 @@ mod job_type_matrix;
 async fn main() -> std::io::Result<()> {
     println!("Starting server...");
     dotenv().ok(); // Load the .env file
-    println!("Loading dotenv ...");
+    println!("Loading dotenv: Successful!");
 
     // let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
     // builder.set_private_key_file("key.pem", SslFiletype::PEM).unwrap();
