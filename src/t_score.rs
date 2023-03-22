@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use num_cpus::get;
 
 use crate::models::{Job, UserPreferences};
+use crate::job_type_matrix::query;
 
 const NUM_JOB_TYPES: i32 = 27; // todo: replace with dynamical value based on matrix
 
