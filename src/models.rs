@@ -7,7 +7,7 @@ use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Job {
-    job_id: i32,
+    pub(crate) job_id: i32,
     pub(crate) job_type_value: i32,
     pub(crate) job_type: String,
     job_status: i32,
