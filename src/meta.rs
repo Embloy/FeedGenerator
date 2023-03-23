@@ -31,6 +31,7 @@ pub fn calc_score_no_pref(job: &Job) -> f64 {
 fn employer_rating(job: &Job) -> f64 { job.employer_rating.unwrap_or_default() as f64 / 5.0 }
 
 fn trend_factor(job: &Job) -> f64 {
+    /*
     let applications = job.applications_count as f64;
     let view_weight:f64;
     let views = job.view_count as f64;
@@ -45,12 +46,12 @@ fn trend_factor(job: &Job) -> f64 {
     let score = (job.applications_count as f64 + 1.0).log10() / (views + 1.0).log10();
     println!("For {} the views {} and applications {} add up to the non weighted score {} or weighted score {}", job.job_id, views, applications, score, score * view_weight);
     score * view_weight
-    /*
+    */
     if job.applications_count > 0 && job.view_count > 0 {
         (job.applications_count * 10 / job.view_count) as f64
     } else { 0.0 }
 
-     */
+
 }
 
 fn salary_range(job: &Job, pref: &UserPreferences) -> f64 {
