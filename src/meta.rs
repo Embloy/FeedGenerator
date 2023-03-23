@@ -24,12 +24,17 @@ pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
 }
 
 pub fn calc_score_no_pref(job: &Job) -> f64 {
-
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF
 }
 
 
-fn employer_rating(job: &Job) -> f64 { job.employer_rating.unwrap_or_default() as f64 / 5.0 }
+fn employer_rating(job: &Job) -> f64 {
+    //todo: take into account # of reviews
+
+    //so employer_rating of 5(1) < employer_rating of 5(10)
+    //make db migration
+    job.employer_rating.unwrap_or_default() as f64 / 5.0
+}
 
 fn trend_factor(job: &Job) -> f64 {
 
@@ -40,10 +45,11 @@ fn trend_factor(job: &Job) -> f64 {
         view_weight = 0.3;
     }else if views > 100.0 && views <= 500.0 {
         view_weight = 1.0;
-    }else {
+    }else if views != 0.0 {
         view_weight = 1.5/(1.00001-applications/views);
+    }else {
+        view_weight = 0.0;
     }
-
     let score = (job.applications_count as f64 + 1.0).log10() / (views + 1.0).log10();
     println!("For {} the views {} and applications {} add up to the non weighted score {} or weighted score {}", job.job_id, views, applications, score, score * view_weight);
     score * view_weight
