@@ -20,11 +20,11 @@ const SR_WF: f64 = 0.2;
 const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
-    println!("maga");
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
 }
 
 pub fn calc_score_no_pref(job: &Job) -> f64 {
+
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF
 }
 
