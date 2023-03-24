@@ -51,21 +51,31 @@ fn trend_factor(job: &Job) -> f64 {
     score * view_weight
 }
 
-fn salary_range(job: &Job, pref: &UserPreferences) -> f64 {
-    //todo: test and update i.a.
+
+
+// V1
+fn salary_range_A(job: &Job, pref: &UserPreferences) -> f64 {
+    let min: f64 = pref.salary_range.unwrap_or_default().0;
+    let max: f64 = pref.salary_range.unwrap_or_default().1;
+    let salary: f64 = job.salary.unwrap_or_default();
+    // Return salary-boost and set lower and upper bounds to +2.0/-2.0
+    if salary > 0.0 && min >= 0.0 && max > min {
+        let res: f64 = (salary - min) / (max - min);
+        if res < -2.0 { return -2.0; };
+        if res > 2.0 { return 2.0; };
+        return res;
+    } else { 0.0 }
+}
+
+// V2
+fn salary_range_B(job: &Job, pref: &UserPreferences) -> f64 {
+    //TODO: Test and update i.a.
     let min: f64 = pref.salary_range.unwrap_or_default().0;
     let max: f64 = pref.salary_range.unwrap_or_default().1;
     let salary: f64 = job.salary.unwrap_or_default();
     let mut res: f64 = 0.0;
     // Pragmatically tidy up screwed inputs
-    if max < min {
-        let bin = &max;
-        let &max = &min;
-        let &min = bin;
-    }
-
-    // Return salary-boost and set lower and upper bounds to +2.0/-2.0
-    if salary > 0.0 && min >= 0.0 && max != 0.0 {
+    if salary > 0.0 && min >= 0.0 && max > min {
         if salary >= min && salary <= max {
             res = 2.0
         } else if salary < min {
@@ -91,8 +101,6 @@ fn spontaneity(job: &Job, pref: &UserPreferences) -> f64 {
 
     let start_slot_sec = (start_slot.signed_duration_since(Utc::now()).num_seconds()) as f64;
     let result = spontaneity_map(start_slot_sec, p);
-    // Return ratio of preference to time-delta
-    //let result = p / (start_slot.signed_duration_since(Utc::now()).num_seconds()) as f64;
     result
 }
 
