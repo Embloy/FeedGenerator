@@ -27,6 +27,7 @@ pub(crate)fn build() -> Result<(), Box<dyn Error>> {
 
 pub(crate)fn query(column: i32, row: i32) -> i32 {
     let matrix = unsafe { MATRIX.as_ref().unwrap() };
+    println!("Column {} and Row {} and Cell {:?}", column, row, matrix[column as usize][row as usize]);
     // Return the value at the specified column and row
     // index is required to be usize in rust (-> i was told this by an AI though...)
     matrix[row as usize][column as usize]
