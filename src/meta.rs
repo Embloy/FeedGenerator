@@ -59,6 +59,7 @@ fn salary_range(job: &Job, pref: &UserPreferences) -> f64 {
     let min: f64 = pref.salary_range.unwrap_or_default().0;
     let max: f64 = pref.salary_range.unwrap_or_default().1;
     let salary: f64 = job.salary.unwrap_or_default();
+    let mut res: f64 = 0.0;
     // Pragmatically tidy up screwed inputs
     if max < min {
         let bin = &max;
@@ -66,10 +67,18 @@ fn salary_range(job: &Job, pref: &UserPreferences) -> f64 {
         let &min = bin;
     }
     // Return salary-boost and set lower and upper bounds to +2.0/-2.0
-    if salary > 0.0 && min >= 0.0 {
-        let res: f64 = (salary - min) / (max - min);
-        if res < -2.0 { return -2.0; };
-        if res > 2.0 { return 2.0; };
+    if salary > 0.0 && min >= 0.0 && max != 0.0 {
+        if salary >= min && salary <= max {
+            res = 2.0
+        } else if salary < min {
+            res = (salary - min) / (max - min);
+            if res < -2.0 { res = -2.0 }
+        } else if salary > max { //if is unnecessary and only has informational purposes
+            res = 2.0 / (salary / max);
+            if res < 0.0001 {
+                res = 0.0;
+            }
+        }
         return res;
     } else { 0.0 }
 }
