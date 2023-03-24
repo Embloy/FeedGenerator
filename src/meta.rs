@@ -71,7 +71,8 @@ fn salary_range(job: &Job, pref: &UserPreferences) -> f64 {
         if salary >= min && salary <= max {
             res = 2.0
         } else if salary < min {
-            res = (salary - min) / (max - min);
+            res = 2.0 * (1.0 - (salary-min).powf(2.0) / min);
+            //res = (salary - min) / (max - min);
             if res < -2.0 { res = -2.0 }
         } else if salary > max { //if is unnecessary and only has informational purposes
             res = 2.0 / (salary / max);
