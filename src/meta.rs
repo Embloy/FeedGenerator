@@ -20,7 +20,7 @@ const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
     //println!("for job id {} employer_score is {} trend_factor is {} salaryrange is {} spontaneity is {}", job.job_id, employer_rating(job), trend_factor(job), salary_range(job, pref), spontaneity(job, pref));
-    employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
+    employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range_A(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
 }
 
 pub fn calc_score_no_pref(job: &Job) -> f64 {
