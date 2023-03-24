@@ -19,7 +19,7 @@ const SR_WF: f64 = 0.2;
 const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
-    //println!("for job id {} employer_score is {} trend_factor is {} salaryrange is {} spontaneity is {}", job.job_id, employer_rating(job), trend_factor(job), salary_range(job, pref), spontaneity(job, pref));
+    println!("for job id {} employer_score is {} trend_factor is {} salaryrange is {} spontaneity is {}", job.job_id, employer_rating(job), trend_factor(job), salary_range(job, pref), spontaneity(job, pref));
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
 }
 
@@ -59,8 +59,14 @@ fn salary_range(job: &Job, pref: &UserPreferences) -> f64 {
     let min: f64 = pref.salary_range.unwrap_or_default().0;
     let max: f64 = pref.salary_range.unwrap_or_default().1;
     let salary: f64 = job.salary.unwrap_or_default();
+    // Pragmatically tidy up screwed inputs
+    if max < min {
+        let bin = &max;
+        let &max = &min;
+        let &min = bin;
+    }
     // Return salary-boost and set lower and upper bounds to +2.0/-2.0
-    if salary > 0.0 && min >= 0.0 && max > min {
+    if salary > 0.0 && min >= 0.0 {
         let res: f64 = (salary - min) / (max - min);
         if res < -2.0 { return -2.0; };
         if res > 2.0 { return 2.0; };
