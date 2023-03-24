@@ -5,6 +5,7 @@ use crate::job_type_matrix::query;
 const NUM_JOB_TYPES: i32 = 27; // todo: replace with dynamical value based on matrix
 
 pub(crate) fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
+    //todo: bugfix
     //let x_value_rank = pref.job_type.keys().position(|k| k == &job.job_type).unwrap() + 1;
     let x_value = pref.job_type.get(&job.job_type_value).unwrap_or(&0.0);
     let m_score = calc_m_score(job, pref, 3);

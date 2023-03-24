@@ -55,6 +55,7 @@ fn trend_factor(job: &Job) -> f64 {
 }
 
 fn salary_range(job: &Job, pref: &UserPreferences) -> f64 {
+    //todo: test and update i.a.
     let min: f64 = pref.salary_range.unwrap_or_default().0;
     let max: f64 = pref.salary_range.unwrap_or_default().1;
     let salary: f64 = job.salary.unwrap_or_default();
