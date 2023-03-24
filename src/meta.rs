@@ -27,12 +27,9 @@ pub fn calc_score_no_pref(job: &Job) -> f64 {
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF
 }
 
-
 fn employer_rating(job: &Job) -> f64 {
-    //todo: take into account # of reviews
-
+    //potential todo: take into account # of reviews
     //so employer_rating of 5(1) < employer_rating of 5(10)
-    //make db migration
     job.employer_rating.unwrap_or_default() as f64 / 5.0
 }
 
@@ -66,6 +63,7 @@ fn salary_range(job: &Job, pref: &UserPreferences) -> f64 {
         let &max = &min;
         let &min = bin;
     }
+
     // Return salary-boost and set lower and upper bounds to +2.0/-2.0
     if salary > 0.0 && min >= 0.0 && max != 0.0 {
         if salary >= min && salary <= max {
