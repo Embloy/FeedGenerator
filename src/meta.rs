@@ -19,8 +19,8 @@ const SR_WF: f64 = 0.2;
 const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
-    //println!("for job id {} employer_score is {} trend_factor is {} salaryrange is {} spontaneity is {}", job.job_id, employer_rating(job), trend_factor(job), salary_range(job, pref), spontaneity(job, pref));
-    employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range_A(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
+    //println!("for job id {} employer_score is {} trend_factor is {} salaryrange is {} spontaneity is {}", job.job_id, employer_rating(job), trend_factor(job), salary_range_B(job, pref), spontaneity(job, pref));
+    employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range_B(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
 }
 
 pub fn calc_score_no_pref(job: &Job) -> f64 {
@@ -69,7 +69,6 @@ fn salary_range_A(job: &Job, pref: &UserPreferences) -> f64 {
 
 // V2
 fn salary_range_B(job: &Job, pref: &UserPreferences) -> f64 {
-    //TODO: Test and update i.a.
     let min: f64 = pref.salary_range.unwrap_or_default().0;
     let max: f64 = pref.salary_range.unwrap_or_default().1;
     let salary: f64 = job.salary.unwrap_or_default();

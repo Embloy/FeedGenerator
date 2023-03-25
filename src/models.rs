@@ -4,6 +4,10 @@
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::collections::LinkedList;
+use crate::handlers::deserialize_job_types;
+
+
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Job {
@@ -40,7 +44,8 @@ pub struct Job {
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct UserPreferences {
-    pub(crate) job_type: HashMap<i32, f64>,
+    #[serde(deserialize_with = "deserialize_job_types")]
+    pub(crate) job_type: LinkedList<(i32, f64)>,
     pub(crate) key_skills: Option<String>,
     pub(crate) salary_range: Option<(f64, f64)>,
     pub(crate) spontaneity: Option<f64>,
@@ -52,3 +57,4 @@ pub struct FeedRequest {
     pub pref: Option<UserPreferences>,
     pub slice: Vec<Job>,
 }
+

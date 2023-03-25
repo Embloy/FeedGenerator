@@ -2,7 +2,10 @@
 ////////////////////////////////////////////API-ENDPOINTS///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+use std::collections::LinkedList;
 use std::env;
+use serde::Deserialize;
+
 
 use actix_web::{get, HttpRequest, HttpResponse, post, Responder, web};
 use base64::decode;
@@ -17,6 +20,7 @@ pub async fn hello() -> HttpResponse {
 }
 
 #[post("/feed")]
+
 pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
     let FeedRequest { pref, slice } = feed_request.into_inner();
 
@@ -42,6 +46,17 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
 ///////////////////////////////////////////HELPER METHODS///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+pub(crate) fn deserialize_job_types<'de, D>(deserializer: D) -> Result<LinkedList<(i32, f64)>, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+{
+    let job_types_map: std::collections::HashMap<i32, f64> = std::collections::HashMap::deserialize(deserializer)?;
+    let mut job_types_list = LinkedList::new();
+    for (k, v) in job_types_map {
+        job_types_list.push_back((k, v));
+    }
+    Ok(job_types_list)
+}
 // Parse request body and rank jobs
 fn process_feed_request(slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
     // Ranking ...
