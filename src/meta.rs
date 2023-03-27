@@ -73,7 +73,6 @@ fn salary_range_B(job: &Job, pref: &UserPreferences) -> f64 {
     let max: f64 = pref.salary_range.unwrap_or_default().1;
     let salary: f64 = job.salary.unwrap_or_default();
     let mut res: f64 = 0.0;
-    // Pragmatically tidy up screwed inputs
     if salary > 0.0 && min >= 0.0 && max > min {
         if salary >= min && salary <= max {
             res = 2.0
