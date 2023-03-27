@@ -58,3 +58,9 @@ pub struct FeedRequest {
     pub slice: Vec<Job>,
 }
 
+
+#[derive(Debug, Serialize, Deserialize)]
+pub(crate) struct CustomBaseError {
+    pub(crate) error: String,
+    pub(crate) description: String,
+}

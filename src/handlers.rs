@@ -2,7 +2,7 @@
 ////////////////////////////////////////////API-ENDPOINTS///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-use std::collections::LinkedList;
+use std::collections::{HashMap, LinkedList};
 use std::env;
 use serde::Deserialize;
 
@@ -10,7 +10,7 @@ use serde::Deserialize;
 use actix_web::{get, HttpRequest, HttpResponse, post, Responder, web};
 use base64::decode;
 
-use crate::models::{FeedRequest, Job, UserPreferences};
+use crate::models::{FeedRequest, Job, UserPreferences, CustomBaseError};
 use crate::ranker::generate_job_feed;
 
 // Test connection
@@ -20,13 +20,19 @@ pub async fn hello() -> HttpResponse {
 }
 
 #[post("/feed")]
-
 pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
     let FeedRequest { pref, slice } = feed_request.into_inner();
 
     // Check if user is authorized
     if !is_authorized(&req) {
-        return HttpResponse::Unauthorized().finish();
+        let base = CustomBaseError {
+            error: "ERR_INVALID".to_string(),
+            description: "Attribute is malformed or unknown.".to_string()
+        };
+        let mut errors = HashMap::new();
+        errors.insert("email|password",vec![base]);
+        println!("{:?}", errors);
+        return HttpResponse::Unauthorized().json(errors);
     }
 
     // Parse request body and rank jobs
@@ -57,6 +63,7 @@ pub(crate) fn deserialize_job_types<'de, D>(deserializer: D) -> Result<LinkedLis
     }
     Ok(job_types_list)
 }
+
 // Parse request body and rank jobs
 fn process_feed_request(slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
     // Ranking ...
@@ -65,6 +72,7 @@ fn process_feed_request(slice: Vec<Job>, pref: Option<UserPreferences>) -> Resul
     // TODO: Logging ...
     Ok(res)
 }
+
 
 // Check if user is authenticated and authorized to access FG-API
 pub fn is_authorized(req: &HttpRequest) -> bool {
