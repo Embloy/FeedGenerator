@@ -71,7 +71,7 @@ fn salary_range_A(job: &Job, pref: &UserPreferences) -> f64 {
 fn salary_range_B(job: &Job, pref: &UserPreferences) -> f64 {
     let min: f64 = pref.salary_range.unwrap_or_default().0;
     let max: f64 = pref.salary_range.unwrap_or_default().1;
-    let salary: f64 = job.unit_salary.unwrap_or_default();
+    let salary: f64 = job.euro_salary.unwrap_or_default();
     let mut res: f64 = 0.0;
     if salary > 0.0 && min >= 0.0 && max > min {
         if salary >= min && salary <= max {

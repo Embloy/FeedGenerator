@@ -25,7 +25,7 @@ pub struct Job {
     pub(crate) key_skills: Option<String>,
     pub(crate) salary: Option<f64>,
     pub(crate) currency: Option<String>,
-    pub(crate) unit_salary: Option<f64>,
+    pub(crate) euro_salary: Option<f64>,
     image_url: Option<String>,
     pub(crate) start_slot: String,
     longitude: f64,

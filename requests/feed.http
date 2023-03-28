@@ -2,7 +2,7 @@
 POST https://localhost:8080/feed/cb/123
 Content-Type: application/json
 
-      "updated_at": "2023-03-19T20:59:36.347Z",
+"updated_at": "2023-03-19T20:59:36.347Z",
 "applications_count": 0,
 "job_notifications": "1",
 "job_value": null
@@ -20,6 +20,7 @@ Content-Type: application/json
 "description": "Just for an Insta post. You need to look good though.",
 "key_skills": "none -> Just for Instagram",
 "salary": 100,
+"euro_salary": 100,
 "currency": "Euro",
 "image_url": null,
 "start_slot": "2023-03-20T00:01:00.000Z",
