@@ -1,10 +1,7 @@
-use std::collections::hash_map::IterMut;
-use std::collections::HashMap;
 use std::collections::LinkedList;
-use std::ops::Index;
-use ndarray::{AssignElem, s};
-use crate::models::{Job, UserPreferences};
+
 use crate::job_type_matrix::query;
+use crate::models::{Job, UserPreferences};
 
 const NUM_JOB_TYPES: i32 = 27; // todo: replace with dynamical value based on matrix
 
@@ -27,7 +24,7 @@ fn calc_m_score(job: &Job, pref: &UserPreferences, max_considered_rank: i32) -> 
             //println!("for job_type {} m_score is {} for job {}",job_type.0, m_score, job.job_id);
             if counter == 0 {
                 max_m_score = m_score;
-            }else if m_score > max_m_score {
+            } else if m_score > max_m_score {
                 max_m_score = m_score;
             }
             counter = counter + 1;
@@ -46,7 +43,7 @@ pub(crate) fn calc_x_ranking(pref: &mut UserPreferences) {
     let mut sorted_vec: Vec<_> = job_types.iter().collect();
     sorted_vec.sort_by(|&a, &b| b.1.total_cmp(&a.1));
     let mut sorted_list = LinkedList::new();
-    for value in sorted_vec{
+    for value in sorted_vec {
         sorted_list.push_back(*value);
     }
     pref.job_type = sorted_list;

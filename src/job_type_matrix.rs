@@ -1,10 +1,10 @@
-use std::{error::Error};
+use std::error::Error;
 
 //MATRIX is defined outside the build function to make it accessible by query
 static mut MATRIX: Option<Vec<Vec<i32>>> = None;
 
 // build should be called when server is started (-> main.rs)
-pub(crate)fn build() -> Result<(), Box<dyn Error>> {
+pub(crate) fn build() -> Result<(), Box<dyn Error>> {
     // Reader from path of test csv file
     let reader = csv::Reader::from_path("./lib/matrix.csv");
     let mut matrix: Vec<Vec<i32>> = Vec::new();
@@ -25,7 +25,7 @@ pub(crate)fn build() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-pub(crate)fn query(row: i32, column: i32) -> i32 {
+pub(crate) fn query(row: i32, column: i32) -> i32 {
     let matrix = unsafe { MATRIX.as_ref().unwrap() };
     //println!("Row {}{:?} and Column {} and Cell {:?}", row,matrix[row as usize], column, matrix[row as usize][column as usize]);
     // Return the value at the specified column and row

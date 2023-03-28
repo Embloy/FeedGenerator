@@ -1,4 +1,0 @@
-### Basic authorization with variables.
-GET https://localhost:8080/auth/<user>/<password>
-Authorization: Basic {{username}} {{password}}
-
