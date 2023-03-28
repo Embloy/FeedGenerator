@@ -10,7 +10,6 @@ use dotenv::dotenv;
 // use openssl::ssl::{Ssl, SslAcceptor, SslFiletype, SslMethod};
 
 mod handlers;
-mod auth;
 mod models;
 mod ranker;
 mod logger;
@@ -23,6 +22,7 @@ async fn main() -> std::io::Result<()> {
     println!("Starting server...");
     dotenv().ok(); // Load the .env file
     println!("Loading dotenv: Successful!");
+
 
     // let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
     // builder.set_private_key_file("key.pem", SslFiletype::PEM).unwrap();
@@ -38,6 +38,4 @@ async fn main() -> std::io::Result<()> {
         .bind(env::var("ADDRESS").unwrap_or_else(|_| "0.0.0.0:8080".to_string()))?
         .run()
         .await
-
-
 }
