@@ -1,9 +1,5 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////RANK JOBS//////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-use crate::{meta, t_score, logger};
-use crate::models::{Job, UserPreferences, FeedLog };
+use crate::{logger, meta, t_score};
+use crate::models::{FeedLog, Job, UserPreferences};
 
 fn sort_jobs_by_relevance(jobs: &mut Vec<Job>, preferences: &mut Option<UserPreferences>) -> Vec<Job> {
     if preferences.is_some() {
@@ -40,7 +36,7 @@ fn job_relevance_score_no_pref(job: &Job) -> f64 {
 
 pub fn generate_job_feed(jobs: Vec<Job>, mut preferences: Option<UserPreferences>) -> Vec<Job> {
     let raw_ranked_slice = sort_jobs_by_relevance(&mut jobs.clone(), &mut preferences);
-    let log = FeedLog { pref: preferences.clone(), sorted_slice: raw_ranked_slice.clone()};
+    let log = FeedLog { pref: preferences.clone(), sorted_slice: raw_ranked_slice.clone() };
     logger::add_to_feed_log(log, "raw_ranking", 200);
     raw_ranked_slice
     // TODO: Shadowing ...
