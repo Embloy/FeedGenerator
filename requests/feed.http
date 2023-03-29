@@ -1,5 +1,5 @@
 ### Send POST request with json body to load feed
-POST https://localhost:8080/feed/cb/123
+POST https://localhost:8080/feed/FG/pw
 Content-Type: application/json
 
 {
