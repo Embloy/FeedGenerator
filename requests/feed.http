@@ -20,7 +20,8 @@ Content-Type: application/json
   "slice": [
     {
       "job_id": 1,
-      "job_type": null,
+      "job_type": "Retail",
+      "job_type_value": 1,
       "job_status": 0,
       "status": "public",
       "user_id": 1,
@@ -49,7 +50,8 @@ Content-Type: application/json
     },
     {
       "job_id": 2,
-      "job_type": null,
+      "job_type": "Retail",
+      "job_type_value": 1,
       "job_status": 0,
       "status": "public",
       "user_id": 1,
@@ -59,7 +61,7 @@ Content-Type: application/json
       "position": "Pianist",
       "description": "Just for an Insta post. You need to look good though.",
       "key_skills": "none -> Just for Instagram",
-      "salary": 100,
+      "salary": 1000000,
       "currency": "Euro",
       "image_url": null,
       "start_slot": "2023-03-20T00:01:00.000Z",
@@ -78,7 +80,8 @@ Content-Type: application/json
     },
     {
       "job_id": 3,
-      "job_type": null,
+      "job_type": "Retail",
+      "job_type_value": 1,
       "job_status": 0,
       "status": "public",
       "user_id": 1,
@@ -88,7 +91,7 @@ Content-Type: application/json
       "position": "Pianist",
       "description": "Just for an Insta post. You need to look good though.",
       "key_skills": "none -> Just for Instagram",
-      "salary": 100,
+      "salary": 10000,
       "euro_salary": 100,
       "currency": "Euro",
       "image_url": null,
@@ -108,7 +111,8 @@ Content-Type: application/json
     },
     {
       "job_id": 4,
-      "job_type": null,
+      "job_type": "Retail",
+      "job_type_value": 1,
       "job_status": 0,
       "status": "public",
       "user_id": 1,
@@ -137,7 +141,8 @@ Content-Type: application/json
     },
     {
       "job_id": 5,
-      "job_type": null,
+      "job_type": "Retail",
+      "job_type_value": 1,
       "job_status": 0,
       "status": "public",
       "user_id": 1,
@@ -167,6 +172,7 @@ Content-Type: application/json
     {
       "job_id": 6,
       "job_type": "Retail",
+      "job_type_value": 1,
       "job_status": 0,
       "status": "public",
       "user_id": 2,
@@ -196,6 +202,7 @@ Content-Type: application/json
     {
       "job_id": 8,
       "job_type": "Cleaning",
+      "job_type_value": 1,
       "job_status": 0,
       "status": "public",
       "user_id": 2,
