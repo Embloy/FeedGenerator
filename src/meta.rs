@@ -23,7 +23,7 @@ pub fn calc_score_no_pref(job: &Job) -> f64 {
 }
 
 fn employer_rating(job: &Job) -> f64 {
-    //potential todo: take into account # of reviews
+    //potential TODO: Take into account # of reviews
     //so employer_rating of 5(1) < employer_rating of 5(10)
     job.employer_rating.unwrap_or_default() as f64 / 5.0
 }
