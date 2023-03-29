@@ -2,12 +2,11 @@
 ///////////////////////////////////////////////MODELS///////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 use std::collections::LinkedList;
+
+use serde::{Deserialize, Serialize};
+
 use crate::handlers::deserialize_job_types;
-
-
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Job {

@@ -35,40 +35,44 @@ fn employer_rating(job: &Job) -> f64 {
 
 fn trend_factor(job: &Job) -> f64 {
     let applications = job.applications_count as f64;
-    let view_weight: f64;
     let views = job.view_count as f64;
-    if views <= 100.0 {
-        view_weight = 0.3;
-    } else if views > 100.0 && views <= 500.0 {
-        view_weight = 1.0;
-    } else if views != 0.0 {
-        view_weight = 1.5 / (1.00001 - applications / views);
-    } else {
-        view_weight = 0.0;
-    }
-    let score = (job.applications_count as f64 + 1.0).log10() / (views + 1.000000001).log10();
-    //println!("For {} the views {} and applications {} add up to the non weighted score {} or weighted score {}", job.job_id, views, applications, score, score * view_weight);
+
+    let view_weight = if views <= 100.0 {
+        0.3
+    } else if views <= 500.0 {
+        1.0
+    } else { 1.5 / (1.00001 - applications / views) };
+
+    let score = (applications + 1.0).log10() / (views + 1.0).log10();
+    println!("For {} the views {} and applications {} add up to the non weighted score {} or weighted score {}", job.job_id, views, applications, score, score * view_weight);
     score * view_weight
 }
 
-
-
 // V1
-fn salary_range_A(job: &Job, pref: &UserPreferences) -> f64 {
+/*
+    WITH VALID INPUTS:
+       salary >> range => 2
+       salary > range  => (1,2)
+       salary = max    => 1
+       salary in range => [0,1]
+       salary = min    => 0
+       salary < range: => (-2,0)
+       salary << range =>-2
+    ELSE => 0
+
+ */
+fn salary_range_a(job: &Job, pref: &UserPreferences) -> f64 {
     let min: f64 = pref.salary_range.unwrap_or_default().0;
     let max: f64 = pref.salary_range.unwrap_or_default().1;
     let salary: f64 = job.salary.unwrap_or_default();
-    // Return salary-boost and set lower and upper bounds to +2.0/-2.0
+
     if salary > 0.0 && min >= 0.0 && max > min {
-        let res: f64 = (salary - min) / (max - min);
-        if res < -2.0 { return -2.0; };
-        if res > 2.0 { return 2.0; };
-        return res;
+        return ((salary - min) / (max - min)).max(-2.0).min(2.0);
     } else { 0.0 }
 }
 
 // V2
-fn salary_range_B(job: &Job, pref: &UserPreferences) -> f64 {
+fn _salary_range_b(job: &Job, pref: &UserPreferences) -> f64 {
     let min: f64 = pref.salary_range.unwrap_or_default().0;
     let max: f64 = pref.salary_range.unwrap_or_default().1;
     let salary: f64 = job.euro_salary.unwrap_or_default();
@@ -77,7 +81,7 @@ fn salary_range_B(job: &Job, pref: &UserPreferences) -> f64 {
         if salary >= min && salary <= max {
             res = 2.0
         } else if salary < min {
-            res = 2.0 * (1.0 - (salary-min).powf(2.0) / min);
+            res = 2.0 * (1.0 - (salary - min).powf(2.0) / min);
             if res < -2.0 { res = -2.0 }
         } else if salary > max { //if is unnecessary and only has informational purposes
             res = 2.0 / (salary / max);
@@ -92,28 +96,26 @@ fn salary_range_B(job: &Job, pref: &UserPreferences) -> f64 {
 fn spontaneity(job: &Job, pref: &UserPreferences) -> f64 {
     // Get spontaneity preference => x value of peak
     let p: f64 = pref.spontaneity.unwrap_or_default();
+    println!("p = {}", p);
     // Parse start_slot
     let start_slot = Utc
         .datetime_from_str(&job.start_slot.trim(), "%Y-%m-%dT%H:%M:%S%.3fZ")
         .expect("Failed to parse datetime string");
+    println!("start_slot = {}", start_slot);
 
-    let start_slot_sec = (start_slot.signed_duration_since(Utc::now()).num_seconds()) as f64;
-    let result = spontaneity_map(start_slot_sec, p);
-    result
+    return spontaneity_map((start_slot.signed_duration_since(Utc::now()).num_seconds()) as f64, p);
 }
 
+// a: time from now to start, b: user preference
 fn spontaneity_map(a: f64, b: f64) -> f64 {
-    let steepness = 0.15; // steepness factor; should be adapted if score is to impactful
     let distance = (a - b).abs();
-    if distance > 86400.0 {
-        return 0.0;
-    }
-    let fa =
-        2.5 - steepness * distance.ln();
+    println!("distance = {}", distance);
+    if distance > 86400.0 { return 0.0; }
+    if distance < 1000.0 { return 2.5; }
 
-    if distance < 1000.0 {
-        return 2.5;
-    }
+    // steepness factor => 0.15; should be adapted if score is to impactful
+    let fa = 2.5 - 0.15 * distance.ln();
+    println!("fa = {}", fa);
     return fa.max(0.0).min(2.5);
 }
 

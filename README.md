@@ -44,46 +44,7 @@ Test if your connection is active.
 
 ---
 
-### 2. Auth
-
-Authenticate with Basic Authentication to check if your credentials are valid.
-
-> <span style="color:lawngreen"> GET </span> /auth
-
-####
-
-<details>
-  <summary>Data parameters</summary>
-
-1. **username** _<span style="color:crimson">REQUIRED </span>_
-2. **password** _<span style="color:crimson">REQUIRED </span>_
-
-</details>
-
-<details>
-  <summary>Response body</summary>
-
-**200: Ok**
-
-```
-{
-"Authenticated"
-}
-```
-
-**401: Unauthorized**
-
-```
-{
-"Unauthorized"
-}
-```
-
-</details>
-
----
-
-### 3. Feed
+### 2. Feed
 
 Request to load a feed from a "slice" to match the user's preferences.
 
