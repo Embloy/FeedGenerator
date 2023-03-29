@@ -1,16 +1,11 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////META-SCORE/////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 // ER: [0,1] * 0.5
 // TF: [0,10] * 0.2
 // SR: [-2,2] * 0.2
 // SP: [0,1] * 0.1
 // => MIN META-SCORE = -0.4
 // => MAX META-SCORE = 3
-use std::any::Any;
-use actix_web::cookie::time::macros::datetime;
-use chrono::{DateTime, NaiveDateTime, ParseError, TimeZone, Utc};
+use chrono::{TimeZone, Utc};
+
 use crate::models::{Job, UserPreferences};
 
 const ER_WF: f64 = 0.2;
@@ -20,7 +15,7 @@ const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
     //println!("for job id {} employer_score is {} trend_factor is {} salaryrange is {} spontaneity is {}", job.job_id, employer_rating(job), trend_factor(job), salary_range_b(job, pref), spontaneity(job, pref));
-    employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range_b(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
+    employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + (salary_range_a(job, pref) + salary_range_b(job, pref)) * 0.5 * SR_WF + spontaneity(job, pref) * SP_WF
 }
 
 pub fn calc_score_no_pref(job: &Job) -> f64 {
@@ -44,7 +39,7 @@ fn trend_factor(job: &Job) -> f64 {
     } else { 1.5 / (1.00001 - applications / views) };
 
     let score = (applications + 1.0).log10() / (views + 1.0).log10();
-    //println!("For {} the views {} and applications {} add up to the non weighted score {} or weighted score {}", job.job_id, views, applications, score, score * view_weight);
+    println!("For {} the views {} and applications {} add up to the non weighted score {} or weighted score {}", job.job_id, views, applications, score, score * view_weight);
     score * view_weight
 }
 
@@ -102,7 +97,6 @@ fn spontaneity(job: &Job, pref: &UserPreferences) -> f64 {
         .datetime_from_str(&job.start_slot.trim(), "%Y-%m-%dT%H:%M:%S%.3fZ")
         .expect("Failed to parse datetime string");
     //println!("start_slot = {}", start_slot);
-
     return spontaneity_map((start_slot.signed_duration_since(Utc::now()).num_seconds()) as f64, p);
 }
 

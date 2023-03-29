@@ -1,16 +1,11 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////API-ENDPOINTS///////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 use std::collections::{HashMap, LinkedList};
 use std::env;
-use serde::Deserialize;
-
 
 use actix_web::{get, HttpRequest, HttpResponse, post, Responder, web};
 use base64::decode;
+use serde::Deserialize;
 
-use crate::models::{FeedRequest, Job, UserPreferences, CustomBaseError};
+use crate::models::{CustomBaseError, FeedRequest, Job, UserPreferences};
 use crate::ranker::generate_job_feed;
 
 // Test connection
@@ -27,10 +22,10 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
     if !is_authorized(&req) {
         let base = CustomBaseError {
             error: "ERR_INVALID".to_string(),
-            description: "Attribute is malformed or unknown.".to_string()
+            description: "Attribute is malformed or unknown.".to_string(),
         };
         let mut errors = HashMap::new();
-        errors.insert("email|password",vec![base]);
+        errors.insert("email|password", vec![base]);
         println!("{:?}", errors);
         return HttpResponse::Unauthorized().json(errors);
     }
@@ -48,9 +43,6 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////HELPER METHODS///////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
 
 pub(crate) fn deserialize_job_types<'de, D>(deserializer: D) -> Result<LinkedList<(i32, f64)>, D::Error>
     where
@@ -75,7 +67,7 @@ fn process_feed_request(slice: Vec<Job>, pref: Option<UserPreferences>) -> Resul
 
 
 // Check if user is authenticated and authorized to access FG-API
-pub fn is_authorized(req: &HttpRequest) -> bool {
+fn is_authorized(req: &HttpRequest) -> bool {
     if let Some(auth_header) = req.headers().get("Authorization") {
         if let Ok(auth_str) = auth_header.to_str() {
             if auth_str.starts_with("Basic ") {
