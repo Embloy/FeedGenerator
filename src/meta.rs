@@ -19,7 +19,7 @@ const SR_WF: f64 = 0.2;
 const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
-    //println!("for job id {} employer_score is {} trend_factor is {} salaryrange is {} spontaneity is {}", job.job_id, employer_rating(job), trend_factor(job), salary_range_B(job, pref), spontaneity(job, pref));
+    println!("for job id {} employer_score is {} trend_factor is {} salaryrange is {} spontaneity is {}", job.job_id, employer_rating(job), trend_factor(job), salary_range_B(job, pref), spontaneity(job, pref));
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range_B(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
 }
 
@@ -46,7 +46,7 @@ fn trend_factor(job: &Job) -> f64 {
     } else {
         view_weight = 0.0;
     }
-    let score = (job.applications_count as f64 + 1.0).log10() / (views + 1.0).log10();
+    let score = (job.applications_count as f64 + 1.0).log10() / (views + 1.000000001).log10();
     //println!("For {} the views {} and applications {} add up to the non weighted score {} or weighted score {}", job.job_id, views, applications, score, score * view_weight);
     score * view_weight
 }
