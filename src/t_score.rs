@@ -36,7 +36,7 @@ fn calc_m_score(job: &Job, pref: &UserPreferences, max_considered_rank: i32) -> 
 pub(crate) fn calc_x_ranking(pref: &mut UserPreferences) {
     let job_types = &mut pref.job_type;
     let num_jobs_done = job_types.iter().map(|&(_, val)| val).sum::<f64>() as i32;
-    for (key, value) in job_types.iter_mut() {
+    for (_key, value) in job_types.iter_mut() {
         let x_value = calc_x_value(*value, num_jobs_done);
         *value = x_value;
     }

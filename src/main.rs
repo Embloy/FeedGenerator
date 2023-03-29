@@ -39,3 +39,16 @@ async fn main() -> std::io::Result<()> {
         .run()
         .await
 }
+
+
+/*
+IGNORE:
+println!("salary in range: {}", (((50.0 - 20.0) / (70.0 - 20.0)) as f64).max(-2.0).min(2.0));
+println!("salary > range: {}", (((50.0 - 30.0) / (40.0 - 30.0)) as f64).max(-2.0).min(2.0));
+println!("salary < range: {}", (((50.0 - 60.0) / (70.0 - 60.0)) as f64).max(-2.0).min(2.0));
+println!("salary = max: {}", (((50.0 - 40.0) / (50.0 - 40.0)) as f64).max(-2.0).min(2.0));
+println!("salary = min: {}", (((50.0 - 50.0) / (70.0 - 50.0)) as f64).max(-2.0).min(2.0));
+println!("salary << range: {}", (((50.0 - 1000.0) / (1000.1 - 1000.0)) as f64).max(-2.0).min(2.0));
+println!("salary >> range: {}", (((5000000.0 - 1.0) / (2.0 - 1.0)) as f64).max(-2.0).min(2.0));
+*/
+
