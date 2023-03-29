@@ -59,6 +59,12 @@ pub struct FeedRequest {
     pub slice: Vec<Job>,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+pub struct FeedLog {
+    pub pref: Option<UserPreferences>,
+    pub sorted_slice: Vec<Job>,
+}
+
 
 #[derive(Debug, Serialize, Deserialize)]
 pub(crate) struct CustomBaseError {
