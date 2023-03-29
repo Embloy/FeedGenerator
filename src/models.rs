@@ -36,6 +36,7 @@ pub struct Job {
     job_notifications: Option<String>,
     pub(crate) employer_rating: Option<i32>,
     pub(crate) boost: Option<i32>,
+    pub(crate) relevance_score: Option<f64>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]

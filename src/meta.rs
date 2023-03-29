@@ -9,8 +9,10 @@
 // => MIN META-SCORE = -0.4
 // => MAX META-SCORE = 3
 use std::any::Any;
+
 use actix_web::cookie::time::macros::datetime;
 use chrono::{DateTime, NaiveDateTime, ParseError, TimeZone, Utc};
+
 use crate::models::{Job, UserPreferences};
 
 const ER_WF: f64 = 0.2;
@@ -19,7 +21,7 @@ const SR_WF: f64 = 0.2;
 const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
-    println!("for job id {} employer_score is {} trend_factor is {} salaryrange is {} spontaneity is {}", job.job_id, employer_rating(job), trend_factor(job), salary_range_b(job, pref), spontaneity(job, pref));
+    println!("for job id {}:\t employer_score is {} | trend_factor is {} | spontaneity is {} | salaryrange is [a:{}, b:{}] ", job.job_id, employer_rating(job), trend_factor(job), spontaneity(job, pref), salary_range_a(job, pref), salary_range_b(job, pref));
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range_b(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
 }
 
