@@ -35,6 +35,8 @@ fn employer_rating(job: &Job) -> f64 {
 
 // TODO: fix NaN bug [views=0 and applications=0 add up to the non weighted score NaN or weighted score NaN]
 fn trend_factor(job: &Job) -> f64 {
+    return 0.0; // remove this line
+
     let applications = job.applications_count as f64;
     let views = job.view_count as f64;
 
