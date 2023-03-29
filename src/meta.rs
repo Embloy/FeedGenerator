@@ -19,7 +19,7 @@ const SR_WF: f64 = 0.2;
 const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
-    //println!("for job id {} employer_score is {} trend_factor is {} salaryrange is {} spontaneity is {}", job.job_id, employer_rating(job), trend_factor(job), salary_range_B(job, pref), spontaneity(job, pref));
+    println!("for job id {} employer_score is {} trend_factor is {} salary_range is {} spontaneity is {}", job.job_id, employer_rating(job), trend_factor(job), salary_range_a(job, pref), spontaneity(job, pref));
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range_a(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
 }
 
@@ -33,6 +33,7 @@ fn employer_rating(job: &Job) -> f64 {
     job.employer_rating.unwrap_or_default() as f64 / 5.0
 }
 
+// TODO: fix NaN bug [views=0 and applications=0 add up to the non weighted score NaN or weighted score NaN]
 fn trend_factor(job: &Job) -> f64 {
     let applications = job.applications_count as f64;
     let views = job.view_count as f64;
@@ -44,7 +45,7 @@ fn trend_factor(job: &Job) -> f64 {
     } else { 1.5 / (1.00001 - applications / views) };
 
     let score = (applications + 1.0).log10() / (views + 1.0).log10();
-    // println!("For {} the views {} and applications {} add up to the non weighted score {} or weighted score {}", job.job_id, views, applications, score, score * view_weight);
+    println!("For {} the views {} and applications {} add up to the non weighted score {} or weighted score {}", job.job_id, views, applications, score, score * view_weight);
     score * view_weight
 }
 
@@ -96,22 +97,26 @@ fn _salary_range_b(job: &Job, pref: &UserPreferences) -> f64 {
 fn spontaneity(job: &Job, pref: &UserPreferences) -> f64 {
     // Get spontaneity preference => x value of peak
     let p: f64 = pref.spontaneity.unwrap_or_default();
+    println!("p = {}", p);
     // Parse start_slot
     let start_slot = Utc
         .datetime_from_str(&job.start_slot.trim(), "%Y-%m-%dT%H:%M:%S%.3fZ")
         .expect("Failed to parse datetime string");
+    println!("start_slot = {}", start_slot);
 
-    spontaneity_map((start_slot.signed_duration_since(Utc::now()).num_seconds()) as f64, p)
+    return spontaneity_map((start_slot.signed_duration_since(Utc::now()).num_seconds()) as f64, p);
 }
 
 // a: time from now to start, b: user preference
 fn spontaneity_map(a: f64, b: f64) -> f64 {
     let distance = (a - b).abs();
+    println!("distance = {}", distance);
     if distance > 86400.0 { return 0.0; }
     if distance < 1000.0 { return 2.5; }
 
     // steepness factor => 0.15; should be adapted if score is to impactful
     let fa = 2.5 - 0.15 * distance.ln();
+    println!("fa = {}", fa);
     return fa.max(0.0).min(2.5);
 }
 
