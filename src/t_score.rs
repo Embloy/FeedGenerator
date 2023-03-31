@@ -20,7 +20,7 @@ fn calc_m_score(job: &Job, pref: &UserPreferences, max_considered_rank: i32) -> 
     //println!("test {:?}", *pref);
     for job_type in &pref.job_type {
         if counter < max_considered_rank {
-            let m_score = query(job.job_type_value - 1, job_type.0 - 1) as f64;
+            let m_score = query(job.job_type_value as f64 - 1.0, job_type.0 as f64 - 1.0);
             //println!("for job_type {} m_score is {} for job {}",job_type.0, m_score, job.job_id);
             if counter == 0 {
                 max_m_score = m_score;
