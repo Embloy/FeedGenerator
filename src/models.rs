@@ -42,7 +42,7 @@ pub struct Job {
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct UserPreferences {
     #[serde(deserialize_with = "deserialize_job_types")]
-    pub(crate) job_type: LinkedList<(i32, f64)>,
+    pub(crate) job_types: LinkedList<(i32, f64)>,
     pub(crate) key_skills: Option<String>,
     pub(crate) salary_range: Option<(f64, f64)>,
     pub(crate) spontaneity: Option<f64>,

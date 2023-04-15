@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "pref": {
-    "job_type": {
+    "job_types": {
       "1": 15,
       "2": 5,
       "3": 1,

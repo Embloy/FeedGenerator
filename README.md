@@ -68,7 +68,7 @@ Request to load a feed from a "slice" to match the user's preferences.
 ```
 {
     "pref": {
-        "job_type": {
+        "job_types": {
             "1": 15,
             "2": 5,
             "3": 1,
