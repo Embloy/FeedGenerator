@@ -6,7 +6,7 @@ use crate::models::{Job, UserPreferences};
 const NUM_JOB_TYPES: i32 = 27; // todo: replace with dynamical value based on matrix
 
 pub(crate) fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
-    let x_value = &pref.job_types.iter().find(|&&(job_types, _)| job_type == job.job_type_value)
+    let x_value = &pref.job_types.iter().find(|&&(job_types, _)| job_types == job.job_type_value)
         .map_or(0.0, |&(_, score)| score);
     let m_score = calc_m_score(job, pref, 3);
     let t_score = m_score * x_value; // todo: or m_score + x_value??
@@ -34,7 +34,7 @@ fn calc_m_score(job: &Job, pref: &UserPreferences, max_considered_rank: i32) -> 
 }
 
 pub(crate) fn calc_x_ranking(pref: &mut UserPreferences) {
-    let job_types = &mut pref.job_type;
+    let job_types = &mut pref.job_types;
     let num_jobs_done = job_types.iter().map(|&(_, val)| val).sum::<f64>() as i32;
     for (_key, value) in job_types.iter_mut() {
         let x_value = calc_x_value(*value, num_jobs_done);
