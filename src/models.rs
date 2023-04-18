@@ -57,8 +57,13 @@ pub struct FeedRequest {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FeedLog {
+    pub status: i32,
+    pub timestamp_fg_in: Option<i64>,
+    pub timestamp_fg_out: Option<i64>,
     pub pref: Option<UserPreferences>,
+    pub unsorted_slice: Vec<Job>,
     pub sorted_slice: Vec<Job>,
+    pub exceptions: Option<Vec<CustomBaseError>>
 }
 
 
