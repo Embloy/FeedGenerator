@@ -1,4 +1,7 @@
 use actix_web::body::MessageBody;
+use actix_web::cookie::time::format_description::well_known::iso8601::FormattedComponents::Time;
+use chrono::format::Numeric::Timestamp;
+use chrono::Utc;
 use serde::Serialize;
 
 use crate::{logger, meta, t_score};
@@ -61,8 +64,8 @@ fn job_relevance_score_no_pref(job: &Job) -> f64 {
 pub fn generate_job_feed(jobs: Vec<Job>, mut preferences: Option<UserPreferences>) -> Vec<Job> {
     // Deprecated
     let raw_ranked_slice = sort_jobs_by_relevance(&mut jobs.clone(), &mut preferences);
-    let log = FeedLog { pref: preferences.clone(), sorted_slice: raw_ranked_slice.clone() };
-    logger::add_to_feed_log(log, "raw_ranking", 200);
+    let log = FeedLog {status:200, pref: preferences.clone(),unsorted_slice:jobs.clone(), sorted_slice: raw_ranked_slice.clone(), exceptions:None, timestamp_fg_in:None, timestamp_fg_out:Some(Utc::now().timestamp())};
+    logger::add_to_feed_log(log, "raw_ranking");
     raw_ranked_slice
     // TODO: Shadowing ...
 }

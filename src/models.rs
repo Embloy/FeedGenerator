@@ -68,7 +68,7 @@ pub struct FeedLog {
 
 
 #[derive(Debug, Serialize, Deserialize)]
-pub(crate) struct CustomBaseError {
-    pub(crate) error: String,
-    pub(crate) description: String,
+pub struct CustomBaseError {
+    pub error: String,
+    pub description: String,
 }
