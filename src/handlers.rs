@@ -1,9 +1,10 @@
 use std::collections::{HashMap, LinkedList};
 use std::env;
-
 use actix_web::{get, HttpRequest, HttpResponse, post, Responder, web};
 use base64::decode;
 use serde::Deserialize;
+use crate::logger;
+use mongodb::{bson::doc, Client, options::ClientOptions};
 
 use crate::models::{CustomBaseError, FeedRequest, Job, UserPreferences};
 use crate::ranker::generate_job_feed;
@@ -31,7 +32,7 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
     }
 
     // Parse request body and rank jobs
-    let result = process_feed_request(slice, pref);
+    let result = process_feed_request(slice, pref).await;
 
     // Respond with result as response body
     match result {
@@ -57,9 +58,9 @@ pub(crate) fn deserialize_job_types<'de, D>(deserializer: D) -> Result<LinkedLis
 }
 
 // Parse request body and rank jobs
-fn process_feed_request(slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
+async fn process_feed_request(slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
     // Ranking ...
-    let res: Vec<Job> = generate_job_feed(slice, pref);
+    let res: Vec<Job> = generate_job_feed(slice, pref).await;
 
     // TODO: Logging ...
     Ok(res)

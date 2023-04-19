@@ -1,43 +1,45 @@
 use std::collections::LinkedList;
-
+use bson::{Bson, Document};
 use serde::{Deserialize, Serialize};
+use mongodb::bson;
 
 use crate::handlers::deserialize_job_types;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Job {
-    pub(crate) job_id: i32,
-    pub(crate) job_type_value: i32,
-    pub(crate) job_type: String,
-    job_status: i32,
-    status: String,
-    user_id: i32,
-    duration: i32,
-    code_lang: Option<String>,
-    title: String,
-    position: Option<String>,
-    description: String,
-    pub(crate) key_skills: Option<String>,
-    pub(crate) salary: Option<f64>,
-    pub(crate) currency: Option<String>,
-    pub(crate) euro_salary: Option<f64>,
-    image_url: Option<String>,
-    pub(crate) start_slot: String,
-    longitude: f64,
-    latitude: f64,
-    country_code: Option<String>,
-    postal_code: Option<String>,
-    city: Option<String>,
-    address: Option<String>,
-    pub(crate) view_count: i32,
-    created_at: String,
-    updated_at: String,
-    pub(crate) applications_count: i32,
-    job_notifications: Option<String>,
-    pub(crate) employer_rating: Option<i32>,
-    pub(crate) boost: Option<i32>,
-    pub(crate) relevance_score: Option<f64>,
+    pub job_id: i32,
+    pub job_type_value: i32,
+    pub job_type: String,
+    pub job_status: i32,
+    pub status: String,
+    pub user_id: i32,
+    pub duration: i32,
+    pub code_lang: Option<String>,
+    pub title: String,
+    pub position: Option<String>,
+    pub description: String,
+    pub key_skills: Option<String>,
+    pub salary: Option<f64>,
+    pub currency: Option<String>,
+    pub euro_salary: Option<f64>,
+    pub image_url: Option<String>,
+    pub start_slot: String,
+    pub longitude: f64,
+    pub latitude: f64,
+    pub country_code: Option<String>,
+    pub postal_code: Option<String>,
+    pub city: Option<String>,
+    pub address: Option<String>,
+    pub view_count: i32,
+    pub created_at: String,
+    pub updated_at: String,
+    pub applications_count: i32,
+    pub job_notifications: Option<String>,
+    pub employer_rating: Option<i32>,
+    pub boost: Option<i32>,
+    pub relevance_score: Option<f64>,
 }
+
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct UserPreferences {
@@ -49,6 +51,7 @@ pub struct UserPreferences {
     pub(crate) num_jobs_done: Option<i32>,
 }
 
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FeedRequest {
     pub pref: Option<UserPreferences>,
@@ -59,11 +62,11 @@ pub struct FeedRequest {
 pub struct FeedLog {
     pub status: i32,
     pub timestamp_fg_in: Option<i64>,
-    pub timestamp_fg_out: Option<i64>,
+    pub timestamp_fg_out: i64,
     pub pref: Option<UserPreferences>,
     pub unsorted_slice: Vec<Job>,
     pub sorted_slice: Vec<Job>,
-    pub exceptions: Option<Vec<CustomBaseError>>
+    pub exceptions: Option<Vec<CustomBaseError>>,
 }
 
 

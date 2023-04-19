@@ -1,5 +1,4 @@
 use std::env;
-
 use actix_web::{App, HttpServer};
 use dotenv::dotenv;
 
