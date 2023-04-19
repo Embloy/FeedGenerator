@@ -65,7 +65,7 @@ pub async fn generate_job_feed(jobs: Vec<Job>, mut preferences: Option<UserPrefe
     let raw_ranked_slice = sort_jobs_by_relevance(&mut jobs.clone(), &mut preferences);
     let log = FeedLog {status:200, pref: preferences.clone(),unsorted_slice:jobs.clone(), sorted_slice: raw_ranked_slice.clone(), exceptions:None, timestamp_fg_in:None, timestamp_fg_out:Utc::now().timestamp()};
     //TODO: ADD MONGO DB REMOTE SERVER TO .emv AND UNCOMMENT. THEN LOG WILL WORK
-    //logger::add_about_fg_ranking(log).await;
+    logger::add_about_fg_ranking(log).await;
     raw_ranked_slice
     // TODO: Shadowing ...
 }
