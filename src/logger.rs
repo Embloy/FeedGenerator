@@ -1,6 +1,6 @@
 use crate::models::FeedLog;
 
-pub(crate) fn add_to_feed_log(_log: FeedLog, _key: &str, _status: u32) {
+pub(crate) fn add_to_feed_log(log: FeedLog, _key: &str) {
     //key describes what the log resembles in the context of its source (so where it was produced)
     //status describes whether (and which) a log describes an erro.
 
