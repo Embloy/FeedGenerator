@@ -1,10 +1,9 @@
 use std::collections::{HashMap, LinkedList};
 use std::env;
+
 use actix_web::{get, HttpRequest, HttpResponse, post, Responder, web};
 use base64::decode;
 use serde::Deserialize;
-use crate::logger;
-use mongodb::{bson::doc, Client, options::ClientOptions};
 
 use crate::models::{CustomBaseError, FeedRequest, Job, UserPreferences};
 use crate::ranker::generate_job_feed;

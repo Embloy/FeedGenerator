@@ -1,7 +1,5 @@
 use std::collections::LinkedList;
-use bson::{Bson, Document};
 use serde::{Deserialize, Serialize};
-use mongodb::bson;
 
 use crate::handlers::deserialize_job_types;
 

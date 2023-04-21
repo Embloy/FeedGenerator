@@ -1,7 +1,5 @@
-use std::any::type_name;
 use std::error::Error;
 use smartcore::linalg::basic::matrix::DenseMatrix;
-use smartcore::decomposition::pca::*;
 
 //MATRIX is defined outside the build function to make it accessible by query
 static mut MATRIX: Option<Vec<Vec<f64>>> = None;

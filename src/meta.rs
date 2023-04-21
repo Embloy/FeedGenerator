@@ -8,10 +8,8 @@
 // SP: [0,1] * 0.1
 // => MIN META-SCORE = -0.4
 // => MAX META-SCORE = 3
-use std::any::Any;
 
-use actix_web::cookie::time::macros::datetime;
-use chrono::{DateTime, NaiveDateTime, ParseError, TimeZone, Utc};
+use chrono::{ TimeZone, Utc};
 
 use crate::models::{Job, UserPreferences};
 
