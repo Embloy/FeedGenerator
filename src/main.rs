@@ -1,6 +1,8 @@
 use std::env;
+
 use actix_web::{App, HttpServer};
 use dotenv::dotenv;
+use mongodb::{Client, Database};
 
 // use openssl::ssl::{Ssl, SslAcceptor, SslFiletype, SslMethod};
 
@@ -15,16 +17,23 @@ mod job_type_matrix;
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     println!("Starting server...");
+    print!("Loading dotenv: ...");
     dotenv().ok(); // Load the .env file
-    println!("Loading dotenv: Successful!");
+    println!(" successful!");
 
+    print!("Connecting to DB: ...");
+    let db_url = env::var("DATABASE_URL").expect("DATABASE_URL not set in .env file");
+    let client = Client::with_uri_str( &db_url).await.expect("Failed to connect to database");
+    let db: Database = client.database("logs");
+    println!(" successfully connected to database!");
 
     // let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
     // builder.set_private_key_file("key.pem", SslFiletype::PEM).unwrap();
     // builder.set_certificate_chain_file("cert.pem").unwrap();
     job_type_matrix::build().expect("TODO: panic message");
-    HttpServer::new(|| {
+    HttpServer::new(move || {
         App::new() // Define routes
+            .data(db.clone())
             .service(handlers::hello)
             .service(handlers::load_feed)
     })

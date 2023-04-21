@@ -23,6 +23,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "smartcore",
+ "tokio",
 ]
 
 [[package]]

@@ -1,4 +1,4 @@
-use crate::{logger, meta, t_score};
+use crate::{meta, t_score};
 use crate::models::{Job, UserPreferences};
 
 // fn sort_jobs_by_relevance(jobs: &mut Vec<Job>, preferences: &mut Option<UserPreferences>) -> Vec<Job> {
@@ -59,7 +59,7 @@ pub async fn generate_job_feed(jobs: Vec<Job>, mut preferences: Option<UserPrefe
     let raw_ranked_slice = sort_jobs_by_relevance(&mut jobs.clone(), &mut preferences);
 
     // logger::add_about_fg_ranking(log).await;
-    logger::log_output(200, preferences, jobs, raw_ranked_slice.clone()).await.expect("TODO: panic message");
+    // logger::log_output(200, preferences, jobs, raw_ranked_slice.clone()).await.expect("TODO: panic message");
 
     raw_ranked_slice
     // TODO: Shadowing ...

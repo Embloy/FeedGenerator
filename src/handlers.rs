@@ -3,8 +3,10 @@ use std::env;
 
 use actix_web::{get, HttpRequest, HttpResponse, post, Responder, web};
 use base64::decode;
+use mongodb::Database;
 use serde::Deserialize;
 
+use crate::logger;
 use crate::models::{CustomBaseError, FeedRequest, Job, UserPreferences};
 use crate::ranker::generate_job_feed;
 
@@ -15,7 +17,7 @@ pub async fn hello() -> HttpResponse {
 }
 
 #[post("/feed")]
-pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
+pub async fn load_feed(db: web::Data<Database>, feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
     let FeedRequest { pref, slice } = feed_request.into_inner();
 
     // Check if user is authorized
@@ -31,7 +33,7 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
     }
 
     // Parse request body and rank jobs
-    let result = process_feed_request(slice, pref).await;
+    let result = process_feed_request(db, slice, pref).await;
 
     // Respond with result as response body
     match result {
@@ -44,24 +46,21 @@ pub async fn load_feed(feed_request: web::Json<FeedRequest>, req: HttpRequest) -
 }
 
 
-pub(crate) fn deserialize_job_types<'de, D>(deserializer: D) -> Result<LinkedList<(i32, f64)>, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-{
-    let job_types_map: std::collections::HashMap<i32, f64> = std::collections::HashMap::deserialize(deserializer)?;
+pub(crate) fn deserialize_job_types<'de, D>(deserializer: D) -> Result<LinkedList<(i32, f64)>, D::Error> where D: serde::Deserializer<'de> {
+    let job_types_map: HashMap<i32, f64> = HashMap::deserialize(deserializer)?;
     let mut job_types_list = LinkedList::new();
-    for (k, v) in job_types_map {
-        job_types_list.push_back((k, v));
-    }
+    for (k, v) in job_types_map { job_types_list.push_back((k, v)); }
     Ok(job_types_list)
 }
 
 // Parse request body and rank jobs
-async fn process_feed_request(slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
+async fn process_feed_request(db: web::Data<Database>, slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
     // Ranking ...
-    let res: Vec<Job> = generate_job_feed(slice, pref).await;
+    let res: Vec<Job> = generate_job_feed(slice.clone(), pref.clone()).await;
 
     // TODO: Logging ...
+    logger::log_output(db, 200, pref, slice, res.clone()).await.expect("TODO: panic message");
+
     Ok(res)
 }
 
