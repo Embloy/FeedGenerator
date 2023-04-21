@@ -3,18 +3,18 @@ use std::collections::LinkedList;
 use crate::job_type_matrix::query;
 use crate::models::{Job, UserPreferences};
 
-const NUM_JOB_TYPES: i32 = 27; // todo: replace with dynamical value based on matrix
+const NUM_JOB_TYPES: i32 = 27; // Todo: replace with dynamical value based on matrix
 
 pub(crate) fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
     let x_value = &pref.job_types.iter().find(|&&(job_types, _)| job_types == job.job_type_value)
         .map_or(0.0, |&(_, score)| score);
     let m_score = calc_m_score(job, pref, 3);
-    let t_score = m_score * x_value; // todo: or m_score + x_value??
+    let t_score = m_score * x_value; // Todo: or m_score + x_value??
     //println!("for job id {} x_value is {} m_score is {} t_score is {}", job.job_id, x_value,calc_m_score(job, pref, 3),  m_score * x_value);
     t_score
 }
 
-fn calc_m_score(job: &Job, pref: &UserPreferences, max_considered_rank: i32) -> f64 { //todo: make more efficient
+fn calc_m_score(job: &Job, pref: &UserPreferences, max_considered_rank: i32) -> f64 { //Todo: make more efficient
     let mut max_m_score = 0.0;
     let mut counter = 0;
     //println!("test {:?}", *pref);

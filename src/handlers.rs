@@ -58,8 +58,8 @@ async fn process_feed_request(db: web::Data<Database>, slice: Vec<Job>, pref: Op
     // Ranking ...
     let res: Vec<Job> = generate_job_feed(slice.clone(), pref.clone()).await;
 
-    // TODO: Logging ...
-    logger::log_output(db, 200, pref, slice, res.clone()).await.expect("TODO: panic message");
+    // Logging ...
+    logger::log_output(db, 200, pref, slice, res.clone()).await.expect("LOGGER TIMEOUT");
 
     Ok(res)
 }

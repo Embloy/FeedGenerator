@@ -23,14 +23,14 @@ async fn main() -> std::io::Result<()> {
 
     print!("Connecting to DB: ...");
     let db_url = env::var("DATABASE_URL").expect("DATABASE_URL not set in .env file");
-    let client = Client::with_uri_str( &db_url).await.expect("Failed to connect to database");
+    let client = Client::with_uri_str(&db_url).await.expect("Failed to connect to database");
     let db: Database = client.database("logs");
     println!(" successfully connected to database!");
 
     // let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
     // builder.set_private_key_file("key.pem", SslFiletype::PEM).unwrap();
     // builder.set_certificate_chain_file("cert.pem").unwrap();
-    job_type_matrix::build().expect("TODO: panic message");
+    job_type_matrix::build().expect("ERROR BUILDING JOB TYPE MATRIX");
     HttpServer::new(move || {
         App::new() // Define routes
             .data(db.clone())

@@ -57,10 +57,6 @@ fn job_relevance_score_no_pref(job: &Job) -> f64 {
 
 pub async fn generate_job_feed(jobs: Vec<Job>, mut preferences: Option<UserPreferences>) -> Vec<Job> {
     let raw_ranked_slice = sort_jobs_by_relevance(&mut jobs.clone(), &mut preferences);
-
-    // logger::add_about_fg_ranking(log).await;
-    // logger::log_output(200, preferences, jobs, raw_ranked_slice.clone()).await.expect("TODO: panic message");
-
     raw_ranked_slice
     // TODO: Shadowing ...
 }
