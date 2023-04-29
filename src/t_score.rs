@@ -10,18 +10,16 @@ pub(crate) fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
         .map_or(0.0, |&(_, score)| score);
     let m_score = calc_m_score(job, pref, 3);
     let t_score = m_score * x_value; // Todo: or m_score + x_value??
-    //println!("for job id {} x_value is {} m_score is {} t_score is {}", job.job_id, x_value,calc_m_score(job, pref, 3),  m_score * x_value);
+    println!("for job id {} x_value is {} m_score is {} t_score is {}", job.job_id, x_value,calc_m_score(job, pref, 3),  m_score * x_value);
     t_score
 }
 
 fn calc_m_score(job: &Job, pref: &UserPreferences, max_considered_rank: i32) -> f64 { //Todo: make more efficient
     let mut max_m_score = 0.0;
     let mut counter = 0;
-    //println!("test {:?}", *pref);
     for job_type in &pref.job_types {
         if counter < max_considered_rank {
             let m_score = query(job.job_type_value as f64 - 1.0, job_type.0 as f64 - 1.0);
-            //println!("for job_type {} m_score is {} for job {}",job_type.0, m_score, job.job_id);
             if counter == 0 {
                 max_m_score = m_score;
             } else if m_score > max_m_score {

@@ -54,7 +54,7 @@ pub(crate) fn deserialize_job_types<'de, D>(deserializer: D) -> Result<LinkedLis
 }
 
 // Parse request body and rank jobs
-async fn process_feed_request(db: web::Data<Database>, slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
+async fn process_feed_request(_db: web::Data<Database>, slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
     // Ranking ...
     let res: Vec<Job> = generate_job_feed(slice.clone(), pref.clone()).await;
 
