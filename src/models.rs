@@ -62,7 +62,7 @@ pub struct FeedLog {
     pub timestamp_fg_in: Option<i64>,
     pub timestamp_fg_out: i64,
     pub pref: Option<UserPreferences>,
-    pub unsorted_slice: Vec<Job>,
+    // pub unsorted_slice: Vec<Job>,
     pub sorted_slice: Vec<Job>,
     pub exceptions: Option<Vec<CustomBaseError>>,
 }
