@@ -1,3 +1,4 @@
+# IGNORE FOR NOW
 # You can copy and paste this template into a new `.gitlab-ci.yml` file.
 # You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
 #
