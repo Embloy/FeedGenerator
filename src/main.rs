@@ -6,7 +6,7 @@ use mongodb::{Client, Database};
 
 use controllers::handlers;
 use machine_learning::{activations::SIGMOID, network::Network};
-use crate::ranking_algorithms::job_type_matrix;
+use ranking_algorithms::job_type_matrix;
 
 mod controllers {
     pub mod handlers;
@@ -29,7 +29,12 @@ mod ranking_algorithms {
     pub mod ranker;
     pub mod t_score;
 }
-mod meta_test;
+
+mod test {
+    pub mod test_setup;
+    pub mod meta_test;
+    pub mod t_score_test;
+}
 
 
 #[actix_web::main]
