@@ -7,7 +7,7 @@ use mongodb::Database;
 use serde::Deserialize;
 
 use crate::controllers::models::{CustomBaseError, FeedRequest, Job, UserPreferences};
-use crate::logs::logger;
+// use crate::logs::logger;
 use crate::ranking_algorithms::ranker::generate_job_feed;
 
 // Test connection

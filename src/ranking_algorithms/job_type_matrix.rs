@@ -5,7 +5,7 @@ use smartcore::linalg::basic::matrix::DenseMatrix;
 //MATRIX is defined outside the build function to make it accessible by query
 static mut MATRIX: Option<Vec<Vec<f64>>> = None;
 static mut MATRIX_2:Option<DenseMatrix<f64>> = None;
-pub static mut REDUCED_MATRIX:Option<DenseMatrix<f64>> = None;
+pub static mut _REDUCED_MATRIX:Option<DenseMatrix<f64>> = None;
 
 
 

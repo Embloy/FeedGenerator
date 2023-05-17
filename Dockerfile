@@ -1,7 +1,7 @@
 FROM rust:latest as build
 
-RUN USER=root cargo new --bin Embloy_feed_generator
-WORKDIR /Embloy_feed_generator
+RUN USER=root cargo new --bin embloy_feed_generator
+WORKDIR /embloy_feed_generator
 
 COPY ./Cargo.lock ./Cargo.lock
 COPY ./Cargo.toml ./Cargo.toml
@@ -12,11 +12,11 @@ RUN rm src/*.rs
 COPY ./src ./src
 
 RUN cargo build --release
-RUN chmod +x /Embloy_feed_generator/target/release/Embloy_feed_generator
+RUN chmod +x /embloy_feed_generator/target/release/embloy_feed_generator
 
 EXPOSE 8080
 
-CMD ["/Embloy_feed_generator/target/release/Embloy_feed_generator"]
+CMD ["/embloy_feed_generator/target/release/embloy_feed_generator"]
 
 # CREATE IMAGE:
 # docker build -t embloy_feed_generator .

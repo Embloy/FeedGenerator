@@ -6,7 +6,7 @@ use std::f64::consts::E;
         pub derivative: &'a dyn Fn(f64) -> f64,
     }
 
-    pub const IDENTITY: Activation = Activation {
+    pub const _IDENTITY: Activation = Activation {
         function: &|x| x,
         derivative: &|_| 1.0,
     };
@@ -16,12 +16,12 @@ use std::f64::consts::E;
         derivative: &|x| x * (1.0 - x),
     };
 
-    pub const TANH: Activation = Activation {
+    pub const _TANH: Activation = Activation {
         function: &|x| x.tanh(),
         derivative: &|x| 1.0 - (x.powi(2)),
     };
 
-    pub const RELU: Activation = Activation {
+    pub const _RELU: Activation = Activation {
         function: &|x| x.max(0.0),
         derivative: &|x| if x > 0.0 { 1.0 } else { 0.0 },
     };

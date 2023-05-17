@@ -1,6 +1,6 @@
 [package]
 authors = ["Carlo Bortolan <carlobortolan@gmail.com>", "Jan Hummel <jan.hummel@tum.de>"]
-name = "Embloy_feed_generator"
+name = "embloy_feed_generator"
 description = "Feed Generator for Embloy"
 readme = "README.md"
 repository = "https://gitlab.lrz.de/00000000014B5849/embloy_feed_generator.git"
@@ -32,5 +32,5 @@ mongodb = "2.4.0"
 lazy_static = "1.4"
 bson = "2.6.1"
 [[bin]]
-name = "Embloy_feed_generator"
+name = "embloy_feed_generator"
 path = "src/main.rs"
