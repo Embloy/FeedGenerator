@@ -6,10 +6,9 @@ use base64::decode;
 use mongodb::Database;
 use serde::Deserialize;
 
-use crate::log::logger;
-use crate::models::{CustomBaseError, FeedRequest, Job, UserPreferences};
-use crate::ml::network::Network;
-use crate::ranker::generate_job_feed;
+use crate::controllers::models::{CustomBaseError, FeedRequest, Job, UserPreferences};
+use crate::logs::logger;
+use crate::ranking_algorithms::ranker::generate_job_feed;
 
 // Test connection
 #[get("/")]

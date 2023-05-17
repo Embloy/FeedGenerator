@@ -1,7 +1,6 @@
-pub mod activations {
-    use std::f64::consts::E;
+use std::f64::consts::E;
 
-    #[derive(Clone)]
+#[derive(Clone)]
     pub struct Activation<'a> {
         pub function: &'a dyn Fn(f64) -> f64,
         pub derivative: &'a dyn Fn(f64) -> f64,
@@ -26,4 +25,3 @@ pub mod activations {
         function: &|x| x.max(0.0),
         derivative: &|x| if x > 0.0 { 1.0 } else { 0.0 },
     };
-}

@@ -1,8 +1,8 @@
 use std::collections::LinkedList;
+
 use serde::{Deserialize, Serialize};
 
-use crate::handlers::deserialize_job_types;
-use crate::ml::network::Network;
+use crate::controllers::handlers::deserialize_job_types;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Job {

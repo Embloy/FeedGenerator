@@ -1,4 +1,5 @@
 use std::error::Error;
+
 use smartcore::linalg::basic::matrix::DenseMatrix;
 
 //MATRIX is defined outside the build function to make it accessible by query

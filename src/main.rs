@@ -1,31 +1,37 @@
 use std::env;
 
+// use openssl::ssl::{Ssl, SslAcceptor, SslFiletype, SslMethod};
 use actix_web::{App, HttpServer};
 use dotenv::dotenv;
 use mongodb::{Client, Database};
 
-//use activations::SIGMOID;
-//use network::Network;
+use controllers::handlers;
+use machine_learning::{activations::SIGMOID, network::Network};
 
-// use openssl::ssl::{Ssl, SslAcceptor, SslFiletype, SslMethod};
+use crate::ranking_algorithms::job_type_matrix;
 
-mod handlers;
-mod models;
-mod ranker;
-mod meta;
-mod t_score;
-mod job_type_matrix;
-
-use crate::ml::*;
-//pub mod activations;
-//pub mod matrix;
-//pub mod network;
-
-mod log {
-    pub mod logger; // Include the logger module
+mod controllers {
+    pub mod handlers;
+    pub mod models;
 }
 
-use log::logger::*; // Use the logger module
+mod logs {
+    pub mod logger;
+}
+
+mod machine_learning {
+    pub mod network;
+    pub mod matrix;
+    pub mod activations;
+}
+
+mod ranking_algorithms {
+    pub mod job_type_matrix;
+    pub mod meta;
+    pub mod ranker;
+    pub mod t_score;
+}
+
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -37,7 +43,7 @@ async fn main() -> std::io::Result<()> {
     print!("Connecting to DB: ...");
     let db_url = env::var("DATABASE_URL").expect("DATABASE_URL not set in .env file");
     let client = Client::with_uri_str(&db_url).await.expect("Failed to connect to database");
-    let db: Database = client.database("log");
+    let db: Database = client.database("logs");
     println!(" successfully connected to database!");
 
     print!("Fetching network: ...");

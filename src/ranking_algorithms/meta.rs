@@ -5,9 +5,9 @@
 // => MIN META-SCORE = -0.4
 // => MAX META-SCORE = 3
 
-use chrono::{ TimeZone, Utc};
+use chrono::{TimeZone, Utc};
 
-use crate::models::{Job, UserPreferences};
+use crate::controllers::models::{Job, UserPreferences};
 
 const ER_WF: f64 = 0.2;
 const TF_WF: f64 = 0.5;

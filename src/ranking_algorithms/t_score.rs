@@ -1,7 +1,7 @@
 use std::collections::LinkedList;
 
+use crate::controllers::models::{Job, UserPreferences};
 use crate::job_type_matrix::query;
-use crate::models::{Job, UserPreferences};
 
 const NUM_JOB_TYPES: i32 = 27; // Todo: replace with dynamical value based on matrix
 

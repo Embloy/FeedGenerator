@@ -1,5 +1,5 @@
-use crate::{meta, t_score};
-use crate::models::{Job, UserPreferences};
+use crate::controllers::models::{Job, UserPreferences};
+use crate::ranking_algorithms::{meta, t_score};
 
 const META_WEIGHT: f64 = 0.3; // Todo: replace with dynamical value based on matrix
 
