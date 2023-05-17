@@ -15,8 +15,8 @@ const SR_WF: f64 = 0.2;
 const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
-    println!("for job id {}:\t employer_score is {} | trend_factor is {} | spontaneity is {} | salaryrange is [a:{}, b:{}] ", job.job_id, employer_rating(job), trend_factor(job), spontaneity(job, pref), salary_range_a(job, pref), salary_range_b(job, pref));
-    employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range_a(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
+    println!("for job id {}:\t employer_score is {} | trend_factor is {} | spontaneity is {} | salaryrange is [a:{}, b:{}] ", job.job_id, employer_rating(job), trend_factor(job), spontaneity(job, pref), salary_range(job, pref), salary_range_b(job, pref));
+    employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
 }
 
 pub fn calc_score_no_pref(job: &Job) -> f64 {
@@ -24,13 +24,13 @@ pub fn calc_score_no_pref(job: &Job) -> f64 {
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF
 }
 
-fn employer_rating(job: &Job) -> f64 {
+pub fn employer_rating(job: &Job) -> f64 {
     //potential Todo: take into account # of reviews
     //so employer_rating of 5(1) < employer_rating of 5(10)
     job.employer_rating.unwrap_or_default() as f64 / 5.0
 }
 
-fn trend_factor(job: &Job) -> f64 {
+pub fn trend_factor(job: &Job) -> f64 {
     let applications = job.applications_count as f64;
     let views = job.view_count as f64;
 
@@ -63,18 +63,17 @@ fn trend_factor(job: &Job) -> f64 {
     ELSE => 0
 
  */
-fn salary_range_a(job: &Job, pref: &UserPreferences) -> f64 {
+pub fn salary_range(job: &Job, pref: &UserPreferences) -> f64 {
     let min: f64 = pref.salary_range.unwrap_or_default().0;
     let max: f64 = pref.salary_range.unwrap_or_default().1;
     let salary: f64 = job.salary.unwrap_or_default();
-
     if salary > 0.0 && min >= 0.0 && max > min {
         return ((salary - min) / (max - min)).max(-2.0).min(2.0);
     } else { 0.0 }
 }
 
 // V2
-fn salary_range_b(job: &Job, pref: &UserPreferences) -> f64 {
+pub fn salary_range_b(job: &Job, pref: &UserPreferences) -> f64 {
     let min: f64 = pref.salary_range.unwrap_or_default().0;
     let max: f64 = pref.salary_range.unwrap_or_default().1;
     let salary: f64 = job.euro_salary.unwrap_or_default();
@@ -95,7 +94,7 @@ fn salary_range_b(job: &Job, pref: &UserPreferences) -> f64 {
     } else { 0.0 }
 }
 
-fn spontaneity(job: &Job, pref: &UserPreferences) -> f64 {
+pub fn spontaneity(job: &Job, pref: &UserPreferences) -> f64 {
     // Get spontaneity preference => x value of peak
     let p: f64 = pref.spontaneity.unwrap_or_default();
     //println!("p = {}", p);
@@ -109,7 +108,7 @@ fn spontaneity(job: &Job, pref: &UserPreferences) -> f64 {
 }
 
 // a: time from now to start, b: user preference
-fn spontaneity_map(a: f64, b: f64) -> f64 {
+pub fn spontaneity_map(a: f64, b: f64) -> f64 {
     let distance = (a - b).abs();
     //println!("distance = {}", distance);
     if distance > 86400.0 { return 0.0; }
