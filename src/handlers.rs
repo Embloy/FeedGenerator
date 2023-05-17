@@ -6,8 +6,9 @@ use base64::decode;
 use mongodb::Database;
 use serde::Deserialize;
 
-use crate::logger;
+use crate::log::logger;
 use crate::models::{CustomBaseError, FeedRequest, Job, UserPreferences};
+use crate::ml::network::Network;
 use crate::ranker::generate_job_feed;
 
 // Test connection
@@ -16,6 +17,7 @@ pub async fn hello() -> HttpResponse {
     HttpResponse::Ok().body("Hello World")
 }
 
+// FG-API endpoint: Returns ranked feed based on given jobs and preferences
 #[post("/feed")]
 pub async fn load_feed(db: web::Data<Database>, feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
     let FeedRequest { pref, slice } = feed_request.into_inner();
@@ -55,12 +57,14 @@ pub(crate) fn deserialize_job_types<'de, D>(deserializer: D) -> Result<LinkedLis
 
 // Parse request body and rank jobs
 async fn process_feed_request(_db: web::Data<Database>, slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
-    // Ranking ...
+    // Rank jobs
     let res: Vec<Job> = generate_job_feed(slice.clone(), pref.clone()).await;
 
-    // REMOVE COMMENT WHEN STARTING LOCAL DEPLOYMENT
-    // Logging ...
-    // logger::log_output(db, 200, pref, slice, res.clone()).await.expect("LOGGER TIMEOUT");
+    // Log results
+    /* TODO: REMOVE COMMENT WHEN STARTING LOCAL DEPLOYMENT
+    logger::log_output(db, 200, pref, slice, res.clone()).await.expect("LOGGER TIMEOUT");
+    logger::network_snapshot(network).await.expect("LOGGER TIMEOUT");
+    */
 
     Ok(res)
 }

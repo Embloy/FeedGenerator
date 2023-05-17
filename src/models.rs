@@ -2,6 +2,7 @@ use std::collections::LinkedList;
 use serde::{Deserialize, Serialize};
 
 use crate::handlers::deserialize_job_types;
+use crate::ml::network::Network;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Job {
@@ -38,7 +39,6 @@ pub struct Job {
     pub relevance_score: Option<f64>,
 }
 
-
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct UserPreferences {
     #[serde(deserialize_with = "deserialize_job_types")]
@@ -48,7 +48,6 @@ pub struct UserPreferences {
     pub(crate) spontaneity: Option<f64>,
     pub(crate) num_jobs_done: Option<i32>,
 }
-
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FeedRequest {
@@ -62,11 +61,15 @@ pub struct FeedLog {
     pub timestamp_fg_in: Option<i64>,
     pub timestamp_fg_out: i64,
     pub pref: Option<UserPreferences>,
-    // pub unsorted_slice: Vec<Job>,
     pub sorted_slice: Vec<Job>,
     pub exceptions: Option<Vec<CustomBaseError>>,
 }
 
+#[derive(Serialize)]
+pub struct NetworkLog {
+    pub timestamp: i64,
+    // pub network: Network<'static>,
+}
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CustomBaseError {
