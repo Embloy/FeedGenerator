@@ -14,7 +14,7 @@ use crate::ranking_algorithms::ranker::generate_job_feed;
 // Test connection
 #[get("/")]
 pub async fn hello(state: web::Data<AppState>) -> HttpResponse {
-    // logger::log_request(&state.db, 200, "GET:/root").await.expect("LOGGER TIMEOUT");
+    logger::log_request(&state.db, 200, "GET:/root").await.expect("LOGGER TIMEOUT");
     HttpResponse::Ok().body("Hello World")
 }
 
@@ -65,7 +65,7 @@ async fn process_feed_request(state: web::Data<AppState>, slice: Vec<Job>, pref:
     let res: Vec<Job> = generate_job_feed(slice.clone(), pref.clone()).await;
 
     // Log results
-    // logger::log_output(&state.db, 200, pref, res.clone(), timestamp_fg_in).await.expect("LOGGER TIMEOUT");
+    logger::log_output(&state.db, 200, pref, res.clone(), timestamp_fg_in).await.expect("LOGGER TIMEOUT");
     // logger::network_snapshot(network).await.expect("LOGGER TIMEOUT");
 
     Ok(res)
