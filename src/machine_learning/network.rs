@@ -102,7 +102,7 @@ impl Network<'_> {
         }
     }
 
-    pub fn _save(&self, file: String) {
+    pub fn save(&self, file: String) {
         let mut file = File::create(file).expect("Unable to touch save file");
 
         file.write_all(
@@ -113,7 +113,7 @@ impl Network<'_> {
         ).expect("Unable to write to save file");
     }
 
-    pub fn _load(&mut self, file: String) {
+    pub fn load(&mut self, file: String) {
         let mut file = File::open(file).expect("Unable to open save file");
         let mut buffer = String::new();
 

@@ -1,4 +1,3 @@
-use actix_web::web;
 use bson::to_document;
 use chrono::Utc;
 use mongodb::Database;

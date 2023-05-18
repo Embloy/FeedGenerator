@@ -15,7 +15,6 @@ use mongodb::{Client, Database};
 use controllers::handlers::{hello, load_feed};
 use machine_learning::{activations::SIGMOID, network::Network};
 use ranking_algorithms::job_type_matrix;
-use controllers::handlers;
 use config::app_state::AppState;
 
 
@@ -25,7 +24,7 @@ async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
     log::info!("Loading dotenv: ...");
-    dotenv().ok(); // Load the .env file
+    dotenv().ok();
     let host = env::var("BACKEND_HOST").expect("BACKEND_HOST set in .env file");
     let port = env::var("BACKEND_PORT").expect("BACKEND_PORT set in .env file");
     log::info!("... successful!");
@@ -37,8 +36,10 @@ async fn main() -> std::io::Result<()> {
     log::info!("... successful!");
 
     log::info!("Fetching network: ...");
-    // let network = fetch_network();
-    let network = 5.0;
+    let network_todo = fetch_network();
+    network_todo.save(String::from("lib/network_snapshot"));
+    //TODO: Replace placeholder with actual network
+    let network = String::from("placeholder");
     let state = AppState { db, network };
     log::info!("... successful!");
 
@@ -55,7 +56,6 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new() // Define routes
             .app_data(Data::new(state.clone()))
-            // .data(db.clone())
             .service(hello)
             .service(load_feed)
     })
@@ -68,19 +68,30 @@ async fn main() -> std::io::Result<()> {
 
 // Get current state of network when starting server
 fn fetch_network() -> Network<'static> {
-    let inputs = vec![
-        vec![0.0, 0.0],
-        vec![0.0, 1.0],
-        vec![1.0, 0.0],
-        vec![1.0, 1.0],
-    ];
-    let targets = vec![vec![0.0], vec![1.0], vec![1.0], vec![0.0]];
     let mut network = Network::new(vec![2, 3, 1], 0.5, SIGMOID);
-    network.train(inputs, targets, 1000);
-//    println!("{:?}", network.feed_forward(vec![0.0, 0.0]));
-//    println!("{:?}", network.feed_forward(vec![0.0, 1.0]));
-//    println!("{:?}", network.feed_forward(vec![1.0, 0.0]));
-//    println!("{:?}", network.feed_forward(vec![1.0, 1.0]));
-//    println!("{:?}", network.feed_forward(vec![0.5, 1.0]));
+    let start = false;
+
+    if start {
+
+        network.load(String::from("lib/network_snapshot"));
+
+    } else {
+
+        let inputs = vec![
+            vec![0.0, 0.0],
+            vec![0.0, 1.0],
+            vec![1.0, 0.0],
+            vec![1.0, 1.0],
+        ];
+        let targets = vec![vec![0.0], vec![1.0], vec![1.0], vec![0.0]];
+        network.train(inputs, targets, 10000);
+
+        println!("{:?}", network.feed_forward(vec![0.0, 0.0]));
+        println!("{:?}", network.feed_forward(vec![0.0, 1.0]));
+        println!("{:?}", network.feed_forward(vec![1.0, 0.0]));
+        println!("{:?}", network.feed_forward(vec![1.0, 1.0]));
+        println!("{:?}", network.feed_forward(vec![0.5, 1.0]));
+    }
+
     network
 }
