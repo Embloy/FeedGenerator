@@ -39,9 +39,9 @@ To run the unit tests, follow these steps:
 
 1. Ensure that you have the necessary dependencies and test framework set up.
 
-2. Navigate to the test directory in your command line or terminal.
+2. Navigate to the [test directory](../test/unit) in your command line or terminal (`cd test/unit`).
 
-3. Run `cargo test`.
+3. Run `cargo test` (or `cd test/unit; cargo test`).
 
 4. The tests will execute, and you will see the test results and any failures or errors encountered.
 
