@@ -4,7 +4,6 @@ pub mod test_setup {
     use crate::controllers::models::{Job, UserPreferences};
 
     // This is only a very basic test setup to check whether the tests run as expected.
-    // TODO: Define scenarios and parse JSON containing jobs & preferences for each
     pub fn setup_job_basic() -> Job {
         let job = Job {
             job_id: 0,
@@ -53,6 +52,35 @@ pub mod test_setup {
         pref
     }
 
+    /* TODO:
+        Write Unit tests that cover 4 feed requests with 10 jobs each.
+        Define scenarios and parse JSON containing jobs & preferences:
+            => 3 test-scenarios (valid normal, edge-case, invalid)
+            => 4 feed requests per scenario
+            => 40 job & 4 pref JSONs per scenario
+            => 120 job & 12 pref JSOBs in total
+    */
+
+    // TODO: Valid normal input
+    // pub fn setup_jobs_valid() -> vec<vec<Job>> {
+        // parse jobs_basic.json
+        // return vector of slices (e.g, 4 * 10 jobs)
+    // }
+
+    // pub fn setup_pref_valid() -> vec<UserPreferences> {
+        // parse pref_basic.json
+        // return vector of preferences (e.g, 4 preferences)
+    // }
+
+    // TODO: Valid edge-case input
+    // pub fn setup_jobs_edge_case() -> vec<vec<Job>> {}
+
+    // pub fn setup_pref_edge_case() -> vec<UserPreferences> {}
+
+    // TODO: Invalid input
+    // pub fn setup_jobs_invalid() -> vec<vec<Job>> {}
+
+    // pub fn setup_pref_invalid() -> vec<UserPreferences> {}
 
     pub fn _teardown() {
         // This function will be called after each test

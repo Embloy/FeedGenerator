@@ -1,6 +1,5 @@
 #[cfg(test)]
 pub(crate) mod meta_test {
-    use crate::controllers::models::{UserPreferences};
     use crate::ranking_algorithms::meta::{calc_score, calc_score_no_pref, employer_rating, salary_range, spontaneity, spontaneity_map, trend_factor};
     use crate::test::test_setup::test_setup::{setup_job_basic, setup_pref_basic};
 
@@ -15,8 +14,12 @@ pub(crate) mod meta_test {
         assert!((outcome - expected).abs() <= tolerance);
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////BASIC-TEST////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
     #[test]
-    fn test_calc_score() {
+    fn calc_score_basic() {
         let job = setup_job_basic();
         let pref = setup_pref_basic();
 
@@ -32,7 +35,7 @@ pub(crate) mod meta_test {
     }
 
     #[test]
-    fn test_calc_score_no_pref() {
+    fn calc_score_no_pref_basic() {
         let job = setup_job_basic();
 
         let score = calc_score_no_pref(&job);
@@ -45,7 +48,7 @@ pub(crate) mod meta_test {
     }
 
     #[test]
-    fn test_employer_rating() {
+    fn employer_rating_basic() {
         let job = setup_job_basic();
 
         let rating = employer_rating(&job);
@@ -54,7 +57,7 @@ pub(crate) mod meta_test {
     }
 
     #[test]
-    fn test_trend_factor() {
+    fn trend_factor_basic() {
         let job = setup_job_basic();
 
         let factor = trend_factor(&job);
@@ -63,7 +66,7 @@ pub(crate) mod meta_test {
     }
 
     #[test]
-    fn test_salary_range() {
+    fn salary_range_basic() {
         let job = setup_job_basic();
         let pref = setup_pref_basic();
 
@@ -73,7 +76,7 @@ pub(crate) mod meta_test {
     }
 
     #[test]
-    fn test_spontaneity() {
+    fn spontaneity_basic() {
         let job = setup_job_basic();
         let pref = setup_pref_basic();
 
@@ -83,7 +86,7 @@ pub(crate) mod meta_test {
     }
 
     #[test]
-    fn test_spontaneity_map() {
+    fn spontaneity_map_basic() {
         let a = 1000.0;
         let b = 500.0;
 
@@ -91,4 +94,79 @@ pub(crate) mod meta_test {
         let expected_score = 2.5;
         assert_float_eq(score, expected_score, 0.000001);
     }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////VALID-TEST/////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    #[test]
+    fn calc_score_valid() {}
+
+    #[test]
+    fn calc_score_no_pref_valid() {}
+
+    #[test]
+    fn employer_rating_valid() {}
+
+    #[test]
+    fn trend_factor_valid() {}
+
+    #[test]
+    fn salary_range_valid() {}
+
+    #[test]
+    fn spontaneity_valid() {}
+
+    #[test]
+    fn spontaneity_map_valid() {}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////EDGE-CASE-TEST///////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    #[test]
+    fn calc_score_edge_case() {}
+
+    #[test]
+    fn calc_score_no_pref_edge_case() {}
+
+    #[test]
+    fn employer_rating_edge_case() {}
+
+    #[test]
+    fn trend_factor_edge_case() {}
+
+    #[test]
+    fn salary_range_edge_case() {}
+
+    #[test]
+    fn spontaneity_edge_case() {}
+
+    #[test]
+    fn spontaneity_map_edge_case() {}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////INVALID-TEST////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    #[test]
+    fn calc_score_invalid() {}
+
+    #[test]
+    fn calc_score_no_pref_invalid() {}
+
+    #[test]
+    fn employer_rating_invalid() {}
+
+    #[test]
+    fn trend_factor_invalid() {}
+
+    #[test]
+    fn salary_range_invalid() {}
+
+    #[test]
+    fn spontaneity_invalid() {}
+
+    #[test]
+    fn spontaneity_map_invalid() {}
 }
