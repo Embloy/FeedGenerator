@@ -1,3 +1,13 @@
+[package]
+authors = ["Carlo Bortolan <carlobortolan@gmail.com>", "Jan Hummel <jan.hummel@tum.de>"]
+name = "embloy-feed-generator"
+description = "Feed-Generator for embloy"
+readme = "README.md"
+repository = "https://gitlab.lrz.de/00000000014B5849/embloy_feed_generator.git"
+license = "NONE"
+version = "0.1.0"
+edition = "2021"
+
 [workspace]
 members = ["src", "test/unit"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
