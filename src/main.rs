@@ -1,40 +1,21 @@
+pub mod tests;
+pub mod logs;
+pub mod controllers;
+pub mod machine_learning;
+pub mod ranking_algorithms;
+pub mod lib;
+
+
 use std::env;
 // use openssl::ssl::{Ssl, SslAcceptor, SslFiletype, SslMethod};
 use actix_web::{App, HttpServer};
 use dotenv::dotenv;
 use mongodb::{Client, Database};
 
-use controllers::handlers;
+use controllers::handlers::{hello, load_feed};
 use machine_learning::{activations::SIGMOID, network::Network};
 use ranking_algorithms::job_type_matrix;
-
-mod controllers {
-    pub mod handlers;
-    pub mod models;
-}
-
-mod logs {
-    pub mod logger;
-}
-
-mod machine_learning {
-    pub mod network;
-    pub mod matrix;
-    pub mod activations;
-}
-
-mod ranking_algorithms {
-    pub mod job_type_matrix;
-    pub mod meta;
-    pub mod ranker;
-    pub mod t_score;
-}
-
-mod test {
-    pub mod common;
-    pub mod meta_test;
-    pub mod t_score_test;
-}
+use crate::controllers::handlers;
 
 
 #[actix_web::main]
@@ -61,8 +42,8 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new() // Define routes
             .data(db.clone())
-            .service(handlers::hello)
-            .service(handlers::load_feed)
+            .service(hello)
+            .service(load_feed)
     })
         // Bind the server to a socket using OpenSSL as the TLS implementation.
         //.bind_openssl(env::var("ADDRESS").unwrap_or_else(|_| "127.0.0.1:8080".to_string()), builder)?

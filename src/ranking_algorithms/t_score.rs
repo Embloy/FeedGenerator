@@ -1,7 +1,7 @@
 use std::collections::LinkedList;
 
 use crate::controllers::models::{Job, UserPreferences};
-use crate::job_type_matrix::query;
+use crate::ranking_algorithms::job_type_matrix::query;
 
 const NUM_JOB_TYPES: i32 = 27; // Todo: replace with dynamical value based on matrix
 
@@ -10,7 +10,7 @@ pub(crate) fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
         .map_or(0.0, |&(_, score)| score);
     let m_score = calc_m_score(job, pref, 3);
     let t_score = m_score * x_value; // Todo: or m_score + x_value??
-    println!("for job id {} x_value is {} m_score is {} t_score is {}", job.job_id, x_value,calc_m_score(job, pref, 3),  m_score * x_value);
+    println!("for job id {} x_value is {} m_score is {} t_score is {}", job.job_id, x_value, calc_m_score(job, pref, 3), m_score * x_value);
     t_score
 }
 

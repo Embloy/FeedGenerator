@@ -3,8 +3,8 @@ FROM rust:latest as build
 RUN USER=root cargo new --bin embloy_feed_generator
 WORKDIR /embloy_feed_generator
 
-COPY ./Cargo.lock ./Cargo.lock
-COPY ./Cargo.toml ./Cargo.toml
+COPY src/Cargo.lock ./Cargo.lock
+COPY src/Cargo.toml ./Cargo.toml
 
 RUN cargo build --release
 RUN rm src/*.rs

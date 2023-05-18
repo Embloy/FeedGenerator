@@ -1,7 +1,7 @@
 #[cfg(test)]
 pub mod test_setup {
     use chrono::Utc;
-    use crate::controllers::models::{Job, UserPreferences};
+    use backend::controllers::models::{Job, UserPreferences};
 
     // This is only a very basic test setup to check whether the tests run as expected.
     pub fn setup_job_basic() -> Job {
@@ -63,12 +63,12 @@ pub mod test_setup {
 
     // TODO: Valid normal input
     // pub fn setup_jobs_valid() -> vec<vec<Job>> {
-        // parse jobs_basic.json
+        // parse jobs_valid.json
         // return vector of slices (e.g, 4 * 10 jobs)
     // }
 
     // pub fn setup_pref_valid() -> vec<UserPreferences> {
-        // parse pref_basic.json
+        // parse pref_valid.json
         // return vector of preferences (e.g, 4 preferences)
     // }
 

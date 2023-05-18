@@ -1,6 +1,5 @@
 #[cfg(test)]
-mod placeholder {
-    use super::*;
+pub mod t_score_test {
 
     #[test]
     fn test_add() {

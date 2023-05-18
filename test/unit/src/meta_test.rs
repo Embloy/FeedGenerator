@@ -1,7 +1,7 @@
 #[cfg(test)]
-pub(crate) mod meta_test {
-    use crate::ranking_algorithms::meta::{calc_score, calc_score_no_pref, employer_rating, salary_range, spontaneity, spontaneity_map, trend_factor};
-    use crate::test::common::test_setup::*;
+pub mod meta_test {
+    use backend::ranking_algorithms::meta::{calc_score, calc_score_no_pref, employer_rating, salary_range, spontaneity, spontaneity_map, trend_factor};
+    use crate::common::test_setup::{setup_job_basic, setup_pref_basic};
 
     const ER_WF: f64 = 0.2;
     const TF_WF: f64 = 0.5;

@@ -1,0 +1,42 @@
+[package]
+authors = ["Carlo Bortolan <carlobortolan@gmail.com>", "Jan Hummel <jan.hummel@tum.de>"]
+name = "backend"
+description = "Feed-Generator backend"
+readme = "README.md"
+repository = "https://gitlab.lrz.de/00000000014B5849/embloy_feed_generator.git"
+license = "NONE"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# actix-web = { version = "4", features = ["openssl"] }
+actix-web = { version = "4" }
+# openssl = { version = "0.10" }
+actix-rt = "2.8.0"
+tokio = { version = "1", features = ["full"] }
+base64 = "0.21.0"
+dotenv = "0.15.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.73"
+serde_derive = "1.0.130"
+num_cpus = "1.14.0"
+chrono = "0.4.24"
+csv = "1.2"
+ndarray = "0.15.6"
+ndarray-csv = "0.5.1"
+rand = "0.8.5"
+smartcore = "0.3.1"
+mongodb = "2.4.0"
+lazy_static = "1.4"
+bson = "2.6.1"
+#test = { path= "../test/unit" }
+
+[lib]
+name = "backend"
+path = "../src/lib.rs"
+
+[[bin]]
+name = "embloy_feed_generator"
+path = "main.rs"
