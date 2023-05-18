@@ -1,5 +1,5 @@
-use core::fmt;
 use std::f64::consts::E;
+use core::fmt;
 
 #[derive(Clone)]
 pub struct Activation<'a> {

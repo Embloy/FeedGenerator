@@ -10,7 +10,7 @@ pub static mut _REDUCED_MATRIX:Option<DenseMatrix<f64>> = None;
 
 
 // build should be called when server is started (-> main.rs)
-pub fn build() -> Result<(), Box<dyn Error>> {
+pub(crate) fn build() -> Result<(), Box<dyn Error>> {
     // Reader from path of test csv file
     let reader = csv::Reader::from_path("./lib/matrix.csv");
     let mut matrix: Vec<Vec<f64>> = Vec::new();
