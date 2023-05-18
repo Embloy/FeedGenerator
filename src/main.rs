@@ -1,4 +1,3 @@
-pub mod tests;
 pub mod logs;
 pub mod controllers;
 pub mod machine_learning;

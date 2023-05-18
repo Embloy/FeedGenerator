@@ -591,6 +591,26 @@ checksum = "7fcaabb2fef8c910e7f4c7ce9f67a1283a1715879a7c230ca9d6d1ae31f16d91"
 [[package]]
 name = "embloy-feed-generator"
 version = "0.1.0"
+dependencies = [
+ "actix-rt",
+ "actix-web",
+ "base64 0.21.0",
+ "bson",
+ "chrono",
+ "csv",
+ "dotenv",
+ "lazy_static",
+ "mongodb",
+ "ndarray",
+ "ndarray-csv",
+ "num_cpus",
+ "rand",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "smartcore",
+ "tokio",
+]
 
 [[package]]
 name = "encoding_rs"
