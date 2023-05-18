@@ -9,3 +9,6 @@
 # These files are required for SSL/TSL encryption to work properly, and should be kept secure as they grant access to sensitve information
 /cert.pem
 /key.pem
+
+# Secrets
+.env
