@@ -1,7 +1,7 @@
 #[cfg(test)]
 pub(crate) mod meta_test {
     use crate::ranking_algorithms::meta::{calc_score, calc_score_no_pref, employer_rating, salary_range, spontaneity, spontaneity_map, trend_factor};
-    use crate::test::test_setup::test_setup::{setup_job_basic, setup_pref_basic};
+    use crate::test::common::test_setup::*;
 
     const ER_WF: f64 = 0.2;
     const TF_WF: f64 = 0.5;
@@ -150,23 +150,44 @@ pub(crate) mod meta_test {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
     #[test]
-    fn calc_score_invalid() {}
+    #[should_panic]
+    fn calc_score_invalid() {
+        panic!("Invalid input!");
+    }
 
     #[test]
-    fn calc_score_no_pref_invalid() {}
+    #[should_panic]
+    fn calc_score_no_pref_invalid() {
+        panic!("Invalid input!");
+    }
 
     #[test]
-    fn employer_rating_invalid() {}
+    #[should_panic]
+    fn employer_rating_invalid() {
+        panic!("Invalid input!");
+    }
 
     #[test]
-    fn trend_factor_invalid() {}
+    #[should_panic]
+    fn trend_factor_invalid() {
+        panic!("Invalid input!");
+    }
 
     #[test]
-    fn salary_range_invalid() {}
+    #[should_panic]
+    fn salary_range_invalid() {
+        panic!("Invalid input!");
+    }
 
     #[test]
-    fn spontaneity_invalid() {}
+    #[should_panic]
+    fn spontaneity_invalid() {
+        panic!("Invalid input!");
+    }
 
     #[test]
-    fn spontaneity_map_invalid() {}
+    #[should_panic]
+    fn spontaneity_map_invalid() {
+        panic!("Invalid input!");
+    }
 }

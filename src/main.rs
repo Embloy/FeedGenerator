@@ -31,7 +31,7 @@ mod ranking_algorithms {
 }
 
 mod test {
-    pub mod test_setup;
+    pub mod common;
     pub mod meta_test;
     pub mod t_score_test;
 }
