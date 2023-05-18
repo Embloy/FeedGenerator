@@ -9,7 +9,7 @@ use serde_json::{from_str, json};
 use crate::machine_learning::activations::Activation;
 use crate::machine_learning::matrix::Matrix;
 
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub struct Network<'a> {
     layers: Vec<usize>,
     weights: Vec<Matrix>,

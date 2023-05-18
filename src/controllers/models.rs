@@ -48,6 +48,29 @@ pub struct UserPreferences {
     pub spontaneity: Option<f64>,
     pub num_jobs_done: Option<i32>,
 }
+#[derive(Debug, Serialize, Deserialize)]
+pub struct RequestLog<'a> {
+    pub status: i32,
+    pub endpoint: &'a str,
+    pub timestamp:i64,
+    pub exceptions: Option<Vec<CustomBaseError>>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct FeedLog {
+    pub status: i32,
+    pub timestamp_fg_in: i64,
+    pub timestamp_fg_out: i64,
+    pub pref: Option<UserPreferences>,
+    pub sorted_slice: Vec<Job>,
+    pub exceptions: Option<Vec<CustomBaseError>>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct NetworkLog {
+    pub timestamp: i64,
+    // pub network: Network<'static>,
+}
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FeedRequest {
@@ -55,21 +78,6 @@ pub struct FeedRequest {
     pub slice: Vec<Job>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct FeedLog {
-    pub status: i32,
-    pub timestamp_fg_in: Option<i64>,
-    pub timestamp_fg_out: i64,
-    pub pref: Option<UserPreferences>,
-    pub sorted_slice: Vec<Job>,
-    pub exceptions: Option<Vec<CustomBaseError>>,
-}
-
-#[derive(Serialize)]
-pub struct NetworkLog {
-    pub timestamp: i64,
-    // pub network: Network<'static>,
-}
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CustomBaseError {

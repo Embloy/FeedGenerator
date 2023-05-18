@@ -3,22 +3,25 @@ use std::env;
 
 use actix_web::{get, HttpRequest, HttpResponse, post, Responder, web};
 use base64::decode;
-use mongodb::Database;
+use chrono::Utc;
 use serde::Deserialize;
+use crate::config::app_state::AppState;
 
 use crate::controllers::models::{CustomBaseError, FeedRequest, Job, UserPreferences};
-// use crate::logs::logger;
+use crate::logs::logger;
 use crate::ranking_algorithms::ranker::generate_job_feed;
 
 // Test connection
 #[get("/")]
-pub async fn hello() -> HttpResponse {
+pub async fn hello(state: web::Data<AppState>) -> HttpResponse {
+    logger::log_request(&state.db, 200, "GET:/root").await.expect("LOGGER TIMEOUT");
     HttpResponse::Ok().body("Hello World")
 }
 
 // FG-API endpoint: Returns ranked feed based on given jobs and preferences
 #[post("/feed")]
-pub async fn load_feed(db: web::Data<Database>, feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
+pub async fn load_feed(state: web::Data<AppState>, feed_request: web::Json<FeedRequest>, req: HttpRequest) -> impl Responder {
+    logger::log_request(&state.db, 200, "POST:/feed").await.expect("LOGGER TIMEOUT");
     let FeedRequest { pref, slice } = feed_request.into_inner();
 
     // Check if user is authorized
@@ -34,7 +37,7 @@ pub async fn load_feed(db: web::Data<Database>, feed_request: web::Json<FeedRequ
     }
 
     // Parse request body and rank jobs
-    let result = process_feed_request(db, slice, pref).await;
+    let result = process_feed_request(state, slice, pref).await;
 
     // Respond with result as response body
     match result {
@@ -55,15 +58,15 @@ pub(crate) fn deserialize_job_types<'de, D>(deserializer: D) -> Result<LinkedLis
 }
 
 // Parse request body and rank jobs
-async fn process_feed_request(_db: web::Data<Database>, slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
+async fn process_feed_request(state: web::Data<AppState>, slice: Vec<Job>, pref: Option<UserPreferences>) -> Result<Vec<Job>, Box<dyn std::error::Error>> {
+    let timestamp_fg_in = Utc::now().timestamp();
+
     // Rank jobs
     let res: Vec<Job> = generate_job_feed(slice.clone(), pref.clone()).await;
 
     // Log results
-    /* TODO: REMOVE COMMENT WHEN STARTING LOCAL DEPLOYMENT
-    logger::log_output(db, 200, pref, slice, res.clone()).await.expect("LOGGER TIMEOUT");
-    logger::network_snapshot(network).await.expect("LOGGER TIMEOUT");
-    */
+    logger::log_output(&state.db, 200, pref, res.clone(), timestamp_fg_in).await.expect("LOGGER TIMEOUT");
+    // logger::network_snapshot(network).await.expect("LOGGER TIMEOUT");
 
     Ok(res)
 }
