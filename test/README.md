@@ -57,14 +57,14 @@ To run the unit tests, follow these steps:
 
 ## TODO
 
-- Unit tests
+- Unit
     - [ ] Write 10/10 edge-case job JSONs
     - [ ] Write 4/4 edge-case pref JSONs
     - [ ] Write 40/40 edge-case res JSONs
     - [ ] Write 10/10 invalid job JSONs
     - [ ] Write 4/4 invalid pref JSONs
     - [ ] Write 40/40 invalid res JSONs
-- Extras
+- Faker
     - [ ] Implement functionality to store test results (or generally ranked feed) in .csv (or similar) file to analyze
       further (e.g., use "Faker" to generate 10.000 jobs & 100 preferences and have resulting feeds stored in Excel file
       to analyze in R)

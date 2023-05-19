@@ -672,6 +672,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "faker"
+version = "0.1.0"
+dependencies = [
+ "backend",
+ "chrono",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
 name = "flate2"
 version = "1.0.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"

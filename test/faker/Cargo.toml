@@ -1,0 +1,21 @@
+[package]
+authors = ["Carlo Bortolan <carlobortolan@gmail.com>", "Jan Hummel <jan.hummel@tum.de>"]
+name = "faker"
+description = "Random data generator for Feed-Generator backend"
+readme = "README.md"
+repository = "https://gitlab.lrz.de/00000000014B5849/embloy_feed_generator.git"
+license = "NONE"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+backend = { path = "../../src" }
+chrono = "0.4.24"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.73"
+serde_derive = "1.0.130"
+
+[lib]
+name = "unit"
+path = "src/lib.rs"
