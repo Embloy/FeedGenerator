@@ -17,8 +17,9 @@ The unit tests are organized into three main scenarios:
 
 ## Feed Requests
 
-For each scenario, there are four feed requests. Each feed request is expected to process 10 jobs. Therefore, there are
-a total of 40 job JSONs per scenario.
+For each scenario, there are four feed requests. Each feed request is expected to process three jobs. Therefore, there
+are
+a total of 12 job JSONs per scenario.
 
 ## JSON Data
 
@@ -26,9 +27,9 @@ The [data](../test/unit/data) directory contains JSON files for both jobs and pr
 
 - Job JSONs (serialized `Job` object):
 
-    - Valid Normal Scenario: 40 job JSONs
-    - Edge-case Scenario: 40 job JSONs
-    - Invalid Scenario: 40 job JSONs
+    - Valid Normal Scenario: 12 job JSONs
+    - Edge-case Scenario: 12 job JSONs
+    - Invalid Scenario: 12 job JSONs
 
 - Preference JSONs (serialized `UserPreferences` object):
     - Valid Normal Scenario: 4 preference JSONs
@@ -36,11 +37,11 @@ The [data](../test/unit/data) directory contains JSON files for both jobs and pr
     - Invalid Scenario: 4 preference JSONs
 
 - Result JSONs (serialized `Res` object):
-    - Valid Normal Scenario: 4 result JSONs
-    - Edge-case Scenario: 4 result JSONs
-    - Invalid Scenario: 4 result JSONs
+    - Valid Normal Scenario: 12 result JSONs
+    - Edge-case Scenario: 12 result JSONs
+    - Invalid Scenario: 12 result JSONs
 
-In total, there are 120 job JSONs and 12 preference JSONs.
+In total, there are 36 job JSONs and 12 preference JSONs.
 
 ## Running the Tests
 
