@@ -26,9 +26,9 @@ a total of 12 job JSONs per scenario.
 The [data](../test/unit/data) directory contains JSON files for both jobs and preferences. Here's the breakdown:
 
 - Job JSONs (serialized `Job` object):
-    - Valid Normal Scenario: 12 job JSONs
-    - Edge-case Scenario: 12 job JSONs
-    - Invalid Scenario: 12 job JSONs
+    - Valid Normal Scenario: 10 job JSONs
+    - Edge-case Scenario: 10 job JSONs
+    - Invalid Scenario: 10 job JSONs
 
 - Preference JSONs (serialized `UserPreferences` object):
     - Valid Normal Scenario: 4 preference JSONs
@@ -36,11 +36,12 @@ The [data](../test/unit/data) directory contains JSON files for both jobs and pr
     - Invalid Scenario: 4 preference JSONs
 
 - Result JSONs (serialized `Res` object):
-    - Valid Normal Scenario: 12 result JSONs
-    - Edge-case Scenario: 12 result JSONs
-    - Invalid Scenario: 12 result JSONs
+    - Valid Normal Scenario: 40 result JSONs
+    - Edge-case Scenario: 40 result JSONs
+    - Invalid Scenario: 40 result JSONs
 
-In total, there are 36 job JSONs and 12 preference JSONs.
+Each scenario covers 4 feed requests (4 different preferences) with 10 jobs each (jobs remain equal for each request).
+So to summarize: There are 40 ranked-jobs per scenario 120 ranked-jobs in total.
 
 ## Running the Tests
 

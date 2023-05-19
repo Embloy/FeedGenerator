@@ -18,12 +18,6 @@ pub mod test_setup {
 
     // Read JSON test data
     fn read_test_data(path: String) -> Value {
-        // Ignore
-        // if let Ok(current_dir) = env::current_dir() {
-        //     println!("Current working directory: {}", current_dir.display());
-        // } else {
-        //     println!("Failed to retrieve the current working directory.");
-        // }
         let mut file = File::open(path).expect("Failed to open the file");
         let mut json_str = String::new();
         file.read_to_string(&mut json_str).expect("Failed to read the file");
@@ -50,14 +44,13 @@ pub mod test_setup {
     /* TODO:
         Write Unit tests that cover 4 feed requests with 10 (equal) jobs each.
         Define scenarios and parse JSON containing jobs & preferences:
-            => 3 test-scenarios (valid normal, edge-case, invalid)
+            => 3 test-scenarios (valid normal [done], edge-case [-], invalid [-])
             => 4 different preferences (=feed requests) per scenario
             => 10 different jobs per scenario
             => 40 ranked-jobs per scenario
             => 120 ranked-jobs in total
     */
 
-    // TODO: Valid normal input
     pub fn setup_jobs(test_scenario: &str) -> Vec<Job> {
         let mut slice: Vec<Job> = from_value(read_test_data("data/jobs_".to_owned() + test_scenario + ".json")).unwrap();
         for job in slice.iter_mut() {
