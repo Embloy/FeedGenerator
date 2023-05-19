@@ -1847,6 +1847,8 @@ version = "0.1.0"
 dependencies = [
  "backend",
  "chrono",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

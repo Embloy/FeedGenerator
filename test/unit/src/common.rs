@@ -1,56 +1,38 @@
 #[cfg(test)]
 pub mod test_setup {
+    use std::fs::File;
+    use std::io::Read;
     use chrono::Utc;
     use backend::controllers::models::{Job, UserPreferences};
+    use serde_json::Value;
+    use serde_json::from_value;
+
+    // Read JSON test data
+    fn read_test_data(path: String) -> Value {
+        // Ignore
+        // if let Ok(current_dir) = env::current_dir() {
+        //     println!("Current working directory: {}", current_dir.display());
+        // } else {
+        //     println!("Failed to retrieve the current working directory.");
+        // }
+        let mut file = File::open(path).expect("Failed to open the file");
+        let mut json_str = String::new();
+        file.read_to_string(&mut json_str).expect("Failed to read the file");
+        serde_json::from_str(&json_str).unwrap()
+    }
 
     // This is only a very basic test setup to check whether the tests run as expected.
     pub fn setup_job_basic() -> Job {
-        let job = Job {
-            job_id: 0,
-            job_type_value: 0,
-            job_type: "".to_string(),
-            job_status: 0,
-            status: "".to_string(),
-            user_id: 0,
-            duration: 0,
-            code_lang: None,
-            title: "".to_string(),
-            position: None,
-            description: "".to_string(),
-            key_skills: None,
-            salary: Some(60000.0),
-            currency: None,
-            euro_salary: None,
-            image_url: None,
-            start_slot: Utc::now().format("%Y-%m-%dT%H:%M:%S%.3fZ").to_string(),
-            longitude: 0.0,
-            latitude: 0.0,
-            country_code: None,
-            postal_code: None,
-            city: None,
-            address: None,
-            created_at: "".to_string(),
-            updated_at: "".to_string(),
-            applications_count: 100,
-            view_count: 500,
-            job_notifications: None,
-            employer_rating: Some(4),
-            boost: None,
-            relevance_score: None,
-        };
+        let mut job: Job = from_value(read_test_data(String::from("data/jobs_basic.json"))).unwrap();
+        job.start_slot = Utc::now().format("%Y-%m-%dT%H:%M:%S%.3fZ").to_string();
         job
     }
 
     pub fn setup_pref_basic() -> UserPreferences {
-        let pref = UserPreferences {
-            job_types: Default::default(),
-            key_skills: None,
-            salary_range: Some((50000.0, 80000.0)),
-            spontaneity: Some(500.0),
-            num_jobs_done: None,
-        };
+        let mut pref: UserPreferences = from_value(read_test_data(String::from("data/pref_basic.json"))).unwrap();
         pref
     }
+
 
     /* TODO:
         Write Unit tests that cover 4 feed requests with 10 jobs each.
@@ -62,25 +44,20 @@ pub mod test_setup {
     */
 
     // TODO: Valid normal input
-    // pub fn setup_jobs_valid() -> vec<vec<Job>> {
-        // parse jobs_valid.json
-        // return vector of slices (e.g, 4 * 10 jobs)
-    // }
+    pub fn setup_jobs(test_scenario: &str) -> Vec<Vec<Job>> {
+        let mut jobs: Vec<Vec<Job>> = from_value(read_test_data("data/jobs_".to_owned() + test_scenario + ".json")).unwrap();
+        for slice in jobs.iter_mut() {
+            for job in slice.iter_mut() {
+                job.start_slot = Utc::now().format("%Y-%m-%dT%H:%M:%S%.3fZ").to_string();
+            }
+        }
+        jobs
+    }
 
-    // pub fn setup_pref_valid() -> vec<UserPreferences> {
-        // parse pref_valid.json
-        // return vector of preferences (e.g, 4 preferences)
-    // }
-
-    // TODO: Valid edge-case input
-    // pub fn setup_jobs_edge_case() -> vec<vec<Job>> {}
-
-    // pub fn setup_pref_edge_case() -> vec<UserPreferences> {}
-
-    // TODO: Invalid input
-    // pub fn setup_jobs_invalid() -> vec<vec<Job>> {}
-
-    // pub fn setup_pref_invalid() -> vec<UserPreferences> {}
+    pub fn setup_pref(test_scenario: &str) -> Vec<UserPreferences> {
+        let mut preferences: Vec<UserPreferences> = from_value(read_test_data("data/pref_".to_owned() + test_scenario + ".json")).unwrap();
+        preferences
+    }
 
     pub fn _teardown() {
         // This function will be called after each test

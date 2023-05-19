@@ -1,0 +1,21 @@
+{
+  "id": 4,
+  "user_id": 621,
+  "interests": "Tennis",
+  "experience": "CEO",
+  "degree": "Bachelor",
+  "num_jobs_done": 4,
+  "spontaneity": 500.0,
+  "job_types": {
+    "1": 2.0,
+    "2": 2.0,
+    "3": 2.0
+  },
+  "key_skills": "App programmierung",
+  "salary_range": [
+    50000.0,
+    80000.0
+  ],
+  "cv_url": "",
+  "gender": "male"
+}
