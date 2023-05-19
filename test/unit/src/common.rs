@@ -26,18 +26,18 @@ pub mod test_setup {
 
     // This is only a very basic test setup to check whether the tests run as expected.
     pub fn setup_job_basic() -> Job {
-        let mut job: Job = from_value(read_test_data(String::from("data/jobs_basic.json"))).unwrap();
+        let mut job: Job = from_value(read_test_data(String::from("data/jobs/jobs_basic.json"))).unwrap();
         job.start_slot = Utc::now().format("%Y-%m-%dT%H:%M:%S%.3fZ").to_string();
         job
     }
 
     pub fn setup_pref_basic() -> UserPreferences {
-        let pref: UserPreferences = from_value(read_test_data(String::from("data/pref_basic.json"))).unwrap();
+        let pref: UserPreferences = from_value(read_test_data(String::from("data/pref/pref_basic.json"))).unwrap();
         pref
     }
 
     pub fn setup_res_basic() -> Res {
-        let res: Res = from_value(read_test_data(String::from("data/res_basic.json"))).unwrap();
+        let res: Res = from_value(read_test_data(String::from("data/res/res_basic.json"))).unwrap();
         res
     }
 
@@ -52,7 +52,7 @@ pub mod test_setup {
     */
 
     pub fn setup_jobs(test_scenario: &str) -> Vec<Job> {
-        let mut slice: Vec<Job> = from_value(read_test_data("data/jobs_".to_owned() + test_scenario + ".json")).unwrap();
+        let mut slice: Vec<Job> = from_value(read_test_data("data/jobs/jobs_".to_owned() + test_scenario + ".json")).unwrap();
         for job in slice.iter_mut() {
             job.start_slot = Utc::now().format("%Y-%m-%dT%H:%M:%S%.3fZ").to_string();
         }
@@ -60,12 +60,12 @@ pub mod test_setup {
     }
 
     pub fn setup_pref(test_scenario: &str) -> Vec<UserPreferences> {
-        let preferences: Vec<UserPreferences> = from_value(read_test_data("data/pref_".to_owned() + test_scenario + ".json")).unwrap();
+        let preferences: Vec<UserPreferences> = from_value(read_test_data("data/pref/pref_".to_owned() + test_scenario + ".json")).unwrap();
         preferences
     }
 
     pub fn setup_res(test_scenario: &str) -> Vec<Vec<Res>> {
-        let res: Vec<Vec<Res>> = from_value(read_test_data(String::from("data/res_".to_owned() + test_scenario + ".json"))).unwrap();
+        let res: Vec<Vec<Res>> = from_value(read_test_data(String::from("data/res/res_".to_owned() + test_scenario + ".json"))).unwrap();
         res
     }
 
