@@ -1,35 +1,44 @@
-# Unit Tests for Feed-Generator Backend 
+# Unit Tests for Feed-Generator Backend
 
-This directory contains unit tests that cover various scenarios for feed requests. The tests are designed to parse JSON data containing job and preference information and ensure the expected behavior of the system.
+This directory contains unit tests that cover various scenarios for feed requests. The tests are designed to parse JSON
+data containing job and preference information and ensure the expected behavior of the system.
 
 ## Test Scenarios
 
 The unit tests are organized into three main scenarios:
 
->1. **Valid Normal Scenario**: This scenario represents a typical feed request with valid job and preference data.
+> 1. **Valid Normal Scenario**: This scenario represents a typical feed request with valid job and preference data.
 
-> 2. **Edge-case Scenario**: This scenario tests the system's behavior when it encounters edge-case data or unusual input.
+> 2. **Edge-case Scenario**: This scenario tests the system's behavior when it encounters edge-case data or unusual
+     input.
 
-> 3. **Invalid Scenario**: This scenario focuses on handling invalid data and ensuring proper error handling and validation.
+> 3. **Invalid Scenario**: This scenario focuses on handling invalid data and ensuring proper error handling and
+     validation.
 
 ## Feed Requests
 
-For each scenario, there are four feed requests. Each feed request is expected to process 10 jobs. Therefore, there are a total of 40 job JSONs per scenario.
+For each scenario, there are four feed requests. Each feed request is expected to process 10 jobs. Therefore, there are
+a total of 40 job JSONs per scenario.
 
 ## JSON Data
 
 The [data](../test/unit/data) directory contains JSON files for both jobs and preferences. Here's the breakdown:
 
-- Job JSONs:
-        
-  - Valid Normal Scenario: 40 job JSONs
-  - Edge-case Scenario: 40 job JSONs
-  - Invalid Scenario: 40 job JSONs
+- Job JSONs (serialized `Job` object):
 
-- Preference JSONs:
-  - Valid Normal Scenario: 4 preference JSONs
-  - Edge-case Scenario: 4 preference JSONs
-  - Invalid Scenario: 4 preference JSONs
+    - Valid Normal Scenario: 40 job JSONs
+    - Edge-case Scenario: 40 job JSONs
+    - Invalid Scenario: 40 job JSONs
+
+- Preference JSONs (serialized `UserPreferences` object):
+    - Valid Normal Scenario: 4 preference JSONs
+    - Edge-case Scenario: 4 preference JSONs
+    - Invalid Scenario: 4 preference JSONs
+
+- Result JSONs (serialized `Res` object):
+    - Valid Normal Scenario: 4 result JSONs
+    - Edge-case Scenario: 4 result JSONs
+    - Invalid Scenario: 4 result JSONs
 
 In total, there are 120 job JSONs and 12 preference JSONs.
 

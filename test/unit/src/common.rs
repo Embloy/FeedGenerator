@@ -6,6 +6,15 @@ pub mod test_setup {
     use backend::controllers::models::{Job, UserPreferences};
     use serde_json::Value;
     use serde_json::from_value;
+    use serde::{Deserialize, Serialize};
+
+    #[derive(Serialize, Deserialize, Debug, Clone)]
+    pub struct Res {
+        pub employer_rating: f64,
+        pub trend_factor: f64,
+        pub salary_range: f64,
+        pub spontaneity: f64,
+    }
 
     // Read JSON test data
     fn read_test_data(path: String) -> Value {
@@ -29,10 +38,14 @@ pub mod test_setup {
     }
 
     pub fn setup_pref_basic() -> UserPreferences {
-        let mut pref: UserPreferences = from_value(read_test_data(String::from("data/pref_basic.json"))).unwrap();
+        let pref: UserPreferences = from_value(read_test_data(String::from("data/pref_basic.json"))).unwrap();
         pref
     }
 
+    pub fn setup_res_basic() -> Res {
+        let res: Res = from_value(read_test_data(String::from("data/res_basic.json"))).unwrap();
+        res
+    }
 
     /* TODO:
         Write Unit tests that cover 4 feed requests with 10 jobs each.
@@ -55,7 +68,7 @@ pub mod test_setup {
     }
 
     pub fn setup_pref(test_scenario: &str) -> Vec<UserPreferences> {
-        let mut preferences: Vec<UserPreferences> = from_value(read_test_data("data/pref_".to_owned() + test_scenario + ".json")).unwrap();
+        let preferences: Vec<UserPreferences> = from_value(read_test_data("data/pref_".to_owned() + test_scenario + ".json")).unwrap();
         preferences
     }
 

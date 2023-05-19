@@ -18,7 +18,7 @@ pub fn assert_float_eq(outcome: f64, expected: f64, tolerance: f64) {
 #[cfg(test)]
 pub mod mt_basic {
     use backend::ranking_algorithms::meta::{calc_score, calc_score_no_pref, employer_rating, salary_range, spontaneity, spontaneity_map, trend_factor};
-    use crate::common::test_setup::{setup_job_basic, setup_pref_basic};
+    use crate::common::test_setup::{setup_job_basic, setup_pref_basic, setup_res_basic};
     use crate::meta_test::{assert_float_eq, ER_WF, SP_WF, SR_WF, TF_WF};
 
     #[test]
@@ -55,7 +55,7 @@ pub mod mt_basic {
         let job = setup_job_basic();
 
         let rating = employer_rating(&job);
-        let expected_rating = job.employer_rating.unwrap_or_default() as f64 / 5.0;
+        let expected_rating = setup_res_basic().employer_rating;
         assert_float_eq(rating, expected_rating, 0.000001);
     }
 
@@ -64,7 +64,8 @@ pub mod mt_basic {
         let job = setup_job_basic();
 
         let factor = trend_factor(&job);
-        let expected_factor = 0.7423858694304362;
+        let expected_factor = setup_res_basic().trend_factor;
+
         assert_float_eq(factor, expected_factor, 0.000001);
     }
 
@@ -74,7 +75,7 @@ pub mod mt_basic {
         let pref = setup_pref_basic();
 
         let range = salary_range(&job, &pref);
-        let expected_range = 1.0 / 3.0;
+        let expected_range = setup_res_basic().salary_range;
         assert_float_eq(range, expected_range as f64, 0.000001);
     }
 
@@ -84,7 +85,7 @@ pub mod mt_basic {
         let pref = setup_pref_basic();
 
         let spontaneity = spontaneity(&job, &pref);
-        let expected_spontaneity = 2.5;
+        let expected_spontaneity = setup_res_basic().spontaneity;
         assert_float_eq(spontaneity, expected_spontaneity, 0.000001);
     }
 
