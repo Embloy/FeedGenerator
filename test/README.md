@@ -26,7 +26,6 @@ a total of 12 job JSONs per scenario.
 The [data](../test/unit/data) directory contains JSON files for both jobs and preferences. Here's the breakdown:
 
 - Job JSONs (serialized `Job` object):
-
     - Valid Normal Scenario: 12 job JSONs
     - Edge-case Scenario: 12 job JSONs
     - Invalid Scenario: 12 job JSONs

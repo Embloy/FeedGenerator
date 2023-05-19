@@ -48,28 +48,32 @@ pub mod test_setup {
     }
 
     /* TODO:
-        Write Unit tests that cover 4 feed requests with 10 jobs each.
+        Write Unit tests that cover 4 feed requests with 10 (equal) jobs each.
         Define scenarios and parse JSON containing jobs & preferences:
             => 3 test-scenarios (valid normal, edge-case, invalid)
-            => 4 feed requests per scenario
-            => 40 job & 4 pref JSONs per scenario
-            => 120 job & 12 pref JSOBs in total
+            => 4 different preferences (=feed requests) per scenario
+            => 10 different jobs per scenario
+            => 40 ranked-jobs per scenario
+            => 120 ranked-jobs in total
     */
 
     // TODO: Valid normal input
-    pub fn setup_jobs(test_scenario: &str) -> Vec<Vec<Job>> {
-        let mut jobs: Vec<Vec<Job>> = from_value(read_test_data("data/jobs_".to_owned() + test_scenario + ".json")).unwrap();
-        for slice in jobs.iter_mut() {
-            for job in slice.iter_mut() {
-                job.start_slot = Utc::now().format("%Y-%m-%dT%H:%M:%S%.3fZ").to_string();
-            }
+    pub fn setup_jobs(test_scenario: &str) -> Vec<Job> {
+        let mut slice: Vec<Job> = from_value(read_test_data("data/jobs_".to_owned() + test_scenario + ".json")).unwrap();
+        for job in slice.iter_mut() {
+            job.start_slot = Utc::now().format("%Y-%m-%dT%H:%M:%S%.3fZ").to_string();
         }
-        jobs
+        slice
     }
 
     pub fn setup_pref(test_scenario: &str) -> Vec<UserPreferences> {
         let preferences: Vec<UserPreferences> = from_value(read_test_data("data/pref_".to_owned() + test_scenario + ".json")).unwrap();
         preferences
+    }
+
+    pub fn setup_res(test_scenario: &str) -> Vec<Vec<Res>> {
+        let res: Vec<Vec<Res>> = from_value(read_test_data(String::from("data/res_".to_owned() + test_scenario + ".json"))).unwrap();
+        res
     }
 
     pub fn _teardown() {

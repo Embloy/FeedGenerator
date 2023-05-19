@@ -41,6 +41,7 @@ pub struct Job {
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct UserPreferences {
+    pub id: Option<i32>,
     #[serde(deserialize_with = "deserialize_job_types")]
     pub job_types: LinkedList<(i32, f64)>,
     pub key_skills: Option<String>,
@@ -59,7 +60,7 @@ pub struct FeedRequest {
 pub struct RequestLog<'a> {
     pub status: i32,
     pub endpoint: &'a str,
-    pub timestamp:i64,
+    pub timestamp: i64,
     pub exceptions: Option<Vec<CustomBaseError>>,
 }
 

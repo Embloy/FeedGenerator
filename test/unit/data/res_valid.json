@@ -1,98 +1,250 @@
 [
-  {
-    "employer_rating": 0.8,
-    "trend_factor": 0.7423858694304362,
-    "salary_range": 0.3333333333333333,
-    "spontaneity": 2.5
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  },
-  {
-    "employer_rating": 0.0,
-    "trend_factor": 0.0,
-    "salary_range": 0.0,
-    "spontaneity": 0.0
-  }
+  [
+    {
+      "employer_rating": 0.8,
+      "trend_factor": 0.7423858694304362,
+      "salary_range": 1.1644,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.6,
+      "trend_factor": 0.19238712236784447,
+      "salary_range": -1.6633333333333333,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.4,
+      "trend_factor": 0.1128851042297937,
+      "salary_range": 2,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.2,
+      "trend_factor": 0.298525672919577,
+      "salary_range": -1.5166666666666666,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.4,
+      "trend_factor": 0.9814922614698147,
+      "salary_range": 0.8333333333333334,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 1.0,
+      "trend_factor": 0.7339768435724512,
+      "salary_range": 0.3333333333333333,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.6,
+      "trend_factor": 1.5,
+      "salary_range": -1.5666666666666667,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.0,
+      "trend_factor": 0.2548304313894582,
+      "salary_range": -1.5666666666666667,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.0,
+      "trend_factor": 0.20478189503165214,
+      "salary_range": -1.0833333333333333,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 1.0,
+      "trend_factor": 1.4231053687157473,
+      "salary_range": -1.65,
+      "spontaneity": 2.5
+    }
+  ],
+  [
+    {
+      "employer_rating": 0.8,
+      "trend_factor": 0.7423858694304362,
+      "salary_range": 2,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.6,
+      "trend_factor": 0.19238712236784447,
+      "salary_range": -0.225,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.4,
+      "trend_factor": 0.1128851042297937,
+      "salary_range": 2,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.2,
+      "trend_factor": 0.298525672919577,
+      "salary_range": 0.875,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.4,
+      "trend_factor": 0.9814922614698147,
+      "salary_range": 2,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 1.0,
+      "trend_factor": 0.7339768435724512,
+      "salary_range": 2,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.6,
+      "trend_factor": 1.5,
+      "salary_range": 0.5,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.0,
+      "trend_factor": 0.2548304313894582,
+      "salary_range": 0.5,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.0,
+      "trend_factor": 0.20478189503165214,
+      "salary_range": 2,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 1.0,
+      "trend_factor": 1.4231053687157473,
+      "salary_range": -0.125,
+      "spontaneity": 2.5
+    }
+  ],
+  [
+    {
+      "employer_rating": 0.8,
+      "trend_factor": 0.7423858694304362,
+      "salary_range": 2,
+      "spontaneity": 1.4638367081526795
+    },
+    {
+      "employer_rating": 0.6,
+      "trend_factor": 0.19238712236784447,
+      "salary_range": -2,
+      "spontaneity": 1.4638367081526795
+    },
+    {
+      "employer_rating": 0.4,
+      "trend_factor": 0.1128851042297937,
+      "salary_range": 2,
+      "spontaneity": 1.4638367081526795
+    },
+    {
+      "employer_rating": 0.2,
+      "trend_factor": 0.298525672919577,
+      "salary_range": 2,
+      "spontaneity": 1.4638367081526795
+    },
+    {
+      "employer_rating": 0.4,
+      "trend_factor": 0.9814922614698147,
+      "salary_range": 2,
+      "spontaneity": 1.4638367081526795
+    },
+    {
+      "employer_rating": 1.0,
+      "trend_factor": 0.7339768435724512,
+      "salary_range": 2,
+      "spontaneity": 1.4638367081526795
+    },
+    {
+      "employer_rating": 0.6,
+      "trend_factor": 1.5,
+      "salary_range": 2,
+      "spontaneity": 1.4638367081526795
+    },
+    {
+      "employer_rating": 0.0,
+      "trend_factor": 0.2548304313894582,
+      "salary_range": 2,
+      "spontaneity": 1.4638367081526795
+    },
+    {
+      "employer_rating": 0.0,
+      "trend_factor": 0.20478189503165214,
+      "salary_range": 2,
+      "spontaneity": 1.4638367081526795
+    },
+    {
+      "employer_rating": 1.0,
+      "trend_factor": 1.4231053687157473,
+      "salary_range": -2,
+      "spontaneity": 1.4638367081526795
+    }
+  ],
+  [
+    {
+      "employer_rating": 0.8,
+      "trend_factor": 0.7423858694304362,
+      "salary_range": 1.0616577072134017,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.6,
+      "trend_factor": 0.19238712236784447,
+      "salary_range": 0.0011251406425803225,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.4,
+      "trend_factor": 0.1128851042297937,
+      "salary_range": 2,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.2,
+      "trend_factor": 0.298525672919577,
+      "salary_range": 0.05613201650206276,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.4,
+      "trend_factor": 0.9814922614698147,
+      "salary_range": 0.9374921865233155,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 1.0,
+      "trend_factor": 0.7339768435724512,
+      "salary_range": 0.7499687460932617,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.6,
+      "trend_factor": 1.5,
+      "salary_range": 0.037379672459057385,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.0,
+      "trend_factor": 0.2548304313894582,
+      "salary_range": 0.037379672459057385,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 0.0,
+      "trend_factor": 0.20478189503165214,
+      "salary_range": 0.21865233154144267,
+      "spontaneity": 2.5
+    },
+    {
+      "employer_rating": 1.0,
+      "trend_factor": 1.4231053687157473,
+      "salary_range": 0.006125765720715089,
+      "spontaneity": 2.5
+    }
+  ]
 ]

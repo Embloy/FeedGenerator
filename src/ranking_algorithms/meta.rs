@@ -15,17 +15,15 @@ const SR_WF: f64 = 0.2;
 const SP_WF: f64 = 0.1;
 
 pub fn calc_score(job: &Job, pref: &UserPreferences) -> f64 {
-    println!("for job id {}:\t employer_score is {} | trend_factor is {} | spontaneity is {} | salaryrange is [a:{}, b:{}] ", job.job_id, employer_rating(job), trend_factor(job), spontaneity(job, pref), salary_range(job, pref), salary_range_b(job, pref));
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF + salary_range(job, pref) * SR_WF + spontaneity(job, pref) * SP_WF
 }
 
 pub fn calc_score_no_pref(job: &Job) -> f64 {
-    println!("for job id {}:\t employer_score is {} | trend_factor is {}", job.job_id, employer_rating(job), trend_factor(job));
     employer_rating(job) * ER_WF + trend_factor(job) * TF_WF
 }
 
 pub fn employer_rating(job: &Job) -> f64 {
-    //potential Todo: take into account # of reviews
+    //potential TODO: Take into account # of reviews
     //so employer_rating of 5(1) < employer_rating of 5(10)
     job.employer_rating.unwrap_or_default() as f64 / 5.0
 }
@@ -34,19 +32,14 @@ pub fn trend_factor(job: &Job) -> f64 {
     let applications = job.applications_count as f64;
     let views = job.view_count as f64;
 
-    if applications > views || (views == 0.0 && applications == 0.0) {return 0.0;}
-
-
+    if applications > views || (views == 0.0 && applications == 0.0) { return 0.0; }
     let view_weight = if views <= 100.0 {
         0.3
     } else if views <= 500.0 {
         1.0
     } else { 1.5 };
 
-    // let score = (applications/views + 1.0);
-
     let score = (applications + 1.000001).log10() / (views + 1.000001).log10();
-    println!("For {} the views {} and applications {} add up to the non weighted score {} with weigh {}", job.job_id, views, applications, score, view_weight);
     score * view_weight
 }
 
@@ -97,12 +90,10 @@ pub fn salary_range_b(job: &Job, pref: &UserPreferences) -> f64 {
 pub fn spontaneity(job: &Job, pref: &UserPreferences) -> f64 {
     // Get spontaneity preference => x value of peak
     let p: f64 = pref.spontaneity.unwrap_or_default();
-    //println!("p = {}", p);
     // Parse start_slot
     let start_slot = Utc
         .datetime_from_str(&job.start_slot.trim(), "%Y-%m-%dT%H:%M:%S%.3fZ")
         .expect("Failed to parse datetime string");
-    //println!("start_slot = {}", start_slot);
 
     return spontaneity_map((start_slot.signed_duration_since(Utc::now()).num_seconds()) as f64, p);
 }
@@ -110,13 +101,11 @@ pub fn spontaneity(job: &Job, pref: &UserPreferences) -> f64 {
 // a: time from now to start, b: user preference
 pub fn spontaneity_map(a: f64, b: f64) -> f64 {
     let distance = (a - b).abs();
-    //println!("distance = {}", distance);
     if distance > 86400.0 { return 0.0; }
     if distance < 1000.0 { return 2.5; }
 
     // steepness factor => 0.15; should be adapted if score is to impactful
     let fa = 2.5 - 0.15 * distance.ln();
-    //println!("fa = {}", fa);
     return fa.max(0.0).min(2.5);
 }
 
