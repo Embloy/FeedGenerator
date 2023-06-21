@@ -22,7 +22,8 @@ fn rank_jobs(jobs: &mut Vec<Job>, preferences: &mut Option<UserPreferences>) -> 
     if preferences.is_some() {
         t_score::calc_x_ranking(&mut preferences.as_mut().unwrap());
         for x in &mut *jobs {
-            x.relevance_score = Option::from(job_relevance_score(x, &preferences.clone().unwrap()));
+        //    x.relevance_score = Option::from(job_relevance_score(x, &preferences.clone().unwrap()));
+            x.relevance_score = Option::from(job_relevance_score_no_pref(x));
         }
     } else {
         for x in &mut *jobs {
