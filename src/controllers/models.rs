@@ -16,7 +16,7 @@ pub struct Job {
     pub code_lang: Option<String>,
     pub title: String,
     pub position: Option<String>,
-    pub description: String,
+    pub description:Option<String>,
     pub key_skills: Option<String>,
     pub salary: Option<f64>,
     pub currency: Option<String>,
