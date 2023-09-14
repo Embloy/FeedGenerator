@@ -16,7 +16,7 @@ pub struct Job {
     pub code_lang: Option<String>,
     pub title: String,
     pub position: Option<String>,
-    pub description:Option<String>,
+    pub description:Option<Description>,
     pub key_skills: Option<String>,
     pub salary: Option<f64>,
     pub currency: Option<String>,
@@ -36,6 +36,8 @@ pub struct Job {
     pub job_notifications: Option<String>,
     pub employer_rating: Option<i32>,
     pub boost: Option<i32>,
+    pub cv_required: Option<bool>,
+    pub allowed_cv_format: Option<Vec<String>>,
     pub relevance_score: Option<f64>,
 }
 
@@ -48,6 +50,17 @@ pub struct UserPreferences {
     pub salary_range: Option<(f64, f64)>,
     pub spontaneity: Option<f64>,
     pub num_jobs_done: Option<i32>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+pub struct Description {
+    pub id: i32,
+    pub name: String,
+    pub body: Option<String>,
+    pub record_type: String,
+    pub record_id: i32,
+    pub created_at: String,
+    pub updated_at: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
