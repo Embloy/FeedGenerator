@@ -10,7 +10,15 @@
     "code_lang": "RE",
     "title": "Administration Designer",
     "position": "Analyst",
-    "description": "The secret to humor is surprise.",
+                "description": {
+                "id": 67,
+                "name": "description",
+                "body": "<div>This is a great job!</div>",
+                "record_type": "Job",
+                "record_id": 67,
+                "created_at": "2023-09-12T19:45:54.684Z",
+                "updated_at": "2023-09-12T19:45:54.684Z"
+            },
     "key_skills": "Proactive",
     "salary": 84932,
     "currency": "Vatu",
@@ -29,7 +37,9 @@
     "employer_rating": 4,
     "job_notifications": "1",
     "boost": 48,
-    "job_value": null
+    "job_value": null,
+    "cv_required": true,
+    "allowed_cv_format": [".pdf", ".xml", ".txt", ".docx"]
   },
   {
     "job_id": 2,
@@ -42,7 +52,15 @@
     "code_lang": "RE",
     "title": "Administration Designer",
     "position": "Analyst",
-    "description": "The secret to humor is surprise.",
+                "description": {
+                "id": 67,
+                "name": "description",
+                "body": "<div>This is a great job!</div>",
+                "record_type": "Job",
+                "record_id": 67,
+                "created_at": "2023-09-12T19:45:54.684Z",
+                "updated_at": "2023-09-12T19:45:54.684Z"
+            },
     "key_skills": "Proactive",
     "salary": 100,
     "currency": "Vatu",
@@ -61,7 +79,9 @@
     "employer_rating": 3,
     "job_notifications": "1",
     "boost": 48,
-    "job_value": null
+    "job_value": null,
+    "cv_required": true,
+    "allowed_cv_format": [".pdf", ".xml", ".txt", ".docx"]
   },
   {
     "job_id": 3,
@@ -74,7 +94,15 @@
     "code_lang": "RE",
     "title": "Administration Designer",
     "position": "Analyst",
-    "description": "The secret to humor is surprise.",
+                "description": {
+                "id": 67,
+                "name": "description",
+                "body": "<div>This is a great job!</div>",
+                "record_type": "Job",
+                "record_id": 67,
+                "created_at": "2023-09-12T19:45:54.684Z",
+                "updated_at": "2023-09-12T19:45:54.684Z"
+            },
     "key_skills": "Proactive",
     "salary": 10000000,
     "currency": "Vatu",
@@ -93,7 +121,9 @@
     "employer_rating": 2,
     "job_notifications": "1",
     "boost": 48,
-    "job_value": null
+    "job_value": null,
+    "cv_required": true,
+    "allowed_cv_format": [".pdf", ".xml", ".txt", ".docx"]
   },
   {
     "job_id": 4,
@@ -106,7 +136,15 @@
     "code_lang": "RE",
     "title": "Administration Designer",
     "position": "Analyst",
-    "description": "The secret to humor is surprise.",
+                "description": {
+                "id": 67,
+                "name": "description",
+                "body": "<div>This is a great job!</div>",
+                "record_type": "Job",
+                "record_id": 67,
+                "created_at": "2023-09-12T19:45:54.684Z",
+                "updated_at": "2023-09-12T19:45:54.684Z"
+            },
     "key_skills": "Proactive",
     "salary": 4500,
     "currency": "Vatu",
@@ -125,7 +163,9 @@
     "employer_rating": 1,
     "job_notifications": "1",
     "boost": 48,
-    "job_value": null
+    "job_value": null,
+    "cv_required": true,
+    "allowed_cv_format": [".pdf", ".xml", ".txt", ".docx"]
   },
   {
     "job_id": 5,
@@ -138,7 +178,15 @@
     "code_lang": "RE",
     "title": "Administration Designer",
     "position": "Analyst",
-    "description": "The secret to humor is surprise.",
+                "description": {
+                "id": 67,
+                "name": "description",
+                "body": "<div>This is a great job!</div>",
+                "record_type": "Job",
+                "record_id": 67,
+                "created_at": "2023-09-12T19:45:54.684Z",
+                "updated_at": "2023-09-12T19:45:54.684Z"
+            },
     "key_skills": "Proactive",
     "salary": 75000,
     "currency": "Vatu",
@@ -157,7 +205,9 @@
     "employer_rating": 2,
     "job_notifications": "1",
     "boost": 48,
-    "job_value": null
+    "job_value": null,
+    "cv_required": true,
+    "allowed_cv_format": [".pdf", ".xml", ".txt", ".docx"]
   },
   {
     "job_id": 6,
@@ -170,7 +220,15 @@
     "code_lang": "RE",
     "title": "Administration Designer",
     "position": "Analyst",
-    "description": "The secret to humor is surprise.",
+                "description": {
+                "id": 67,
+                "name": "description",
+                "body": "<div>This is a great job!</div>",
+                "record_type": "Job",
+                "record_id": 67,
+                "created_at": "2023-09-12T19:45:54.684Z",
+                "updated_at": "2023-09-12T19:45:54.684Z"
+            },
     "key_skills": "Proactive",
     "salary": 60000,
     "currency": "Vatu",
@@ -189,7 +247,9 @@
     "employer_rating": 5,
     "job_notifications": "1",
     "boost": 48,
-    "job_value": null
+    "job_value": null,
+    "cv_required": true,
+    "allowed_cv_format": [".pdf", ".xml", ".txt", ".docx"]
   },
   {
     "job_id": 7,
@@ -202,7 +262,15 @@
     "code_lang": "RE",
     "title": "Administration Designer",
     "position": "Analyst",
-    "description": "The secret to humor is surprise.",
+                "description": {
+                "id": 67,
+                "name": "description",
+                "body": "<div>This is a great job!</div>",
+                "record_type": "Job",
+                "record_id": 67,
+                "created_at": "2023-09-12T19:45:54.684Z",
+                "updated_at": "2023-09-12T19:45:54.684Z"
+            },
     "key_skills": "Proactive",
     "salary": 3000,
     "currency": "Vatu",
@@ -221,7 +289,9 @@
     "employer_rating": 3,
     "job_notifications": "1",
     "boost": 48,
-    "job_value": null
+    "job_value": null,
+    "cv_required": true,
+    "allowed_cv_format": [".pdf", ".xml", ".txt", ".docx"]
   },
   {
     "job_id": 8,
@@ -234,7 +304,15 @@
     "code_lang": "RE",
     "title": "Administration Designer",
     "position": "Analyst",
-    "description": "The secret to humor is surprise.",
+                "description": {
+                "id": 67,
+                "name": "description",
+                "body": "<div>This is a great job!</div>",
+                "record_type": "Job",
+                "record_id": 67,
+                "created_at": "2023-09-12T19:45:54.684Z",
+                "updated_at": "2023-09-12T19:45:54.684Z"
+            },
     "key_skills": "Proactive",
     "salary": 3000,
     "currency": "Vatu",
@@ -253,7 +331,9 @@
     "employer_rating": 0,
     "job_notifications": "1",
     "boost": 48,
-    "job_value": null
+    "job_value": null,
+    "cv_required": true,
+    "allowed_cv_format": [".pdf", ".xml", ".txt", ".docx"]
   },
   {
     "job_id": 9,
@@ -266,7 +346,15 @@
     "code_lang": "RE",
     "title": "Administration Designer",
     "position": "Analyst",
-    "description": "The secret to humor is surprise.",
+                "description": {
+                "id": 67,
+                "name": "description",
+                "body": "<div>This is a great job!</div>",
+                "record_type": "Job",
+                "record_id": 67,
+                "created_at": "2023-09-12T19:45:54.684Z",
+                "updated_at": "2023-09-12T19:45:54.684Z"
+            },
     "key_skills": "Proactive",
     "salary": 17500,
     "currency": "Vatu",
@@ -285,7 +373,9 @@
     "employer_rating": 0,
     "job_notifications": "1",
     "boost": 48,
-    "job_value": null
+    "job_value": null,
+    "cv_required": true,
+    "allowed_cv_format": [".pdf", ".xml", ".txt", ".docx"]
   },
   {
     "job_id": 10,
@@ -298,7 +388,15 @@
     "code_lang": "RE",
     "title": "Administration Designer",
     "position": "Analyst",
-    "description": "The secret to humor is surprise.",
+                "description": {
+                "id": 67,
+                "name": "description",
+                "body": "<div>This is a great job!</div>",
+                "record_type": "Job",
+                "record_id": 67,
+                "created_at": "2023-09-12T19:45:54.684Z",
+                "updated_at": "2023-09-12T19:45:54.684Z"
+            },
     "key_skills": "Proactive",
     "salary": 500,
     "currency": "Vatu",
@@ -317,6 +415,8 @@
     "employer_rating": 5,
     "job_notifications": "1",
     "boost": 48,
-    "job_value": null
+    "job_value": null,
+    "cv_required": true,
+    "allowed_cv_format": [".pdf", ".xml", ".txt", ".docx"]
   }
 ]
