@@ -1,16 +1,22 @@
 #### <div style="text-align:right">E-FG-0001 </div>
 
-# [FG-API](https://embloy-fg-api.onrender.com)
+# FeedGenerator
 
-> __NOTE__: _If you are looking for concrete HTTPs-Request examples instead, go to_
-___[.http](requests/feed.http)___
+**Feed algorithm used to create custom job feeds (similar to Instagram) for users based on their preferences and a batch of jobs.**
+
+> [!IMPORTANT]
+> As of September 14, 2023, this project has been put on hold and will probably not be worked on in the near future.
+
+> [!NOTE]
+> This project is unrelated to the current [embloy.com](https://embloy.com) service and consists of deprecated code from a prior project.
+
+> [!NOTE]
+> If you are looking for concrete HTTPs-Request examples, go to [requests/feed.http](requests/feed.http).
 
 ## FUNCTIONALITY
 
-This repository contains the code for the [FeedGenerator-API](https://embloy-fg-api.onrender.com) that is used
-by [embloy.com](embloy.com) to generate a feed
-from a set of
-jobs that matches with the user's preferences.
+This repository contains the code for the [FeedGenerator-API](https://embloy-fg-api.onrender.com) that was used for an early test version
+by [embloy.com](https://embloy.com) to generate a feed from a set of jobs that matches with the user's preferences.
 
 This API supports [TLS (Transport Layer Security) Encryption](https://actix.rs/docs/server#tls--https):
 > The ***cert.pem*** file contains the TLS certificate that is
@@ -242,15 +248,14 @@ Request to load a feed from a "slice" to match the user's preferences.
 NOT IMPLEMENTED YET
 ```
 
+**401: Unauthorized**
+
 **500: Internal Server Error**
 
 ```
 NOT IMPLEMENTED YET
 ```
 
-####
-
-**401: Unauthorized**
 </details>
 
 ---

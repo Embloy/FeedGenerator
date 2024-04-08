@@ -9,9 +9,6 @@ pub struct Activation<'a> {
 
 impl<'a> fmt::Debug for Activation<'a> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        // Implement the formatting logic here
-        // You can use `write!` or other formatting macros/functions to customize the output
-        // Example:
         write!(f, "Activation")
     }
 }
